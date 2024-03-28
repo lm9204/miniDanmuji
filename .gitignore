@@ -1,3 +1,6 @@
 .vscode/*
 
 main.c
+*.out
+*.out
+*.d
