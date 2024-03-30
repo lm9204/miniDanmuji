@@ -1,4 +1,5 @@
-# miniDanmuji
-
+# miniDanmuji : Minishell Project
+making micro-shell
 ---
-# Minishell
+# Flow-Chart
+
