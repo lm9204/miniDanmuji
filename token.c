@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 13:51:21 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/03/28 10:35:02 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:53:17 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,18 +143,18 @@ static int	count_cmds(char *cmds, const char q[])
 	return (count);
 }
 
-int	main(void)
-{
-	t_list	*head;
-	char	*data;
-	char	**res;
-	int		i;
+// int	main(void)
+// {
+// 	t_list	*head;
+// 	char	*data;
+// 	char	**res;
+// 	int		i;
 
-	head = NULL;
-	data = readline("minishell $");
-	res = split_cmds(data);
-	i = 0;
-	parse_to_node(&head, res);
-	print_list(&head);
+// 	head = NULL;
+// 	data = readline("minishell $");
+// 	res = split_cmds(data);
+// 	i = 0;
+// 	parse_to_node(&head, res);
+// 	print_list(&head);
 	 
-}
+// }
