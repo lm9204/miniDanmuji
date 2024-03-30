@@ -6,11 +6,11 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 16:03:38 by seongjko          #+#    #+#             */
-/*   Updated: 2024/03/24 18:30:58 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:54:33 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	**rmv_needle_from_haystack(char **haystack, char *magnet)
 {

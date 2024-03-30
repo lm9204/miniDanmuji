@@ -6,11 +6,11 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 14:56:28 by seongjko          #+#    #+#             */
-/*   Updated: 2024/03/24 18:33:52 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:54:23 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*find_needle_pos(char *haystack)
 {
