@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:46:58 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/03/25 11:25:33 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/03/30 20:51:29 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,38 +19,40 @@ static void	list_cmd_add(t_list **head, char **cmds, int size);
 static void	list_cmd_add(t_list **head, char **cmds, int size)
 {
 	t_cmd	*cmd;
+	int		cmds_size;
+	int		ci;
 	int		i;
 
-	i = 0;
 	cmd = malloc(sizeof(t_cmd));
-	if (cmd == NULL)
-		return ;
-	cmd->cmds = malloc(sizeof(char *) * (size + 1));
-	if (cmd->cmds == NULL)
-		return ;
+	cmds_size = token_cmds_len(cmds);
+	cmd->cmds = malloc(sizeof(char *) * (cmds_size + 1));
+	if (cmd == NULL || cmd->cmds == NULL)
+		exit(1);
+	ci = 0;
+	i = 0;
 	while (i < size)
 	{
-		cmd->cmds[i] = cmds[i];
-		i++;
+		if (!is_symbol(cmds[i]))
+			cmd->cmds[ci++] = cmds[i++];
+		else
+			i += 2;
 	}
-	cmd->cmds[i] = NULL;
+	cmd->cmds[ci] = 0;
 	list_add(head, cmd, 0);
+	i = -1;
+	while (++i < size)
+		if (is_symbol(cmds[i]))
+			list_redirect_add(head, cmds[i + 1], cmds[i]);
 }
 
 static void	list_redirect_add(t_list **head, char *target, char *symbol)
 {
-	const char	*redirect_symbol[] = {"<", ">", "<<", ">>", 0};
 	t_redirect	*res;
 	int			i;
 
 	res = malloc(sizeof(t_redirect));
 	i = 0;
-	while (i < 4)
-	{
-		if (ft_strncmp(redirect_symbol[i], symbol, 3) == 0)
-			res->type = i;
-		i++;
-	}
+	res->type = is_symbol(symbol) - 1;
 	res->file = target;
 	list_add(head, res, 2);
 }
@@ -77,9 +79,31 @@ static void	list_add(t_list **head, void *content, int type)
 	ptr->next = new;
 }
 
+
+void	parse_to_node(t_list **head, char **tokens)
+{
+	int	i;
+	int	target;
+
+	i = 0;
+	while (tokens[i])
+	{
+		target = get_pipe_idx(&tokens[i]);
+		if (target == -1)
+		{
+			list_cmd_add(head, &tokens[i], tokenlen(&tokens[i]));
+			return ;
+		}
+		list_cmd_add(head, &tokens[i], target);
+		list_add(head, NULL, 1);
+		i += target;
+		i++;
+	}
+}
+
 void	print_list(t_list **head)
 {
-	const char	*redirect_symbol[] = {"<", ">", "<<", ">>", 0};
+	const char	*redirect_symbol[] = {"<<", ">>", "<", ">", 0};
 	t_list		*ptr;
 	t_cmd		*cmd_ptr;
 	t_redirect	*redirect_ptr;
@@ -95,7 +119,7 @@ void	print_list(t_list **head)
 			printf("cmds:\t");
 			while (cmd_ptr->cmds[i])
 			{
-				printf("%s ", cmd_ptr->cmds[i]);
+				printf(",%s,", cmd_ptr->cmds[i]);
 				i++;
 			}
 			printf("\n");
@@ -110,32 +134,4 @@ void	print_list(t_list **head)
 		}
 		ptr = ptr->next;
 	}
-}
-
-void	parse_to_node(t_list **head, char **tokens)
-{
-	int	i;
-	int	symbol;
-	int	target;
-
-	i = 0;
-	symbol = 0;
-	while (tokens[i])
-	{
-		target = get_symbol_idx(&tokens[i]);
-		symbol = is_symbol(tokens[i + target]);
-		if (target > 0)
-			list_cmd_add(head, &tokens[i], target);
-		if (symbol == 1)
-			list_add(head, NULL, 1);
-		else if (symbol == 2)
-		{
-			list_redirect_add(head, tokens[i + target + 1], tokens[i + target]);
-			i++;
-		}
-			i += target;
-		i++;
-	}
-	if (!symbol)
-		list_cmd_add(head, tokens, i);
 }

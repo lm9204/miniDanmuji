@@ -1,49 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   symbol.c                                           :+:      :+:    :+:   */
+/*   spliter_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 10:54:11 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/03/30 20:27:48 by yeondcho         ###   ########.fr       */
+/*   Created: 2024/03/30 18:02:13 by yeondcho          #+#    #+#             */
+/*   Updated: 2024/03/30 20:45:57 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_word(const char *line)
+int	splitable_symbol_len(const char *cmds, int len)
 {
-	if (is_symbol(line))
-		return (0);
-	return (1);
-}
-
-int	is_symbol(const char *token)
-{
-	const char	*symbol[] = {"<<", ">>", "<", ">", 0};
-	int			i;
-
-	i = 0;
-	while (i < 4)
+	if (len == 0)
 	{
-		if (ft_strncmp(symbol[i], token, ft_strlen(symbol[i])) == 0)
-			return (i + 1);
-		i++;
+		if (is_symbol(cmds) < 3 && cmds[len] != '|')
+			return (2);
+		return (1);
 	}
 	return (0);
 }
 
-int	get_pipe_idx(char **tokens)
+int	findquotes(char *s, int quote)
 {
-	int		idx;
+	int	i;
 
-	idx = 0;
-	while (tokens[idx])
+	i = 0;
+	while (s[i])
 	{
-		if (ft_strncmp(tokens[idx], "|", 1) == 0)
-			return (idx);
-		idx++;
+		if (s[i] == quote)
+			return (i + 1);
+		i++;
 	}
+	handle_error("syntax error");
 	return (-1);
+}
+
+int	ft_isquotes(char c)
+{
+	const char	quotes[3] = {'"', '\'', 0};
+	int			i;
+
+	i = 0;
+	while (quotes[i])
+	{
+		if (c == quotes[i])
+			return (1);
+		i++;
+	}
+	return (0);
 }

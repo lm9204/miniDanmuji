@@ -4,3 +4,4 @@ main.c
 *.out
 *.out
 *.d
+minishell

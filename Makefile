@@ -1,6 +1,6 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
-SRCS = token.c symbol.c list.c
+SRCS = token.c symbol.c list.c spliter_utils.c spliter.c parse.c error.c
 LIB_DIR = libft
 LIB_HEADER = libft.h
 LIB = libft.a

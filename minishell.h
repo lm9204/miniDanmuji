@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 13:19:57 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/03/28 12:56:50 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/03/30 20:42:30 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
+# define F_CMD 0
+# define F_PIPE 1
+# define F_DIRECT 2
+# define T_INPUT 0
+# define T_OUTPUT 1
+# define T_HEREDOC 2
+# define T_APPEND 3
 
 // flag | 0 : cmd 1: pipe 2: redirect
 typedef struct s_list
@@ -25,7 +32,6 @@ typedef struct s_list
 	void	*content;
 	void	*next;
 }				t_list;
-
 
 // [0] = cmd [1] = arg [2] = null
 typedef struct s_cmd
@@ -45,15 +51,29 @@ typedef struct s_data
 	char	**envp;
 }				t_data;
 
-
 /* =========================== list.c ===================================*/
 void	parse_to_node(t_list **head, char **tokens);
 
 // test
 void	print_list(t_list **head);
 /* ============================ symbol.c ================================*/
-int		is_symbol(char *token);
-int		get_symbol_idx(char **tokens);
+int		is_symbol(const char *token);
+int		is_word(const char *line);
+int		get_pipe_idx(char **tokens);
+
+int		findquotes(char *s, int quote);
+int		ft_isquotes(char c);
+int		splitable_symbol_len(const char *cmds, int len);
+
+char	**split_cmds(char *cmds);
+
+
+/* ============================ error.c ================================*/
+void	handle_error(char *error);
+
+/* ============================ token.c ================================*/
+int		token_cmds_len(char **tokens);
+int		tokenlen(char **tokens);
 
 
 /* ========================== 환경 변수 핸들링===============================*/
