@@ -6,23 +6,35 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/03/30 19:49:47 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:14:19 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static void	seperate_word(char *cmds, int *i, int *count, int *isword);
-static void	checkcmd(char *cmd);
+static void	checkcmd(char *cmd, char **envp);
 static char	*ft_cutcmds(const char *cmds, int *idx);
 static int	count_cmds(char *cmds);
 
-static void	checkcmd(char *cmd)
+static void	checkcmd(char *cmd, char **envp)
 {
-	while (*cmd)
+	int	i;
+	int	len;
+
+	i = 0;
+	len = search_expandable(cmd);
+	if (len)
 	{
-		if (ft_isquotes(*cmd)) // 환경변수 따옴표 제거 할 때 확장여부 확인하기
+		cmd = expand_symbol(cmd, envp, len);
+		return ;
+	}
+	while (cmd[i])
+	{
+		if (ft_isquotes(*cmd))
+		{
 			ft_strlcpy(cmd, cmd + 1, ft_strlen(cmd));
+		}
 		else
 			cmd++;
 	}
@@ -94,7 +106,7 @@ static int	count_cmds(char *cmds)
 	return (count);
 }
 
-char	**split_cmds(char *cmds)
+char	**split_cmds(char *cmds, char **envp)
 {
 	char	**res;
 	int		size;
@@ -112,7 +124,7 @@ char	**split_cmds(char *cmds)
 		while (cmds[idx] && cmds[idx] == ' ')
 			idx++;
 		res[i] = ft_cutcmds(&cmds[idx], &idx);
-		checkcmd(res[i++]);
+		checkcmd(res[i++], envp);
 	}
 	res[i] = NULL;
 	return (res);

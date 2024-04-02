@@ -6,11 +6,11 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 18:02:13 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/03/30 20:45:57 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:14:03 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	splitable_symbol_len(const char *cmds, int len)
 {
@@ -40,15 +40,11 @@ int	findquotes(char *s, int quote)
 
 int	ft_isquotes(char c)
 {
-	const char	quotes[3] = {'"', '\'', 0};
-	int			i;
+	// const char	quotes[3] = {'"', '\'', 0};
 
-	i = 0;
-	while (quotes[i])
-	{
-		if (c == quotes[i])
-			return (1);
-		i++;
-	}
+	if (c == '"')
+		return (1);
+	if (c == '\'')
+		return (2);
 	return (0);
 }

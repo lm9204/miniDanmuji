@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   minishell_parse.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/30 20:30:33 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/03/30 20:46:08 by yeondcho         ###   ########.fr       */
+/*   Created: 2024/04/02 15:09:43 by yeondcho          #+#    #+#             */
+/*   Updated: 2024/04/02 15:16:34 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MINISHELL_PARSE_H
+# define MINISHELL_PARSE_H
 
-// int	validate_parse_list(t_list **head)
-// {
-	
-// }
 
-// int	parse_newline(char *newline)
-// {
+char	*expand_symbol(char *symbol, char **envp, int len);
+int		search_expandable(char *cmd);
 
-// }
+#endif

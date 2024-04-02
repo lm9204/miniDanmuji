@@ -6,11 +6,11 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:46:58 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/03/30 20:51:29 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:10:25 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static void	list_add(t_list **head, void *content, int type);
 static void	list_redirect_add(t_list **head, char *target, char *symbol);
@@ -79,7 +79,6 @@ static void	list_add(t_list **head, void *content, int type)
 	ptr->next = new;
 }
 
-
 void	parse_to_node(t_list **head, char **tokens)
 {
 	int	i;
@@ -99,6 +98,22 @@ void	parse_to_node(t_list **head, char **tokens)
 		i += target;
 		i++;
 	}
+}
+
+void	clear_head(t_list **head)
+{
+	t_list	*ptr;
+	t_list	*next;
+
+	ptr = *head;
+	while (ptr)
+	{
+		next = ptr->next;
+		free(ptr->content);
+		free(ptr);
+		ptr = next;
+	}
+	*head = NULL;
 }
 
 void	print_list(t_list **head)

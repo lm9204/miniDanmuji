@@ -6,11 +6,11 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:54:11 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/03/30 22:19:54 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:14:57 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	is_word(const char *line)
 {

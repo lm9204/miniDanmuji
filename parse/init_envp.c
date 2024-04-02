@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 15:01:32 by seongjko          #+#    #+#             */
-/*   Updated: 2024/03/31 16:20:17 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/01 20:57:35 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*init_one_line(char *line)
 	line_len = ft_strlen(line);
 	res = (char *)malloc(sizeof(char) * (line_len + 1));
 	ft_strlcpy(res, line, line_len + 1);
-	*(res + line_len + 1) = (char)NULL;
+	*(res + line_len) = (char)NULL;
 	return (res);
 }
 
