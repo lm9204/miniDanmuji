@@ -12,9 +12,8 @@
 
 #include "../minishell.h"
 
-void	child_to_do(t_list *finder, t_process *process, t_envp *env)
+void	child_to_do(t_list *finder, t_process *process, t_data *env)
 {
-	printf("--------------------%d process-----------------\n", process->i);
 	first_or_middle_or_last_child(process);
 	redirec_handler(finder);
 	cmd_handler(finder, env);

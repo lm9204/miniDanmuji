@@ -6,13 +6,13 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 18:43:43 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/01 15:15:22 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:21:46 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	execute_main(t_list **head, t_envp *env)
+int	execute_main(t_list **head, t_data *env)
 {
 	t_list		*finder;
 	t_process	process;
@@ -20,7 +20,6 @@ int	execute_main(t_list **head, t_envp *env)
 	
 	finder = *head;
 	heredoc_pre_handler(finder);
-	// print_list(&finder);
 	process.pipe_cnt = how_many_pipes(finder);
 	i = -1;
 	while (++i < process.pipe_cnt + 1)		// pipe의 갯수 + 1만큼 fork를 떠야 하므로 +1
@@ -45,6 +44,5 @@ int	execute_main(t_list **head, t_envp *env)
 			parent_to_do(&process);
 	}
 	wait_child(&process);
-	
     return (1);
 }
