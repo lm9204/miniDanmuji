@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 13:19:57 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/02 16:32:11 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:50:21 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,5 @@ void	handle_error(char *error);
 int		token_cmds_len(char **tokens);
 int		tokenlen(char **tokens);
 
-/* ========================== 환경 변수 핸들링===============================*/
-char	*find_env(char **envp_2d_ary, char *env);
-char	*find_env_pos(char *envp_1d_ary);
-char	**add_env(char **envp_2d_ary, char *env);
-char	**init_envp(char **envp);
-char	*init_one_line(char *line);
-char	**rmv_env(char **envp_2d_ary, char *env);
-void	rmv_needle(char **haystack, char *magnet);
-int		cnt_column_line(char **envp);
-int		check_needle(char *needle);
-int		front_or_back_of_equal_sign(char *needle);
-int		is_equal_sign(char *needle);
 
 #endif

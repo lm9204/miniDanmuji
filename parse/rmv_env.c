@@ -3,38 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   rmv_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 16:03:38 by seongjko          #+#    #+#             */
-/*   Updated: 2024/03/31 18:00:28 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:50:17 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**rmv_env(char **envp_2d_ary, char *env)
+void	rmv_env(t_env **env_head, char *name)
 {
-	char	**res;
-	int		column;
-	int		e_i;
-	int		r_i;
+	t_env	*prev;
+	t_env	*ptr;
 
-	column = cnt_column_line(envp_2d_ary);
-	res = (char **)malloc(sizeof(char *) * column);
-	r_i = 0;
-	e_i = 0;
-	while (envp_2d_ary[e_i])
+	prev = NULL;
+	ptr = *env_head;
+	while (ptr)
 	{
-		if (!ft_strncmp(envp_2d_ary[e_i], env, ft_strlen(env)))
+		if (prev)
+			prev = ptr;
+		if (ft_strncmp(ptr->name, name, ft_strlen(ptr->name) + 1) == 0)
 		{
-			//free 왜 하는 거임?
-			free(envp_2d_ary[e_i]);
-			e_i++;
+			if (!prev)
+				*env_head = ptr->next;
+			else
+			{
+				prev->next = ptr->next;
+				free(ptr->name);
+				if (ptr->value)
+					free(ptr->value);
+				free(ptr);
+			}
+			return ;
 		}
-		else
-			res[r_i++] = envp_2d_ary[e_i++];
+		ptr = ptr->next;
 	}
-	*(res + column) = NULL;
-	free(envp_2d_ary);
-	return (res);
 }

@@ -6,27 +6,27 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/02 15:14:19 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:35:06 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static void	seperate_word(char *cmds, int *i, int *count, int *isword);
-static void	checkcmd(char *cmd, char **envp);
+static void	checkcmd(t_env **head, char *cmd);
 static char	*ft_cutcmds(const char *cmds, int *idx);
 static int	count_cmds(char *cmds);
 
-static void	checkcmd(char *cmd, char **envp)
+static void	checkcmd(t_env **head, char *cmd)
 {
 	int	i;
 	int	len;
 
 	i = 0;
-	len = search_expandable(cmd);
+	len = expand_len(head, cmd);
 	if (len)
 	{
-		cmd = expand_symbol(cmd, envp, len);
+		cmd = expand_symbol(cmd, head, len);
 		return ;
 	}
 	while (cmd[i])
