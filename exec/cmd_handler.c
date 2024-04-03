@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/01 15:41:36 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:21:27 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*joined_path(void *cmds, char **envp_path)
 		}
 		if (!access(cmd_path, X_OK))
 		{
-			printf("cmd_path: %s\n", cmd_path);
 			free(slash_path);
 			return (cmd_path);
 		}
@@ -62,24 +61,18 @@ char	*joined_path(void *cmds, char **envp_path)
 	return (0);
 }
 
-void	cmd_handler(t_list *finder, t_envp *env)
+void	cmd_handler(t_list *finder, t_data *env)
 {
 	char	*cmd_path;
-	char	**cmd_ary;
+	t_cmd	*cmd_ary;
 
-	cmd_ary = (char **)finder->content;
-	int i = 0;
-	while (cmd_ary[i])
-	{
-		printf("-------------------%s\n", cmd_ary[i]);
-		i++;
-	}
+	cmd_ary = (t_cmd *)finder->content;
 	while (finder && finder->flag != 1)
 	{
 		if (finder->flag == 0)
 		{
 			cmd_path = joined_path(finder->content, env->splitted_envp_path);
-			int ans = execve(cmd_path, cmd_ary, env->envp);
+			int ans = execve(cmd_path, cmd_ary->cmds, env->envp);
 			printf("execve success?: %d\n", ans);
 			break;
 		}

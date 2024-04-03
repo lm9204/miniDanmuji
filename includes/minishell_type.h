@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_type.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:23:50 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/02 16:24:25 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:12:59 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_TYPE_H
 # define MINISHELL_TYPE_H
+
 // flag | 0 : cmd 1: pipe 2: redirect
 typedef struct s_list
 {
@@ -36,6 +37,7 @@ typedef struct s_redirect
 typedef struct s_data
 {
 	char	**envp;
+	char	**splitted_envp_path;
 }				t_data;
 
 typedef struct s_env
