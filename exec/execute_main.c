@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 18:43:43 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/02 17:21:46 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:04:38 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	execute_main(t_list **head, t_data *env)
 	finder = *head;
 	heredoc_pre_handler(finder);
 	process.pipe_cnt = how_many_pipes(finder);
+	process.status = NULL;
 	i = -1;
 	while (++i < process.pipe_cnt + 1)		// pipe의 갯수 + 1만큼 fork를 떠야 하므로 +1
 	{
@@ -43,6 +44,5 @@ int	execute_main(t_list **head, t_data *env)
 		else                    			//부모
 			parent_to_do(&process);
 	}
-	wait_child(&process);
     return (1);
 }
