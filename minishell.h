@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 13:19:57 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/03 13:50:21 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:15:53 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		findquotes(char *s, int quote);
 int		ft_isquotes(char c);
 int		splitable_symbol_len(const char *cmds, int len);
 
-char	**split_cmds(char *cmds, char **envp);
+char	**split_cmds(char *cmds, t_env **head);
 
 
 int		find_space(char *cmd);

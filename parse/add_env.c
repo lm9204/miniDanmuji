@@ -64,12 +64,12 @@ void	addenv(t_env **env_head, char *env)
 	t_env	*ptr;
 
 	if (!check_env(env))
-		return (NULL);
+		return ;
 	new = create_env_node(env);
 	ptr = *env_head;
 	if (ptr == NULL)
 	{
-		ptr = new;
+		*env_head = new;
 		return ;
 	}
 	while (ptr->next)
@@ -81,7 +81,6 @@ t_env	*create_env_node(char *env)
 {
 	t_env	*res;
 	int		name_len;
-	int		value_len;
 	int		i;
 
 	res = malloc(sizeof(t_env));
@@ -91,12 +90,10 @@ t_env	*create_env_node(char *env)
 	while (env[i] != '=')
 		i++;
 	name_len = i++;
-	while (env[i])
-		i++;
-	value_len = i;
 	res->name = malloc(sizeof(char) * (name_len + 1));
-	ft_strlcpy(res->name, env, name_len);
-	res->value = ft_strdup(&env[name_len]);
+	ft_strlcpy(res->name, env, name_len + 1);
+	res->value = ft_strdup(&env[name_len + 1]);
+	res->next = NULL;
 	return (res);
 }
 
