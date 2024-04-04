@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/04 14:51:26 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/04 22:01:25 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ static char	*checkcmd(t_env **head, char *cmd)
 	i = 0;
 	j = 0;
 	len = expand_len(head, cmd);
-	printf("len: %d\n", len);
 	res = malloc(sizeof(char) * (len + 1));
-	while (i < len && cmd[j])
+	while (i < len && j < (int)ft_strlen(cmd))
 	{
 		quote = 0;
 		if (ft_isquotes(cmd[j]))
@@ -39,7 +38,7 @@ static char	*checkcmd(t_env **head, char *cmd)
 			j++;
 		}
 		i += expand(head, &res[i], &cmd[j], quote);
-		j += findquotes(&cmd[j], quote); 
+		j += findquotes(&cmd[j], quote);
 	}
 	return (res);
 }
@@ -54,7 +53,8 @@ static char	*ft_cutcmds(const char *cmds, int *idx)
 	isquotes = 0;
 	while (cmds[len])
 	{
-		if (isquotes && cmds[len] == isquotes && cmds[len + 1] == ' ')
+		if (isquotes && cmds[len - 1] && cmds[len - 1] == isquotes \
+		&& cmds[len] == ' ')
 			break ;
 		if (!isquotes && ft_isquotes(cmds[len]))
 			isquotes = cmds[len];
