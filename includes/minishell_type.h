@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:23:50 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/02 17:12:59 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:42:30 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_cmd
 	char	**cmds;
 }				t_cmd;
 
+// [<<] = 0  [>>] = 1  [<] = 2  [>] = 3  [<< -> <] = 4
 typedef struct s_redirect
 {
 	int		fd[2];

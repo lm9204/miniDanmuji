@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait_child.c                                       :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 13:26:47 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/02 15:53:45 by seongjko         ###   ########.fr       */
+/*   Created: 2024/04/03 19:48:45 by seongjko          #+#    #+#             */
+/*   Updated: 2024/04/03 19:52:56 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-void	wait_child(t_process *process)
+void handle_sigint(int sig) {
+    if (sig == SIGINT)
 {
-	int	i;
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+}
+}
 
-	i = 0;
-	process->status = NULL;
-	while (i < process->pipe_cnt)
-	{
-		wait(process->status);
-		i++;
-	}
+void handle_sigquit(int sig) {
+}
+
+void handle_sigterm(int sig) {
+}
+
+void    signal_handler(void)
+{
+    signal(SIGINT, handle_sigint);
+    signal(SIGQUIT, handle_sigquit);
+    signal(SIGTERM, handle_sigterm);
 }

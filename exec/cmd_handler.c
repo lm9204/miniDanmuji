@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/02 17:21:27 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:17:02 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,8 @@ void	cmd_handler(t_list *finder, t_data *env)
 		if (finder->flag == 0)
 		{
 			cmd_path = joined_path(finder->content, env->splitted_envp_path);
-			int ans = execve(cmd_path, cmd_ary->cmds, env->envp);
-			printf("execve success?: %d\n", ans);
-			break;
+			execve(cmd_path, cmd_ary->cmds, env->envp);
+			break ;
 		}
 	}
 	return ;
