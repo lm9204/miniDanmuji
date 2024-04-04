@@ -3,41 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/04 14:55:01 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:05:23 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	const char	*prompt_msg = "minishell$ ";
-// 	t_list	*head;
-// 	t_data	*data;
-// 	char	**res;
-// 	char	*nl;
+int	main(int argc, char **argv, char **envp)
+{
+	const char	*prompt_msg = "minishell$ ";
+	t_list		*head;
+	t_env		*env_head;
+	char		**res;
+	char		*nl;
+	t_data		*data;
 
 	argc = 0;
 	argv = 0;
-	data = malloc(sizeof(t_data));
-	data->envp = init_envp(envp);
-	data->splitted_envp_path = ft_split(ft_getenv("PATH", envp), ':');
-	signal_handler();
 	head = NULL;
-	nl = "hello";
+	env_head = NULL;
+	init_envp(&env_head, envp);
+	signal_handler();
+	data = malloc(sizeof(t_data));
+	data->envp = envp;
+	data->splitted_envp_path = ft_split(ft_getenv("PATH", envp), ':');
+	nl = readline(prompt_msg);
 	while (nl)
 	{
-		nl = readline(prompt_msg);
-		res = split_cmds(nl, data->envp);
+		res = split_cmds(nl, &env_head);
 		parse_to_node(&head, res);
 		if (head != NULL)
         	execute_main(&head, data);
+		// print_list(&head);
 		free(nl);
 		clear_head(&head);
+		nl = readline(prompt_msg);
 	}
 }
-
-
