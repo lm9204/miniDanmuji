@@ -18,6 +18,7 @@ char	*search_expand(t_env **head, char *cmd);
 int		get_word_len(char *word);
 int		expand_len(t_env **head, char *cmd);
 int		expand(t_env **head, char *output, char *cmd, char quote);
+int     sub_quote_len(char *cmd, char quote);
 
 t_env	*create_env_node(char *env);
 t_env	*find_env(t_env **env_head, char *name, int len);
@@ -25,6 +26,8 @@ void	addenv(t_env **env_head, char *env);
 void	init_envp(t_env **env_head, char **envp);
 void	rmv_env(t_env **env_head, char *name);
 int		find_env_len(t_env **env_head, char *name, int len);
+
+void    free_env_list(t_env **head);
 
 int		is_equal_sign(char *needle);
 int		front_or_back_of_equal_sign(char *needle);

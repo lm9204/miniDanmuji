@@ -12,30 +12,6 @@
 
 #include "../minishell.h"
 
-// int	validate_parse_list(t_list **head)
-// {
-	
-// }
-
-// int	parse_newline(char *newline)
-// {
-
-// }
-
-int	find_space(char *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == ' ')
-			break ;
-		i++;
-	}
-	return (i);
-}
-
 int	expand(t_env **head, char *output, char *cmd, char quote)
 {
 	char	*tmp;
@@ -83,9 +59,10 @@ int	expand_len(t_env **head, char *cmd)
 	int	i;
 	int	j;
 
+	printf("%s|len:%ld\n", cmd, ft_strlen(cmd));
 	i = 0;
 	flag = 0;
-	len = 0;
+	len = sub_quote_len(cmd, cmd[0]);
 	while (cmd[i])
 	{
 		j = i;
@@ -104,6 +81,20 @@ int	expand_len(t_env **head, char *cmd)
 		i++;
 	}
 	return (len);
+}
+
+int sub_quote_len(char *cmd, char quote)
+{
+	int	i;
+
+	i = 1;
+	if (!ft_isquotes(quote))
+		return (0);
+	while (cmd[i] && cmd[i] != quote)
+		i++;
+	if (cmd[i] == quote)
+		return (-2);
+	return (-1);
 }
 
 int	get_word_len(char *word)

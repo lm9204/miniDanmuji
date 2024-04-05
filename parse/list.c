@@ -27,7 +27,7 @@ static void	list_cmd_add(t_list **head, char **cmds, int size)
 	cmds_size = token_cmds_len(cmds);
 	cmd->cmds = malloc(sizeof(char *) * (cmds_size + 1));
 	if (cmd == NULL || cmd->cmds == NULL)
-		exit(1);
+		handle_error("malloc error");
 	ci = 0;
 	i = 0;
 	while (i < size)
@@ -48,10 +48,8 @@ static void	list_cmd_add(t_list **head, char **cmds, int size)
 static void	list_redirect_add(t_list **head, char *target, char *symbol)
 {
 	t_redirect	*res;
-	int			i;
 
 	res = malloc(sizeof(t_redirect));
-	i = 0;
 	res->type = is_symbol(symbol) - 1;
 	res->file = target;
 	list_add(head, res, 2);
@@ -100,21 +98,6 @@ void	parse_to_node(t_list **head, char **tokens)
 	}
 }
 
-void	clear_head(t_list **head)
-{
-	t_list	*ptr;
-	t_list	*next;
-
-	ptr = *head;
-	while (ptr)
-	{
-		next = ptr->next;
-		free(ptr->content);
-		free(ptr);
-		ptr = next;
-	}
-	*head = NULL;
-}
 
 void	print_list(t_list **head)
 {

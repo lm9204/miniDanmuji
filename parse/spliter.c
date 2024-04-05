@@ -28,6 +28,7 @@ static char	*checkcmd(t_env **head, char *cmd)
 	i = 0;
 	j = 0;
 	len = expand_len(head, cmd);
+	printf("expectlen:%d\n", len);
 	res = malloc(sizeof(char) * (len + 1));
 	while (i < len && j < (int)ft_strlen(cmd))
 	{
@@ -40,6 +41,7 @@ static char	*checkcmd(t_env **head, char *cmd)
 		i += expand(head, &res[i], &cmd[j], quote);
 		j += findquotes(&cmd[j], quote);
 	}
+	printf("i:%d\n", i);
 	return (res);
 }
 
@@ -113,6 +115,7 @@ static int	count_cmds(char *cmds)
 char	**split_cmds(char *cmds, t_env **envp)
 {
 	char	**res;
+	char	*tmp;
 	int		size;
 	int		idx;
 	int		i;
@@ -127,8 +130,10 @@ char	**split_cmds(char *cmds, t_env **envp)
 	{
 		while (cmds[idx] && cmds[idx] == ' ')
 			idx++;
-		res[i] = ft_cutcmds(&cmds[idx], &idx);
-		res[i] = checkcmd(envp, res[i]);
+		tmp = ft_cutcmds(&cmds[idx], &idx);
+		res[i] = checkcmd(envp, tmp);
+		printf("%d:%s\n", i, res[i]);
+		free(tmp);
 		i++;
 	}
 	res[i] = NULL;
