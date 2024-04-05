@@ -6,12 +6,15 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/03 19:56:24 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/05 20:44:10 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_EXEC_H
 # define MINISHELL_EXEC_H
+
+#include <termios.h>
+#include <sys/wait.h>
 
 
 typedef struct s_process {
@@ -45,5 +48,7 @@ void	redirect_output(t_list *finder);
 void	redirect_output_append(t_list *finder);
 void	redirec_handler(t_list *finder);
 void	signal_handler(void);
+int		check_cmd(t_list **head, t_data *env);
+void    signal_handler_child(void);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spliter.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/04 14:51:26 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/05 19:11:15 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	*checkcmd(t_env **head, char *cmd)
 	i = 0;
 	j = 0;
 	len = expand_len(head, cmd);
-	printf("len: %d\n", len);
+	// printf("len: %d\n", len);
 	res = malloc(sizeof(char) * (len + 1));
 	while (i < len && cmd[j])
 	{

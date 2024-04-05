@@ -1,0 +1,12 @@
+Makefile$
+README.md$
+a.out$
+error.c$
+exec$
+includes$
+libft$
+minishell$
+minishell.c$
+minishell.h$
+parse$
+test.txt$
