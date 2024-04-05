@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:30:33 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/04 14:51:41 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:44:33 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,13 @@ int	expand(t_env **head, char *output, char *cmd, char quote)
 			ft_strlcpy(&output[len], tmp, ft_strlen(tmp) + 1);
 			i += get_word_len(&cmd[i + 1]) + 1;
 			len += ft_strlen(tmp);
+			continue ;
 		}
-		else
-			output[len++] = cmd[i++];
+		else if (flag && cmd[i] == '\'')
+			flag = 0;
+		output[len++] = cmd[i++];
 	}
 	output[len] = 0;
-	// if (ft_isquotes(cmd[i - 1]))
-	// 	i--;
-	// ft_strlcpy(output, cmd, i + 1);
 	return (len);
 }
 
