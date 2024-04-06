@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:30:33 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/04 19:44:33 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:24:11 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	expand(t_env **head, char *output, char *cmd, char quote)
 	len = 0;
 	while (cmd[i] && cmd[i] != quote)
 	{
-		if (cmd[i] == '\'' || quote == '\'')
+		if (ft_isquotes(quote) == 2)
 			flag = 1;
 		else if (!flag && cmd[i] == '$')
 		{
@@ -34,8 +34,6 @@ int	expand(t_env **head, char *output, char *cmd, char quote)
 			len += ft_strlen(tmp);
 			continue ;
 		}
-		else if (flag && cmd[i] == '\'')
-			flag = 0;
 		output[len++] = cmd[i++];
 	}
 	output[len] = 0;
@@ -59,17 +57,14 @@ int	expand_len(t_env **head, char *cmd)
 	int	i;
 	int	j;
 
-	printf("%s|len:%ld\n", cmd, ft_strlen(cmd));
 	i = 0;
 	flag = 0;
 	len = sub_quote_len(cmd, cmd[0]);
+	if (cmd[0] == '\'')
+		flag = 1;
 	while (cmd[i])
 	{
 		j = i;
-		if (!flag && ft_isquotes(cmd[i]) == 2)
-			flag = 1;
-		else if (flag && ft_isquotes(cmd[i]) == 2)
-			flag = 0;
 		if (!flag && !ft_isquotes(cmd[i]) && cmd[i] == '$')
 		{
 			while (cmd[j + 1] && cmd[j + 1] != ' ' && !ft_isquotes(cmd[j + 1]))
@@ -77,13 +72,14 @@ int	expand_len(t_env **head, char *cmd)
 			len += find_env_len(head, &cmd[i + 1], j - i);
 			i = j;
 		}
-		len++;
+		else
+			len++;
 		i++;
 	}
 	return (len);
 }
 
-int sub_quote_len(char *cmd, char quote)
+int	sub_quote_len(char *cmd, char quote)
 {
 	int	i;
 

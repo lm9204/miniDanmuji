@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:09:43 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/03 17:03:41 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/06 15:49:37 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*search_expand(t_env **head, char *cmd);
 int		get_word_len(char *word);
 int		expand_len(t_env **head, char *cmd);
 int		expand(t_env **head, char *output, char *cmd, char quote);
-int     sub_quote_len(char *cmd, char quote);
+int		sub_quote_len(char *cmd, char quote);
 
 t_env	*create_env_node(char *env);
 t_env	*find_env(t_env **env_head, char *name, int len);
@@ -27,7 +27,10 @@ void	init_envp(t_env **env_head, char **envp);
 void	rmv_env(t_env **env_head, char *name);
 int		find_env_len(t_env **env_head, char *name, int len);
 
-void    free_env_list(t_env **head);
+void	clear_cmds(char **cmds);
+void	free_env_list(t_env **head);
+
+void	parse_newline(t_list **h_node, t_env **h_env, char *newline);
 
 int		is_equal_sign(char *needle);
 int		front_or_back_of_equal_sign(char *needle);

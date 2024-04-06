@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spliter.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/04/05 19:11:15 by seongjko         ###   ########.fr       */
-=======
-/*   Updated: 2024/04/04 22:01:25 by yeondcho         ###   ########.fr       */
->>>>>>> 8be87d0e1721d9598eb2b5053fb3d719b32c0c7f
+/*   Updated: 2024/04/06 16:24:05 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +28,6 @@ static char	*checkcmd(t_env **head, char *cmd)
 	i = 0;
 	j = 0;
 	len = expand_len(head, cmd);
-	printf("expectlen:%d\n", len);
 	res = malloc(sizeof(char) * (len + 1));
 	while (i < len && j < (int)ft_strlen(cmd))
 	{
@@ -45,7 +40,7 @@ static char	*checkcmd(t_env **head, char *cmd)
 		i += expand(head, &res[i], &cmd[j], quote);
 		j += findquotes(&cmd[j], quote);
 	}
-	printf("i:%d\n", i);
+	res[i] = 0;
 	return (res);
 }
 
@@ -136,7 +131,6 @@ char	**split_cmds(char *cmds, t_env **envp)
 			idx++;
 		tmp = ft_cutcmds(&cmds[idx], &idx);
 		res[i] = checkcmd(envp, tmp);
-		printf("%d:%s\n", i, res[i]);
 		free(tmp);
 		i++;
 	}

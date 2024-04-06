@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:46:58 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/02 15:10:25 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:32:51 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,13 @@ void	parse_to_node(t_list **head, char **tokens)
 	}
 }
 
+void	parse_newline(t_list **h_node, t_env **h_env, char *newline)
+{
+	char	**res;
+
+	res = split_cmds(newline, h_env);
+	parse_to_node(h_node, res);
+}
 
 void	print_list(t_list **head)
 {
