@@ -12,6 +12,8 @@
 
 #include "../minishell.h"
 
+extern int signal_value;
+
 void	child_to_do(t_list *finder, t_process *process, t_data *env)
 {
 	signal_handler_child();

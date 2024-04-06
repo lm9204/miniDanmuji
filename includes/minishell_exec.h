@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/05 20:44:10 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:03:25 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <termios.h>
 #include <sys/wait.h>
+#include <signal.h>
+#include "../minishell.h"
 
 
 typedef struct s_process {
@@ -26,7 +28,6 @@ typedef struct s_process {
 	int		fd[2];
 }	t_process;
 
-#include "../minishell.h"
 
 void	child_to_do(t_list *finder, t_process *process, t_data *env);
 char	*ft_getenv(char *name, char **envp);

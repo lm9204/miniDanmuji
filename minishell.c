@@ -6,11 +6,13 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/06 22:01:40 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/06 22:02:21 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int signal_value = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -49,6 +51,7 @@ int	main(int argc, char **argv, char **envp)
 
 	argc = 0;
 	argv = 0;
+	rl_catch_signals = 0;
 	head = NULL;
 	env_head = NULL;
 	init_envp(&env_head, envp);
@@ -66,6 +69,7 @@ int	main(int argc, char **argv, char **envp)
 		// print_list(&head);
 		free(nl);
 		clear_head(&head);
+		// printf("hello world?\n");
 		nl = readline(prompt_msg);
 	}
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &tty_orig) != 0)
