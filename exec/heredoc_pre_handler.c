@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 13:41:03 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/03 16:56:31 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:04:37 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*get_heredoc_input(char *delimeter, int i)
 
 	res = (char *)malloc(sizeof(char));
 	*res = '\0';
-	line = readline("> ");
+	line = readline(">> ");
 	line = ft_strjoin(line, "\n");
 	while (ft_strncmp(line, delimeter, ft_strlen(delimeter)))
 	{
@@ -52,7 +52,10 @@ char	*get_heredoc_input(char *delimeter, int i)
 		free(res);
 		free(line);
 		res = res_tmp;
-		line = readline("> ");
+		line = readline(">> ");
+		printf("%s\n", line);
+		if (line == NULL)
+			break ;
 		line = ft_strjoin(line, "\n");
 	}
 	free(line);
@@ -60,6 +63,11 @@ char	*get_heredoc_input(char *delimeter, int i)
 	return (ans);
 }
 
+// enum NODE {
+// 	REDIR,
+// 	PIPE,
+// 	COMMAND,
+// }
 
 void    heredoc_pre_handler(t_list *finder)
 {

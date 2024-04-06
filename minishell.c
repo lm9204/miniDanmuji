@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/04/05 21:11:48 by seongjko         ###   ########.fr       */
-=======
-/*   Updated: 2024/04/04 22:14:59 by yeondcho         ###   ########.fr       */
->>>>>>> 8be87d0e1721d9598eb2b5053fb3d719b32c0c7f
+/*   Updated: 2024/04/06 20:16:30 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int signal_value = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -53,6 +51,7 @@ int	main(int argc, char **argv, char **envp)
 
 	argc = 0;
 	argv = 0;
+	rl_catch_signals = 0;
 	head = NULL;
 	env_head = NULL;
 	init_envp(&env_head, envp);
@@ -70,6 +69,7 @@ int	main(int argc, char **argv, char **envp)
 		// print_list(&head);
 		free(nl);
 		clear_head(&head);
+		// printf("hello world?\n");
 		nl = readline(prompt_msg);
 	}
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &tty_orig) != 0)
