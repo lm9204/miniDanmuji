@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:46:58 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/06 16:32:51 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/07 14:05:18 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	parse_newline(t_list **h_node, t_env **h_env, char *newline)
 
 void	print_list(t_list **head)
 {
-	const char	*redirect_symbol[] = {"<<", ">>", "<", ">", 0};
+	const char	*redirect_symbol[] = {"<<", ">>", "<", ">", "<", 0};
 	t_list		*ptr;
 	t_cmd		*cmd_ptr;
 	t_redirect	*redirect_ptr;

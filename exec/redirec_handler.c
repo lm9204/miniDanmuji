@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:32:52 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/03 18:27:09 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/07 15:13:45 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,16 @@ void	redirec_handler(t_list *finder)
 {
 	t_redirect	*redirec;
 	
-	while (finder && finder->flag != 1)
+	while (finder && finder->flag != PIPE)
 	{
-		if (finder->flag == 2)
+		if (finder->flag == REDIRECT)
 		{
 			redirec = (t_redirect *)(finder->content);
-			if (redirec->type == 1)
+			if (redirec->type == APPEND)
 				redirect_output_append(finder);
-			else if (redirec->type == 2 || redirec->type == 4)
+			else if (redirec->type == INPUT || redirec->type == HEREINPUT)
 				redirect_input(finder);
-			else if (redirec->type == 3)
+			else if (redirec->type == OUTPUT)
 				redirect_output(finder);
 		}
 		finder = finder->next;

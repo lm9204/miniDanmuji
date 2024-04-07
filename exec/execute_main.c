@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 18:43:43 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/06 19:16:00 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/07 17:04:54 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	execute_main(t_list **head, t_data *env)
 	
 	finder = *head;
 	heredoc_pre_handler(finder);
+	if (!how_many_cmds(finder))
+		return (0);
+	printf("how_many_cmds: %d\n", how_many_cmds(finder));
 	process.pipe_cnt = how_many_pipes(finder);
 	process.status = NULL;
 	i = -1;
@@ -47,6 +50,7 @@ int	execute_main(t_list **head, t_data *env)
 		else                    			//부모
 			parent_to_do(&process);
 	}
+	wait_child(process.pipe_cnt + 1);
 	signal_value = 0;
     return (1);
 }

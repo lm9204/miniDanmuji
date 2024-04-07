@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:42:42 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/06 20:07:09 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/07 14:45:07 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ extern int signal_value;
 void	handle_sigint_child(int sig) {
 	if (sig == SIGINT)
 	{
-		printf("hello world\n");
-		write (1, "\n", 1);
-		rl_on_new_line();			//다음에 출력될 문자열은 새로운 줄에서 시작할 거라 알려준다.
-		rl_replace_line("", 1); // 프롬프트에 이미 친 문자열을 싹 날려준다.
-		rl_redisplay();         // readline 함수의 인자로 넣은 문자열을 다시 출력한다.
+		// printf("hello world\n");
+		// write (1, "\n", 1);
+		// rl_on_new_line();			//다음에 출력될 문자열은 새로운 줄에서 시작할 거라 알려준다.
+		// rl_replace_line("", 1); // 프롬프트에 이미 친 문자열을 싹 날려준다.
+		// rl_redisplay();         // readline 함수의 인자로 넣은 문자열을 다시 출력한다.
         exit(1);
 	}
 	return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 13:51:21 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/06 15:58:18 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/07 11:00:24 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,32 +49,32 @@ void	print_env(t_env **head)
 	}
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	const char	*prompt_msg = "minishell$ ";
-	t_list	*head;
-	t_env	*env_head;
-	char	*nl;
-	int		i;
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	const char	*prompt_msg = "minishell$ ";
+// 	t_list	*head;
+// 	t_env	*env_head;
+// 	char	*nl;
+// 	int		i;
 
-	argc = 0;
-	argv = 0;
-	head = NULL;
-	env_head = NULL;
-	init_envp(&env_head, envp);
-	// print_env(&env_head);
-	nl = readline(prompt_msg);
-	while (nl)
-	{
-		parse_newline(&head, &env_head, nl);
-		print_list(&head);
-		free(nl);
-		clear_head(&head);
-		nl = readline(prompt_msg);
-	}
-	free_env_list(&env_head);
-	exit(0);
-	i = 0;
-	// while (res[i])
-	// 	printf("%s$\n", res[i++]);
-}
+// 	argc = 0;
+// 	argv = 0;
+// 	head = NULL;
+// 	env_head = NULL;
+// 	init_envp(&env_head, envp);
+// 	// print_env(&env_head);
+// 	nl = readline(prompt_msg);
+// 	while (nl)
+// 	{
+// 		parse_newline(&head, &env_head, nl);
+// 		print_list(&head);
+// 		free(nl);
+// 		clear_head(&head);
+// 		nl = readline(prompt_msg);
+// 	}
+// 	free_env_list(&env_head);
+// 	exit(0);
+// 	i = 0;
+// 	// while (res[i])
+// 	// 	printf("%s$\n", res[i++]);
+// }

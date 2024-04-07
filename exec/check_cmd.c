@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 19:48:31 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/05 20:03:06 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/07 16:39:46 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int check_cmd(t_list **head, t_data *env)
 	cmd_ary = (t_cmd *)finder->content;
     while (finder)
     {
-        if (finder->flag == 0)
+		printf("finder->flag: %d\n", finder->flag);
+        if (finder->flag == CMD)
         {
 			cmd_path = joined_path(finder->content, env->splitted_envp_path);
 			if (!cmd_path)
@@ -34,4 +35,18 @@ int check_cmd(t_list **head, t_data *env)
         finder = finder->next;
     }
 	return (1);
+}
+
+int how_many_cmds(t_list *finder)
+{
+	int		cmd_cnt;
+    
+	cmd_cnt = 0;
+	while (finder)
+	{
+		if (finder->flag == CMD)
+			cmd_cnt++;
+		finder = finder->next;
+	}
+	return (cmd_cnt);
 }
