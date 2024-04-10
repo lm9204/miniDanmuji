@@ -30,7 +30,6 @@ int		find_env_len(t_env **env_head, char *name, int len);
 void	clear_cmds(char **cmds);
 void	free_env_list(t_env **head);
 
-void	parse_newline(t_list **h_node, t_env **h_env, char *newline);
 
 int		is_equal_sign(char *needle);
 int		front_or_back_of_equal_sign(char *needle);

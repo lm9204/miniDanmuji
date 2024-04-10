@@ -135,6 +135,7 @@ char	**split_cmds(char *cmds, t_env **envp)
 		free(tmp);
 		i++;
 	}
+	printf("i:%d\n", i);
 	res[i] = NULL;
 	return (res);
 }
