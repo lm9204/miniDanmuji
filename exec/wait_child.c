@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 17:02:25 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/07 17:05:13 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:42:02 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ void    wait_child(int child_cnt)
     while (i < child_cnt)
     {
         wait(&status);
-        kill(0, SIGINT);
-        //자식 프로세스의 종료 상태 확인하는 코드
+        // kill(0, SIGINT);
         i++;
-    }
-
-    
+    }   
 }
+
+        //자식 프로세스의 종료 상태 확인하는 코드

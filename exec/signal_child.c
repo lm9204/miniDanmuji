@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:42:42 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/07 14:45:07 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:14:41 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ void    signal_handler_child(void)
 {
     signal(SIGINT, handle_sigint_child);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTERM, handle_sigterm_child);
+	// signal(SIGTERM, handle_sigterm_child);
     return ;
 }

@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 13:41:03 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/07 16:31:55 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:07:55 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,6 @@ void	get_heredoc_input(char *delimeter)
 	write_in_tmp_file(res, delimeter);
 	return ;
 }
-
-// enum NODE {
-// 	REDIR,
-// 	PIPE,
-// 	COMMAND,
-// }
 
 void	check_heredoc(t_list *finder)
 {

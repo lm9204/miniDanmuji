@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 12:13:35 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/07 16:31:29 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:59:15 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	create_tmp_files(t_list *finder, int *is_heredoc)
 			{
 				*is_heredoc = 1;
 				new_tmp_file(redirec->file);
-				redirec->type = 4;
+				redirec->type = HEREINPUT;
 			}
 		}
 		finder = finder->next;

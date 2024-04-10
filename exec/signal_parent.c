@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 19:48:45 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/07 15:51:33 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:50:10 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	handle_sigterm(int sig) {
 	return ;
 }
 
-void	signal_handler(void)
+void	signal_handler_parent(void)
 {
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);

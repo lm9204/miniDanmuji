@@ -8,7 +8,7 @@ SRCS = parse/token.c parse/symbol.c parse/list.c parse/spliter_utils.c \
 		builtin/ft_unset.c builtin/ft_env.c builtin/ft_export.c \
 		exec/child_to_do.c exec/cmd_handler.c exec/execute_main.c exec/execute_util.c \
 		exec/first_or_middle_or_last_child.c \
-		exec/parent_to_do.c exec/redirec_handler.c exec/signal.c minishell.c \
+		exec/parent_to_do.c exec/redirec_handler.c exec/signal_parent.c minishell.c \
 		exec/check_cmd.c exec/signal_child.c exec/heredoc_pre_handler.c \
 		exec/heredoc_pre_handler_util.c exec/wait_child.c
 

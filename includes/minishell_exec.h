@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/07 17:04:37 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:50:13 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	redirect_input(t_list *finder);
 void	redirect_output(t_list *finder);
 void	redirect_output_append(t_list *finder);
 void	redirec_handler(t_list *finder);
-void	signal_handler(void);
-int		check_cmd(t_list **head, t_data *env);
+void	signal_handler_parent(void);
 void    signal_handler_child(void);
+int		check_cmd(t_list **head, t_data *env);
 int		how_many_cmds(t_list *finder);
 void    wait_child(int child_cnt);
 
