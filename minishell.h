@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 13:19:57 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/06 15:37:24 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/12 16:25:17 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include "includes/minishell_type.h"
 # include "includes/minishell_parse.h"
 # include "includes/minishell_exec.h"
+# include "includes/minishell_builtin.h"
 
 
 

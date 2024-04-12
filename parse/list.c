@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:46:58 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/07 14:05:18 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/12 16:19:07 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	parse_to_node(t_list **head, char **tokens)
 			list_cmd_add(head, &tokens[i], tokenlen(&tokens[i]));
 			return ;
 		}
-		if (target != 0)
+		else
 			list_cmd_add(head, &tokens[i], target);
 		list_add(head, NULL, 1);
 		i += target;

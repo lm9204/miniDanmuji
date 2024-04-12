@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/12 15:17:00 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/12 16:19:17 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ static void	seperate_word(char *cmds, int *i, int *count, int *isword)
 	}
 	else if (is_symbol(&cmds[*i]) || cmds[*i] == '|')
 	{
-		*i += is_symbol(&cmds[*i]) < 3;
+		if (is_symbol(&cmds[*i]) != 0)
+			*i += is_symbol(&cmds[*i]) < 3;
 		*isword = 0;
 		(*count)++;
 	}
@@ -121,7 +122,6 @@ char	**split_cmds(char *cmds, t_env **envp)
 	int		i;
 
 	size = count_cmds(cmds);
-	printf("size: %d\n", size);
 	res = malloc(sizeof(char *) * (size + 1));
 	if (res == NULL)
 		return (NULL);
@@ -136,7 +136,6 @@ char	**split_cmds(char *cmds, t_env **envp)
 		free(tmp);
 		i++;
 	}
-	printf("i:%d\n", i);
 	res[i] = NULL;
 	return (res);
 }
