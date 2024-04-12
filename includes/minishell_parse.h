@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:09:43 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/06 15:49:37 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:37:08 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int		find_env_len(t_env **env_head, char *name, int len);
 
 void	clear_cmds(char **cmds);
 void	free_env_list(t_env **head);
+char	**list_to_envp(t_env **head);
+char	*ft_env_to_char(t_env *env);
+
 
 void	parse_newline(t_list **h_node, t_env **h_env, char *newline);
 

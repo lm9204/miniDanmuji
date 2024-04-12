@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 19:48:31 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/07 16:39:46 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:00:20 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int check_cmd(t_list **head, t_data *env)
 		printf("finder->flag: %d\n", finder->flag);
         if (finder->flag == CMD)
         {
-			cmd_path = joined_path(finder->content, env->splitted_envp_path);
+			cmd_path = joined_path(finder->content, env->splitted_exec_path);
 			if (!cmd_path)
 			{
 				printf("Danmoujishell: %s: command not found\n", cmd_ary->cmds[0]);

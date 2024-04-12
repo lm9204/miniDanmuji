@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_type.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:23:50 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/03 15:42:30 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:05:36 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct s_redirect
 
 typedef struct s_data
 {
-	char	**envp;
-	char	**splitted_envp_path;
+	char	*home;
+	char	**splitted_exec_path;
 }				t_data;
 
 typedef struct s_env

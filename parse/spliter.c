@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spliter.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/06 20:29:45 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:28:51 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ char	**split_cmds(char *cmds, t_env **envp)
 	int		i;
 
 	size = count_cmds(cmds);
+	printf("size: %d\n", size);
 	res = malloc(sizeof(char *) * (size + 1));
 	if (res == NULL)
 		return (NULL);
@@ -135,6 +136,7 @@ char	**split_cmds(char *cmds, t_env **envp)
 		free(tmp);
 		i++;
 	}
+	printf("i: %d\n", i);
 	res[i] = NULL;
 	return (res);
 }

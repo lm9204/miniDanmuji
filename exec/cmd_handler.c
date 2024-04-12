@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/07 15:14:09 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:00:20 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	cmd_handler(t_list *finder, t_data *env)
 	{
 		if (finder->flag == CMD)
 		{
-			cmd_path = joined_path(finder->content, env->splitted_envp_path);
+			cmd_path = joined_path(finder->content, env->splitted_exec_path);
 			execve(cmd_path, cmd_ary->cmds, env->envp);
 			break ;
 		}
