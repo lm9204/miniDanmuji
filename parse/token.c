@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 13:51:21 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/10 18:50:24 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/12 15:17:28 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	token_cmds_len(char **tokens)
 	{
 		if (!is_symbol(tokens[i]))
 			len++;
+		else
+			i++;
 		i++;
 	}
 	return (len);
@@ -54,11 +56,21 @@ int	main(int argc, char **argv, char **envp)
 	const char	*prompt_msg = "minishell$ ";
 	t_list	*head;
 	t_env	*env_head;
+<<<<<<< HEAD
 	char	*nl;
 	int		i;
 
 	argc = 0;
 	argv = 0;
+=======
+	char	**res;
+	char	*nl;
+	// int		i;
+
+	argc = 0;
+	argv = 0;
+	printf("%d%p\n", argc, argv);
+>>>>>>> 6dbb9040ee5032e458eb4b4d10b874789c19370d
 	head = NULL;
 	env_head = NULL;
 	init_envp(&env_head, envp);
@@ -66,15 +78,17 @@ int	main(int argc, char **argv, char **envp)
 	nl = readline(prompt_msg);
 	while (nl)
 	{
-		parse_newline(&head, &env_head, nl);
+		res = split_cmds(nl, &env_head);
+		parse_to_node(&head, res);
 		print_list(&head);
 		free(nl);
+		free(res);
 		clear_head(&head);
 		nl = readline(prompt_msg);
 	}
 	free_env_list(&env_head);
 	exit(0);
-	i = 0;
+	// i = 0;
 	// while (res[i])
 	// 	printf("%s$\n", res[i++]);
 }

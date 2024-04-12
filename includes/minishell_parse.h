@@ -33,7 +33,6 @@ char	**list_to_envp(t_env **head);
 char	*ft_env_to_char(t_env *env);
 
 
-void	parse_newline(t_list **h_node, t_env **h_env, char *newline);
 
 int		is_equal_sign(char *needle);
 int		front_or_back_of_equal_sign(char *needle);

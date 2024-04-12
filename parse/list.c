@@ -13,7 +13,7 @@
 #include "../minishell.h"
 
 static void	list_add(t_list **head, void *content, int type);
-static void	list_redirect_add(t_list **head, char *target, char *symbol);
+static void	list_redirect_add(t_list **head, char **cmds, int size);
 static void	list_cmd_add(t_list **head, char **cmds, int size);
 
 static void	list_cmd_add(t_list **head, char **cmds, int size)
@@ -23,36 +23,46 @@ static void	list_cmd_add(t_list **head, char **cmds, int size)
 	int		ci;
 	int		i;
 
-	cmd = malloc(sizeof(t_cmd));
 	cmds_size = token_cmds_len(cmds);
-	cmd->cmds = malloc(sizeof(char *) * (cmds_size + 1));
-	if (cmd == NULL || cmd->cmds == NULL)
-		handle_error("malloc error");
-	ci = 0;
+	if (cmds_size != 0)
+	{
+		cmd = malloc(sizeof(t_cmd));
+		cmd->cmds = malloc(sizeof(char *) * (cmds_size + 1));
+		if (cmd == NULL || cmd->cmds == NULL)
+			handle_error("malloc error");
+		ci = 0;
+		i = 0;
+		while (i < size)
+		{
+			if (!is_symbol(cmds[i]))
+				cmd->cmds[ci++] = cmds[i++];
+			else
+				i += 2;
+		}
+		cmd->cmds[ci] = 0;
+		list_add(head, cmd, 0);
+	}
+	list_redirect_add(head, cmds, size);
+}
+
+static void	list_redirect_add(t_list **head, char **cmds, int size)
+{
+	t_redirect	*res;
+	int			i;
+
 	i = 0;
 	while (i < size)
 	{
-		if (!is_symbol(cmds[i]))
-			cmd->cmds[ci++] = cmds[i++];
-		else
-			i += 2;
-	}
-	cmd->cmds[ci] = 0;
-	list_add(head, cmd, 0);
-	i = -1;
-	while (++i < size)
 		if (is_symbol(cmds[i]))
-			list_redirect_add(head, cmds[i + 1], cmds[i]);
-}
-
-static void	list_redirect_add(t_list **head, char *target, char *symbol)
-{
-	t_redirect	*res;
-
-	res = malloc(sizeof(t_redirect));
-	res->type = is_symbol(symbol) - 1;
-	res->file = target;
-	list_add(head, res, 2);
+		{
+			res = malloc(sizeof(t_redirect));
+			res->type = is_symbol(cmds[i]) - 1;
+			res->file = cmds[i + 1];
+			list_add(head, res, 2);
+			free(cmds[i]);
+		}
+		i++;
+	}
 }
 
 static void	list_add(t_list **head, void *content, int type)
@@ -91,19 +101,13 @@ void	parse_to_node(t_list **head, char **tokens)
 			list_cmd_add(head, &tokens[i], tokenlen(&tokens[i]));
 			return ;
 		}
-		list_cmd_add(head, &tokens[i], target);
+		if (target != 0)
+			list_cmd_add(head, &tokens[i], target);
 		list_add(head, NULL, 1);
 		i += target;
+		free(tokens[i]);
 		i++;
 	}
-}
-
-void	parse_newline(t_list **h_node, t_env **h_env, char *newline)
-{
-	char	**res;
-
-	res = split_cmds(newline, h_env);
-	parse_to_node(h_node, res);
 }
 
 void	print_list(t_list **head)
