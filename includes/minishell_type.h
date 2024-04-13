@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_type.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:23:50 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/10 19:05:36 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/12 16:40:24 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,18 @@ typedef struct s_redirect
 	char	*file;
 }				t_redirect;
 
-typedef struct s_data
-{
-	char	*home;
-	char	**splitted_exec_path;
-}				t_data;
-
 typedef struct s_env
 {
 	char	*name;
 	char	*value;
 	void	*next;
 }				t_env;
+
+typedef struct s_data
+{
+	char	*home; //pwd 저장할 거
+	char	**splitted_exec_path;
+	t_env	**env_head;
+}				t_data;
+
 #endif

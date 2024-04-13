@@ -6,11 +6,13 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 13:41:03 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/08 15:07:55 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:52:34 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+extern int signal_value;
 
 void	get_heredoc_input(char *delimeter)
 {
@@ -64,6 +66,7 @@ void	heredoc_pre_handler(t_list *finder)
 	create_tmp_files(finder, &is_heredoc);
 	if (!is_heredoc)
 		return ;
+	signal_value = 1;
 	pid = fork();
 	if (pid == -1)
 	{
@@ -72,10 +75,13 @@ void	heredoc_pre_handler(t_list *finder)
 	}
 	else if (pid == 0)
 	{
-		signal_handler_child();
+		signal_handler_heredoc();
 		check_heredoc(finder);
 	}
 	else
+	{
 		wait(&status);
+		signal_value = 0;
+	}
 	return ;
 }
