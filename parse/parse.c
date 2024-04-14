@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:30:33 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/06 16:24:11 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/14 17:17:40 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ char	*expand_symbol(t_env **head, char *cmd, int len)
 {
 	t_env	*ptr;
 
+	// if (cmd[0] == '?')
+	// 	return (data->exit_status);
 	ptr = find_env(head, cmd, len);
 	if (ptr == NULL)
-		handle_error("failed to find envp");
+		return (NULL);
 	return (ptr->value);
 }
 
@@ -67,6 +69,8 @@ int	expand_len(t_env **head, char *cmd)
 		j = i;
 		if (!flag && !ft_isquotes(cmd[i]) && cmd[i] == '$')
 		{
+			// if (cmd[i + 1] == '?')
+			// 	return (ft_strlen(data->exit_status));
 			while (cmd[j + 1] && cmd[j + 1] != ' ' && !ft_isquotes(cmd[j + 1]))
 				j++;
 			len += find_env_len(head, &cmd[i + 1], j - i);

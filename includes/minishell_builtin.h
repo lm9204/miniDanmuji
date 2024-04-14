@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:24:31 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/12 16:30:00 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:12:30 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_BUILTIN_H
 
 void	ft_cd(t_env **head, char *path);
-void	ft_echo(char *cmd, int newline);
+void	ft_echo(char **cmds);
 void	ft_exit(char *input);
 void	ft_env(t_env **head);
 void	ft_pwd(void);

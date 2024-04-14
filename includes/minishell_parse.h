@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:09:43 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/12 16:24:24 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:31:20 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	clear_cmds(char **cmds);
 void	free_env_list(t_env **head);
 char	**list_to_envp(t_env **head);
 char	*ft_env_to_char(t_env *env);
+
+void	validate_node_list(t_list **head);
 
 int		is_equal_sign(char *needle);
 int		front_or_back_of_equal_sign(char *needle);

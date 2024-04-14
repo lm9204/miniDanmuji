@@ -3,7 +3,7 @@ FLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
 SRCS = parse/token.c parse/symbol.c parse/list.c parse/spliter_utils.c \
 		parse/spliter.c parse/parse.c error.c \
 		parse/init_envp.c parse/find_env.c parse/add_env.c parse/rmv_env.c \
-		parse/list_utils.c \
+		parse/list_utils.c parse/list_val.c \
 		builtin/ft_echo.c builtin/ft_cd.c builtin/ft_pwd.c builtin/ft_exit.c \
 		builtin/ft_unset.c builtin/ft_env.c builtin/ft_export.c \
 		exec/child_to_do.c exec/cmd_handler.c exec/execute_main.c exec/execute_util.c \
@@ -11,7 +11,6 @@ SRCS = parse/token.c parse/symbol.c parse/list.c parse/spliter_utils.c \
 		exec/parent_to_do.c exec/redirec_handler.c exec/signal_parent.c minishell.c \
 		exec/check_cmd.c exec/signal_child.c exec/heredoc_pre_handler.c \
 		exec/heredoc_pre_handler_util.c exec/wait_child.c exec/signal_heredoc.c
-
 LIB_DIR = libft
 LIB_HEADER = libft.h
 LIB = libft.a

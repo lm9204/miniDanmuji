@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:14:15 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/06 20:15:41 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:12:42 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	ft_pwd(void)
 {
-	char	cwd[1024];
+	char	*cwd;
 
-	if (getcwd(cwd, 1024) != NULL)
+	cwd = getcwd(NULL, 0);
+	if (cwd != NULL)
 		ft_putendl_fd(cwd, 1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 13:51:21 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/12 16:45:05 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:59:54 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	token_cmds_len(char **tokens)
 	}
 	return (len);
 }
+
 void	print_env(t_env **head)
 {
 	t_env	*ptr;
@@ -51,25 +52,25 @@ void	print_env(t_env **head)
 	}
 }
 
-// static void	test_exit(t_list **head)
-// {
-// 	t_list	*ptr;
-// 	t_cmd	*cmd;
-	
-// 	ptr = *head;
-// 	while (ptr)
-// 	{
-// 		if (ptr->flag == 0)
-// 		{
-// 			cmd = ptr->content;
-// 			if (ft_strncmp(cmd->cmds[0], "exit", 5) == 0)
-// 			{
-// 				ft_exit(cmd->cmds[1]);
-// 			}
-// 		}
-// 		ptr = ptr->next;
-// 	}
-// }
+static void	test_exit(t_list **head)
+{
+	t_list	*ptr;
+	t_cmd	*cmd;
+
+	ptr = *head;
+	while (ptr)
+	{
+		if (ptr->flag == 0)
+		{
+			cmd = ptr->content;
+			if (ft_strncmp(cmd->cmds[0], "exit", 5) == 0)
+				ft_exit(cmd->cmds[1]);
+			if (ft_strncmp(cmd->cmds[0], "echo", 5) == 0)
+				ft_echo(cmd->cmds);
+		}
+		ptr = ptr->next;
+	}
+}
 
 // int	main(int argc, char **argv, char **envp)
 // {
@@ -78,7 +79,6 @@ void	print_env(t_env **head)
 // 	t_env	*env_head;
 // 	char	**res;
 // 	char	*nl;
-// 	// int		i;
 
 // 	argc = 0;
 // 	argv = 0;
@@ -92,6 +92,7 @@ void	print_env(t_env **head)
 // 	{
 // 		res = split_cmds(nl, &env_head);
 // 		parse_to_node(&head, res);
+// 		validate_node_list(&head);
 // 		test_exit(&head);
 // 		print_list(&head);
 // 		free(nl);
@@ -101,7 +102,4 @@ void	print_env(t_env **head)
 // 	}
 // 	free_env_list(&env_head);
 // 	exit(0);
-// 	// i = 0;
-// 	// while (res[i])
-// 	// 	printf("%s$\n", res[i++]);
 // }

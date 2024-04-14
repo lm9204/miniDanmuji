@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:34:18 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/03/30 20:46:43 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:42:50 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@ void	handle_error(char *error)
 {
 	ft_putstr_fd("bash: ", 2);
 	ft_putendl_fd(error, 2);
-	exit(1);
+	// exit(1);
 }

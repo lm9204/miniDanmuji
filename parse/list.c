@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:46:58 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/12 16:19:07 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/14 17:35:13 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	list_cmd_add(t_list **head, char **cmds, int size)
 	int		i;
 
 	cmds_size = token_cmds_len(cmds);
-	if (cmds_size != 0)
+	if (cmds_size != 0 && size != 0)
 	{
 		cmd = malloc(sizeof(t_cmd));
 		cmd->cmds = malloc(sizeof(char *) * (cmds_size + 1));
@@ -59,7 +59,7 @@ static void	list_redirect_add(t_list **head, char **cmds, int size)
 			res->type = is_symbol(cmds[i]) - 1;
 			res->file = cmds[i + 1];
 			list_add(head, res, 2);
-			free(cmds[i]);
+			free(cmds[i++]);
 		}
 		i++;
 	}
