@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 20:17:37 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/15 03:09:43 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_data	*init_data_struct(char **envp)
 {
-	t_data * data;
+	t_data *data;
 	
 	data = (t_data *)malloc(sizeof(t_data));
 	data->env_head = NULL;
@@ -25,64 +25,59 @@ t_data	*init_data_struct(char **envp)
 	return (data);
 }
 
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	const char	*prompt_msg = "minishell$ ";
-// 	char		**res;
-// 	char		*nl;
-// 	t_data		*data;
+void	terminal_setting(struct termios *term)
+{
 	
-// 	argc = 0;
-// 	argv = 0;
-// 	data = init_data_struct(envp);
-// 	rl_clear_history();
-// 	signal_handler(PARENT);
-// 	nl = readline(prompt_msg);
-// 	add_history(nl);
-// 	while (nl)
-// 	{
-// 		res = split_cmds(nl, &data->env_head);
-// 		parse_to_node(&data->head, res);
-// 		if (data->head != NULL && check_cmd(&data->head, data))
-// 			execute_main(&data->head, data);
-// 		free(nl);
-// 		clear_head(&data->head);
-// 		nl = readline(prompt_msg);
-// 		add_history(nl);
-// 	}
-// }
+    if (tcgetattr(STDIN_FILENO, term) != 0) {
+        perror("tcgetattr");
+        return ;
+    }
+    term->c_lflag &= ~ECHOCTL;
+    if (tcsetattr(STDIN_FILENO, TCSANOW, term) != 0) {
+        // perror("tcsetattr");
+        return ;
+    }
+}
 
-//signal handling 관련
+void	reset_terminal_setting(struct termios *term)
+{
+	if (tcsetattr(STDIN_FILENO, TCSANOW, term) != 0)
+	{
+		perror("tcsetattr");
+		return ;
+	}
+	return ;
+}
 
-	// struct termios term;
-
-    // //현재 터미널 속성 가져오기
-    // if (tcgetattr(STDIN_FILENO, &term) != 0) {
-    //     perror("tcgetattr");
-    //     return 1;
-    // }
-
-	// rl_catch_signals = 0;
-
-	//ECHOCTL 안 나타나도록 설정
-	// term.c_lflag &= ~ECHOCTL;
-
-	// //uncanonical mode로 설정
-	// // term.c_lflag &= ~(ICANON | ECHO);
-	// // term.c_cc[VMIN] = 1;
-	// // term.c_cc[VTIME] = 0;
-
-    // //변경된 터미널 속성 적용
-    // if (tcsetattr(STDIN_FILENO, TCSANOW, &term) != 0) {
-    //     // perror("tcsetattr");
-    //     return 1;
-    // }
-	// rl_catch_signals = 0;
-
-
+int	main(int argc, char **argv, char **envp)
+{
+	const char	*prompt_msg = "\033[32mMinishell>\033[0m ";
+	char		**res;
+	char		*nl;
+	t_data		*data;
+	struct		termios term;
 	
-	// if (tcsetattr(STDIN_FILENO, TCSANOW, &term) != 0)
-	// {
-	// 	// perror("tcsetattr");
-	// 	return 1;
-	// }
+	
+	argc = 0;
+	argv = 0;
+	terminal_setting(&term);
+	data = init_data_struct(envp);
+	rl_clear_history();
+	signal_handler(PARENT);
+	nl = readline(prompt_msg);
+	sigterm_handler(nl, PARENT);
+	add_history(nl);
+	while (nl)
+	{
+		res = split_cmds(nl, &data->env_head);
+		parse_to_node(&data->head, res);
+		if (data->head != NULL && check_cmd(&data->head, data))
+			execute_main(&data->head, data);
+		free(nl);
+		clear_head(&data->head);
+		nl = readline(prompt_msg);
+		sigterm_handler(nl, PARENT);
+		add_history(nl);
+	}
+	reset_terminal_setting(&term);
+}

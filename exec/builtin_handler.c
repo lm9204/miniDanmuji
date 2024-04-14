@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:44:33 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 22:47:15 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/15 02:48:38 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void    execute_directly(t_cmd *cmd_ary, t_env **head)
     if (!ft_strncmp(cmd_ary->cmds[0], "cd", ft_strlen("cd")))
         ft_echo(cmd_ary->cmds);
     if (!ft_strncmp(cmd_ary->cmds[0], "export", ft_strlen("export")))
-        ft_pwd();
+        ft_export(head, cmd_ary->cmds);
     if (!ft_strncmp(cmd_ary->cmds[0], "unset", ft_strlen("unset")))
-        ft_env(head);
+        ft_unset(head, cmd_ary->cmds);
     if (!ft_strncmp(cmd_ary->cmds[0], "exit", ft_strlen("exit")))
-        ft_env(head);
+        ft_exit(cmd_ary->cmds[1]);
     if (!ft_strncmp(cmd_ary->cmds[0], "echo", ft_strlen("echo")))
         ft_echo(cmd_ary->cmds);
     if (!ft_strncmp(cmd_ary->cmds[0], "pwd", ft_strlen("pwd")))

@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 23:03:03 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/15 02:48:00 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	cmd_handler(t_list *finder, t_data *env, t_process *process)
 			execve(cmd_path, cmd_ary->cmds, envp);
 			break ;
 		}
+		finder = finder->next;
 	}
 	return ;
 }
