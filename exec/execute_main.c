@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 18:43:43 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 16:32:40 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/14 22:27:57 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	execute_main(t_list **head, t_data *env)
 	heredoc_pre_handler(finder);
 	if (!how_many_cmds(finder))
 		return (0);
-	printf("how_many_cmds: %d\n", how_many_cmds(finder));
 	process.pipe_cnt = how_many_pipes(finder);
+	
 	process.status = NULL;
 	i = -1;
 	while (++i < process.pipe_cnt + 1)		// pipe의 갯수 + 1만큼 fork를 떠야 하므로 +1
@@ -38,6 +38,7 @@ int	execute_main(t_list **head, t_data *env)
 			perror("failed opening pipe\n");
 			exit(1);
 		}
+		signal_handler(IGNORE);
 		process.pid = fork();				//포크
 		if (process.pid == -1)
 		{
@@ -50,5 +51,6 @@ int	execute_main(t_list **head, t_data *env)
 			parent_to_do(&process);
 	}
 	wait_child(process.pipe_cnt + 1);
+	signal_handler(PARENT);
     return (1);
 }

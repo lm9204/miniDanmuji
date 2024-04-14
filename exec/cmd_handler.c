@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 18:53:41 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/14 23:03:03 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,25 @@ char	*joined_path(void *cmds, char **envp_path)
 	return (0);
 }
 
-void	cmd_handler(t_list *finder, t_data *env)
+void	cmd_handler(t_list *finder, t_data *env, t_process *process)
 {
 	char	*cmd_path;
 	char	**envp;
+	int		check_builtin;
 	t_cmd	*cmd_ary;
 
 	envp = list_to_envp(&env->env_head);
-
-	cmd_ary = (t_cmd *)finder->content;
 	while (finder && finder->flag != PIPE)
 	{
-		if (finder->flag == CMD)
+		check_builtin = is_it_builtin((t_cmd *)finder->content);
+		if (finder->flag == CMD && check_builtin == 1)
 		{
+			builtin_handler((t_cmd *)finder->content, &env->env_head, process);
+			break;
+		}
+		else if (finder->flag == CMD && check_builtin == 0)
+		{
+			cmd_ary = (t_cmd *)finder->content;
 			cmd_path = joined_path(finder->content, env->splitted_exec_path);
 			execve(cmd_path, cmd_ary->cmds, envp);
 			break ;

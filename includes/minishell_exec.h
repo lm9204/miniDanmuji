@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 16:45:08 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/14 22:40:08 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include "../minishell.h"
-#include "../get_next_line/get_next_line.h"
 
 typedef struct s_process {
 	int		*status;
@@ -53,7 +52,7 @@ void	write_in_tmp_file(char *res, char *new_file_name);
 void	child_to_do(t_list *finder, t_process *process, t_data *env);
 char	*ft_getenv(char *name, char **envp);
 char	*joined_path(void *cmds, char **envp_path);
-void	cmd_handler(t_list *finder, t_data *env);
+void	cmd_handler(t_list *finder, t_data *env, t_process *process);
 int		execute_main(t_list **head, t_data *env);
 int		how_many_pipes(t_list *finder);
 t_list	*push_list_to_back(t_list *finder);
@@ -83,8 +82,13 @@ char    *append_newline(char *input);
 //signal
 void	signal_handler(int flag);
 void	signal_parent(void);
-// void	signal_child(void);
+void	signal_child(void);
 void	signal_heredoc(void);
 void	signal_ignore(void);
+void	sigterm_handler(char *nl, int flag);
+
+//builtin
+void	builtin_handler(t_cmd *cmd_ary, t_env **head, t_process *process);
+int is_it_builtin(t_cmd *cmd_ary);
 
 #endif

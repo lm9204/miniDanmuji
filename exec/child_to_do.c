@@ -14,8 +14,9 @@
 
 void	child_to_do(t_list *finder, t_process *process, t_data *env)
 {
+	signal_handler(CHILD);
 	first_or_middle_or_last_child(process);
 	redirec_handler(finder);
-	cmd_handler(finder, env);
+	cmd_handler(finder, env, process);
 	return ;
 }

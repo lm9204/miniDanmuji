@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:32:52 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/07 15:13:45 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/14 19:13:56 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	redirect_input(t_list *finder)
 
 	redirec = (t_redirect *)(finder->content);
 
-	if (redirec->type == 4)
+	if (redirec->type == HEREINPUT)
 	{
-		file_path = ft_strjoin("/Users/seongjko/library/caches/", redirec->file);
+		file_path = ft_strjoin("/Users/seongjko/library/caches/", redirec->new_file);
 		file_fd = open(file_path, O_RDONLY | O_CREAT, 0644);
 	}
 	else

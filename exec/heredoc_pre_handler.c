@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 13:41:03 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 18:17:36 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/14 20:53:15 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	heredoc_pre_handler(t_list *finder)
 	int	status;
 
 	convert_delimeter_to_file(finder);
-	signal_handler(IGNORE);
+	signal_handler(IGNORE); 
 	pid = fork();
 	if (pid == 0)
 	{
