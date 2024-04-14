@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parent_to_do.c                                     :+:      :+:    :+:   */
+/*   signal_ignore.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 12:08:30 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 16:20:46 by seongjko         ###   ########.fr       */
+/*   Created: 2024/04/14 16:46:54 by seongjko          #+#    #+#             */
+/*   Updated: 2024/04/14 16:47:49 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void    parent_to_do(t_process *process)
+void    signal_ignore(void)
 {
-    if (process->i != 0)
-		close(process->temp_fd);
-	if (process->i != process->pipe_cnt && process->pipe_cnt != 0)
-		process->temp_fd = dup(process->fd[0]);
-	close(process->fd[0]);
-	close(process->fd[1]);
-    return ;
+    signal(SIGINT, SIG_IGN);
+	signal(SIGTERM, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }

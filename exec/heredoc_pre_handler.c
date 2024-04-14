@@ -6,49 +6,45 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 13:41:03 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/12 20:52:34 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:17:36 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-extern int signal_value;
-
-void	get_heredoc_input(char *delimeter)
+char	*new_tmp_file(t_redirect *redirec, int i)
 {
-	char	*res;
-	char	*res_tmp;
-	char	*line;
+	char	*new_name;
+	char	*path;
+	int		tmp_fd;
 
-	res = (char *)malloc(sizeof(char));
-	*res = '\0';
-	line = readline("> ");
-	line = ft_strjoin(line, "\n");
-	while (ft_strncmp(line, delimeter, ft_strlen(delimeter)))
+	new_name = ft_strjoin(redirec->file, ft_itoa(i));
+	path = ft_strjoin("/Users/seongjko/library/caches/", new_name);
+	printf("%s\n", path);
+	tmp_fd = open(path, O_CREAT | O_WRONLY, 0644);
+	if (tmp_fd == -1)
 	{
-		res_tmp = ft_strjoin(res, line);
-		free(res);
-		free(line);
-		res = res_tmp;
-		line = readline("> ");
-		line = ft_strjoin(line, "\n");
+		printf("failed opening file1\n");
+		exit(1);
 	}
-	free(line);
-	write_in_tmp_file(res, delimeter);
-	return ;
+	close(tmp_fd);
+	return (new_name);
 }
 
-void	check_heredoc(t_list *finder)
+void	convert_delimeter_to_file(t_list *finder)
 {
-	t_redirect	*redirec;
-
+	t_redirect *redirec;
+	int	i;
+	
+	i = 0;
 	while (finder)
 	{
 		if (finder->flag == REDIRECT)
 		{
-			redirec = (t_redirect *)(finder->content);
-			if (redirec->type == HEREINPUT)
-				get_heredoc_input(redirec->file);
+			redirec = (t_redirect *)finder->content;
+			redirec->new_file = new_tmp_file(redirec, i++);
+			printf("%s\n", redirec->new_file);
+			redirec->type = HEREINPUT;
 		}
 		finder = finder->next;
 	}
@@ -57,31 +53,22 @@ void	check_heredoc(t_list *finder)
 
 void	heredoc_pre_handler(t_list *finder)
 {
-	int	is_heredoc;
-	int	pid;
+	pid_t	pid;
 	int	status;
-	
-	is_heredoc = 0;
-	status = 0;
-	create_tmp_files(finder, &is_heredoc);
-	if (!is_heredoc)
-		return ;
-	signal_value = 1;
+
+	convert_delimeter_to_file(finder);
+	signal_handler(IGNORE);
 	pid = fork();
-	if (pid == -1)
+	if (pid == 0)
 	{
-		perror("failed fork\n");
+		signal_handler(HEREDOC);
+		find_heredoc_and_get_input(finder);
 		exit(1);
-	}
-	else if (pid == 0)
-	{
-		signal_handler_heredoc();
-		check_heredoc(finder);
 	}
 	else
 	{
 		wait(&status);
-		signal_value = 0;
+		signal_handler(PARENT);
 	}
 	return ;
 }

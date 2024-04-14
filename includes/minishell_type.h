@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:23:50 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/12 16:40:24 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:51:56 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_redirect
 	int		fd[2];
 	int		type;
 	char	*file;
+	char	*new_file;
 }				t_redirect;
 
 typedef struct s_env
@@ -44,9 +45,12 @@ typedef struct s_env
 
 typedef struct s_data
 {
-	char	*home; //pwd 저장할 거
+	t_env	*env_head;
+	t_list	*head;
 	char	**splitted_exec_path;
-	t_env	**env_head;
+	char	*home;
+	char	*pwd;
+	int		exit_status;
 }				t_data;
 
 #endif

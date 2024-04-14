@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parent_to_do.c                                     :+:      :+:    :+:   */
+/*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 12:08:30 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 16:20:46 by seongjko         ###   ########.fr       */
+/*   Created: 2024/04/14 16:25:28 by seongjko          #+#    #+#             */
+/*   Updated: 2024/04/14 16:45:01 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void    parent_to_do(t_process *process)
+void	signal_handler(int flag)
 {
-    if (process->i != 0)
-		close(process->temp_fd);
-	if (process->i != process->pipe_cnt && process->pipe_cnt != 0)
-		process->temp_fd = dup(process->fd[0]);
-	close(process->fd[0]);
-	close(process->fd[1]);
+	if (flag == PARENT)
+		signal_parent();
+	// else if (flag == CHILD)
+	// 	signal_child();
+	else if (flag == HEREDOC)
+		signal_heredoc();
+	else if (flag == IGNORE)
+	    signal_ignore();
     return ;
 }

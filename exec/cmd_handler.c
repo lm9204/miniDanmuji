@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/12 16:34:30 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:53:41 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	cmd_handler(t_list *finder, t_data *env)
 	char	**envp;
 	t_cmd	*cmd_ary;
 
-	envp = list_to_envp(env->env_head);
+	envp = list_to_envp(&env->env_head);
 
 	cmd_ary = (t_cmd *)finder->content;
 	while (finder && finder->flag != PIPE)

@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/12 19:15:24 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:45:08 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include "../minishell.h"
+#include "../get_next_line/get_next_line.h"
 
 typedef struct s_process {
 	int		*status;
@@ -28,25 +29,27 @@ typedef struct s_process {
 }	t_process;
 
 typedef enum e_node {
-	CMD,
-	PIPE,
-	REDIRECT	
+	CMD = 0,
+	PIPE = 1,
+	REDIRECT = 2	
 }	t_node;
 
 typedef enum e_redirec {
-	HEREDOC,
-	APPEND,
-	INPUT,
-	OUTPUT,
-	HEREINPUT,
+	HEREDOC = 3,
+	APPEND = 4,
+	INPUT = 5,
+	OUTPUT = 6,
+	HEREINPUT = 7,
 }	t_redirec;
 
+typedef enum e_signal{
+	PARENT = 8,
+	CHILD = 9,
+	IGNORE = 10
+}	t_signal;
 
-void	heredoc_pre_handler(t_list *finder);
-void	check_heredoc(t_list *finder);
-void	create_tmp_files(t_list *finder, int *is_heredoc);
-void	new_tmp_file(char *delimeter, int i);
-void	write_in_tmp_file(char *res, char *delimeter);
+
+void	write_in_tmp_file(char *res, char *new_file_name);
 void	child_to_do(t_list *finder, t_process *process, t_data *env);
 char	*ft_getenv(char *name, char **envp);
 char	*joined_path(void *cmds, char **envp_path);
@@ -63,12 +66,25 @@ void	redirect_input(t_list *finder);
 void	redirect_output(t_list *finder);
 void	redirect_output_append(t_list *finder);
 void	redirec_handler(t_list *finder);
-void	signal_handler_parent(void);
-void    signal_handler_child(void);
-void    signal_handler_heredoc(void);
 int		check_cmd(t_list **head, t_data *env);
 int		how_many_cmds(t_list *finder);
 void    wait_child(int child_cnt);
-void	delete_tmp_files(t_list *finder);
+
+//heredoc
+void	heredoc_pre_handler(t_list *finder);
+void	convert_delimeter_to_file(t_list *finder);
+char	*new_tmp_file(t_redirect *redirec, int i);
+void	find_heredoc_and_get_input(t_list *finder);
+void    write_in_file(char *res, t_redirect *redirec);
+char    *get_input(t_redirect *redirec);
+char	*append_input(char *origin, char *input);
+char    *append_newline(char *input);
+
+//signal
+void	signal_handler(int flag);
+void	signal_parent(void);
+// void	signal_child(void);
+void	signal_heredoc(void);
+void	signal_ignore(void);
 
 #endif

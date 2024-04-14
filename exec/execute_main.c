@@ -6,13 +6,11 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 18:43:43 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/12 19:09:06 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:32:40 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-extern int signal_value;
 
 int	execute_main(t_list **head, t_data *env)
 {
@@ -30,7 +28,6 @@ int	execute_main(t_list **head, t_data *env)
 	process.pipe_cnt = how_many_pipes(finder);
 	process.status = NULL;
 	i = -1;
-	signal_value = 1;                                                                
 	while (++i < process.pipe_cnt + 1)		// pipe의 갯수 + 1만큼 fork를 떠야 하므로 +1
 	{
 		if (i != 0) 						//파이프 바로 뒤까지 linked list 밀어주기
@@ -53,7 +50,5 @@ int	execute_main(t_list **head, t_data *env)
 			parent_to_do(&process);
 	}
 	wait_child(process.pipe_cnt + 1);
-	delete_tmp_files(first);
-	signal_value = 0;
     return (1);
 }
