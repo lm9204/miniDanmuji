@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_needle_to_haystack.c                              :+:      :+:    :+:   */
+/*   add_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 14:59:03 by seongjko          #+#    #+#             */
-/*   Updated: 2024/03/24 16:22:36 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/14 21:31:12 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,23 +96,3 @@ t_env	*create_env_node(char *env)
 	res->next = NULL;
 	return (res);
 }
-
-//env가 "a=./a.out" 이런 식으로 들어오면 그대로 envp_2d_ary 마지막에 추가
-// char	**add_env(char **envp_2d_ary, char *env)
-// {
-// 	char	**res;
-// 	int		column;
-// 	int		i;
-
-// 	if (!check_env(env))
-// 		return (NULL);
-// 	column = cnt_column_line(envp_2d_ary);
-// 	res = (char **)malloc(sizeof(char *) * (column + 1 + 1));
-// 	i = -1;
-// 	while (envp_2d_ary[++i])
-// 		res[i] = envp_2d_ary[i];
-// 	res[i] = env;
-// 	res[i + 1] = (char *)NULL;
-// 	free(envp_2d_ary);
-// 	return (res);
-// }

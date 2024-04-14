@@ -6,19 +6,18 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 16:51:00 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/14 15:37:54 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/14 20:19:39 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 static int	check_newline(char *cmd, int *flag, int *newline)
 {
 	int	i;
 
 	i = 1;
-	if (cmd[0] != '-')
+	if (cmd[0] != '-' || *flag)
 		return (0);
 	while (cmd[i])
 	{

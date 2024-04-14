@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 19:00:07 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/14 20:17:37 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,32 @@ t_data	*init_data_struct(char **envp)
 	return (data);
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	const char	*prompt_msg = "minishell$ ";
-	char		**res;
-	char		*nl;
-	t_data		*data;
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	const char	*prompt_msg = "minishell$ ";
+// 	char		**res;
+// 	char		*nl;
+// 	t_data		*data;
 	
-	argc = 0;
-	argv = 0;
-	data = init_data_struct(envp);
-	rl_clear_history();
-	signal_handler(PARENT);
-	nl = readline(prompt_msg);
-	add_history(nl);
-	while (nl)
-	{
-		res = split_cmds(nl, &data->env_head);
-		parse_to_node(&data->head, res);
-		if (data->head != NULL && check_cmd(&data->head, data))
-			execute_main(&data->head, data);
-		free(nl);
-		clear_head(&data->head);
-		nl = readline(prompt_msg);
-		add_history(nl);
-	}
-}
+// 	argc = 0;
+// 	argv = 0;
+// 	data = init_data_struct(envp);
+// 	rl_clear_history();
+// 	signal_handler(PARENT);
+// 	nl = readline(prompt_msg);
+// 	add_history(nl);
+// 	while (nl)
+// 	{
+// 		res = split_cmds(nl, &data->env_head);
+// 		parse_to_node(&data->head, res);
+// 		if (data->head != NULL && check_cmd(&data->head, data))
+// 			execute_main(&data->head, data);
+// 		free(nl);
+// 		clear_head(&data->head);
+// 		nl = readline(prompt_msg);
+// 		add_history(nl);
+// 	}
+// }
 
 //signal handling 관련
 

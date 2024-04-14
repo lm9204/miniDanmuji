@@ -6,14 +6,14 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:09:43 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/14 16:31:20 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/14 21:57:19 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_PARSE_H
 # define MINISHELL_PARSE_H
 
-char	*expand_symbol(t_env **head, char *cmd, int len);
+char	*expand_symbol(t_env **head, char *cmd);
 char	*search_expand(t_env **head, char *cmd);
 int		get_word_len(char *word);
 int		expand_len(t_env **head, char *cmd);
@@ -21,11 +21,11 @@ int		expand(t_env **head, char *output, char *cmd, char quote);
 int		sub_quote_len(char *cmd, char quote);
 
 t_env	*create_env_node(char *env);
-t_env	*find_env(t_env **env_head, char *name, int len);
+t_env	*find_env(t_env **env_head, char *name);
 void	addenv(t_env **env_head, char *env);
 void	init_envp(t_env **env_head, char **envp);
 void	rmv_env(t_env **env_head, char *name);
-int		find_env_len(t_env **env_head, char *name, int len);
+int		find_env_len(t_env **env_head, char *name);
 
 void	clear_cmds(char **cmds);
 void	free_env_list(t_env **head);

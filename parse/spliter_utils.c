@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 18:02:13 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/12 16:11:03 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/14 21:29:23 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ int	findquotes(char *s, int quote)
 
 int	ft_isquotes(char c)
 {
-	// const char	quotes[3] = {'"', '\'', 0};
-
 	if (c == '"')
 		return (1);
 	if (c == '\'')

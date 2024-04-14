@@ -6,13 +6,13 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:59:30 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/12 16:30:06 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/14 21:20:34 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_unset(t_env **head, char *cmd)
+static void	unset_env(t_env **head, char *cmd)
 {
 	t_env	*prev;
 	t_env	*ptr;
@@ -25,6 +25,8 @@ void	ft_unset(t_env **head, char *cmd)
 		{
 			if (!prev)
 				*head = ptr->next;
+			else
+				prev->next = ptr->next;
 			free(ptr->name);
 			if (ptr->value)
 				free(ptr->value);
@@ -32,5 +34,17 @@ void	ft_unset(t_env **head, char *cmd)
 		}
 		prev = ptr;
 		ptr = ptr->next;
+	}
+}
+
+void	ft_unset(t_env **head, char **cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		unset_env(head, cmd[i]);
+		i++;
 	}
 }
