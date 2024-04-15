@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 19:48:31 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/15 03:05:35 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/15 19:14:57 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int check_cmd(t_list **head, t_data *env)
         if (finder->flag == CMD)
         {
 			if (is_it_builtin((t_cmd *)finder->content))
+			{
+				finder = finder->next;
 				continue;
+			}
 			cmd_path = joined_path(finder->content, env->splitted_exec_path);
 			if (!cmd_path)
 			{

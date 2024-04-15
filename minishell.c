@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/15 03:09:43 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/15 19:05:43 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,30 @@
 
 t_data	*init_data_struct(char **envp)
 {
-	t_data *data;
-	
+	t_data	*data;
+
 	data = (t_data *)malloc(sizeof(t_data));
 	data->env_head = NULL;
-	
 	init_envp(&data->env_head, envp);
 	data->splitted_exec_path = ft_split(ft_getenv("PATH", envp), ':');
 	data->head = NULL;
+	data->exit_status = NULL;
 	return (data);
 }
 
 void	terminal_setting(struct termios *term)
 {
-	
-    if (tcgetattr(STDIN_FILENO, term) != 0) {
-        perror("tcgetattr");
-        return ;
-    }
-    term->c_lflag &= ~ECHOCTL;
-    if (tcsetattr(STDIN_FILENO, TCSANOW, term) != 0) {
-        // perror("tcsetattr");
-        return ;
-    }
+	if (tcgetattr(STDIN_FILENO, term) != 0)
+	{
+		perror("tcgetattr");
+		return ;
+	}
+	term->c_lflag &= ~ECHOCTL;
+	if (tcsetattr(STDIN_FILENO, TCSANOW, term) != 0)
+	{
+		// perror("tcsetattr");
+		return ;
+	}
 }
 
 void	reset_terminal_setting(struct termios *term)
@@ -51,13 +52,12 @@ void	reset_terminal_setting(struct termios *term)
 
 int	main(int argc, char **argv, char **envp)
 {
-	const char	*prompt_msg = "\033[32mMinishell>\033[0m ";
-	char		**res;
-	char		*nl;
-	t_data		*data;
-	struct		termios term;
-	
-	
+	const char		*prompt_msg = "\033[32mMinishell>\033[0m ";
+	char			**res;
+	char			*nl;
+	t_data			*data;
+	struct termios	term;
+
 	argc = 0;
 	argv = 0;
 	terminal_setting(&term);
@@ -69,8 +69,10 @@ int	main(int argc, char **argv, char **envp)
 	add_history(nl);
 	while (nl)
 	{
-		res = split_cmds(nl, &data->env_head);
+		res = split_cmds(data, nl);
 		parse_to_node(&data->head, res);
+		validate_node_list(data);
+		printf("exit_status:%s\n", data->exit_status);
 		if (data->head != NULL && check_cmd(&data->head, data))
 			execute_main(&data->head, data);
 		free(nl);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_type.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:23:50 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/14 23:01:10 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/15 18:30:43 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_data
 	char	**splitted_exec_path;
 	char	*home;
 	char	*pwd;
-	int		exit_status;
+	char	*exit_status;
 }				t_data;
 
 #endif

@@ -6,18 +6,18 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/14 21:36:59 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/15 19:04:02 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static void	seperate_word(char *cmds, int *i, int *count, int *isword);
-static char	*checkcmd(t_env **head, char *cmd);
+static char	*checkcmd(t_data *data, char *cmd);
 static char	*ft_cutcmds(const char *cmds, int *idx);
 static int	count_cmds(char *cmds);
 
-static char	*checkcmd(t_env **head, char *cmd)
+static char	*checkcmd(t_data *data, char *cmd)
 {
 	char	*res;
 	int		quote;
@@ -27,7 +27,7 @@ static char	*checkcmd(t_env **head, char *cmd)
 
 	i = 0;
 	j = 0;
-	len = expand_len(head, cmd);
+	len = expand_len(data, cmd);
 	res = malloc(sizeof(char) * (len + 1));
 	while (i < len && j < (int)ft_strlen(cmd))
 	{
@@ -37,7 +37,7 @@ static char	*checkcmd(t_env **head, char *cmd)
 			quote = cmd[j];
 			j++;
 		}
-		i += expand(head, &res[i], &cmd[j], quote);
+		i += expand(data, &res[i], &cmd[j], quote);
 		j += findquotes(&cmd[j], quote);
 	}
 	res[i] = 0;
@@ -112,7 +112,7 @@ static int	count_cmds(char *cmds)
 	return (count);
 }
 
-char	**split_cmds(char *cmds, t_env **envp)
+char	**split_cmds(t_data *data, char *cmds)
 {
 	char	**res;
 	char	*tmp;
@@ -131,7 +131,7 @@ char	**split_cmds(char *cmds, t_env **envp)
 		while (cmds[idx] && cmds[idx] == ' ')
 			idx++;
 		tmp = ft_cutcmds(&cmds[idx], &idx);
-		res[i] = checkcmd(envp, tmp);
+		res[i] = checkcmd(data, tmp);
 		free(tmp);
 		i++;
 	}

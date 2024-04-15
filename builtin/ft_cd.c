@@ -6,13 +6,11 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 19:46:11 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/14 21:58:58 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/15 19:26:59 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
 
 void	ft_cd(t_env **head, char *path)
 {
@@ -26,11 +24,9 @@ void	ft_cd(t_env **head, char *path)
 	home = ptr->value;
 	if (ft_strlen(path) > 0)
 	{
-		if (chdir(path) == -1)
-		{
-			printf("error\n");
-		}
-
+		printf("%s\n", path);
+		chdir(path);
+		printf("%s\n", getcwd(NULL, 0));
 	}
 	else if (home == NULL)
 		ft_putendl_fd("bash: cd: Home not set", 1);
