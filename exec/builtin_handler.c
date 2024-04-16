@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:44:33 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/16 20:59:49 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:13:26 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ int is_it_builtin_pre(t_cmd *cmd_ary)
 
 void    execute_directly(t_cmd *cmd_ary, t_env **head, t_data *data)
 {
+	printf(":pwd:%s\n", data->pwd );
     if (!ft_strncmp(cmd_ary->cmds[0], "cd", ft_strlen("cd") + 1))
-        ft_cd(head, cmd_ary->cmds[1]);
+        ft_cd(data, cmd_ary->cmds[1]);
     if (!ft_strncmp(cmd_ary->cmds[0], "export", ft_strlen("export") + 1))
         ft_export(head, cmd_ary->cmds);
     if (!ft_strncmp(cmd_ary->cmds[0], "unset", ft_strlen("unset") + 1))
@@ -55,7 +56,7 @@ void    execute_directly(t_cmd *cmd_ary, t_env **head, t_data *data)
     if (!ft_strncmp(cmd_ary->cmds[0], "echo", ft_strlen("echo") + 1))
         ft_echo(cmd_ary->cmds);
     if (!ft_strncmp(cmd_ary->cmds[0], "pwd", ft_strlen("pwd") + 1))
-        ft_pwd();
+        ft_pwd(data->pwd);
     if (!ft_strncmp(cmd_ary->cmds[0], "env", ft_strlen("env") + 1))
         ft_env(head);
     return ;
