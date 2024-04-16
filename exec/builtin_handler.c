@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:44:33 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/16 17:48:28 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:59:49 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int is_it_builtin_pre(t_cmd *cmd_ary)
     return (0);
 }
 
-void    execute_directly(t_cmd *cmd_ary, t_env **head)
+void    execute_directly(t_cmd *cmd_ary, t_env **head, t_data *data)
 {
     if (!ft_strncmp(cmd_ary->cmds[0], "cd", ft_strlen("cd") + 1))
         ft_cd(head, cmd_ary->cmds[1]);
@@ -66,16 +66,16 @@ void    executable_builtin_with_pipe(t_cmd *cmd_ary, t_env **head)
     if (!ft_strncmp(cmd_ary->cmds[0], "echo", ft_strlen("echo") + 1))
         ft_echo(cmd_ary->cmds);
     if (!ft_strncmp(cmd_ary->cmds[0], "pwd", ft_strlen("pwd") + 1))
-        ft_pwd();
+        ft_pwd("helo"); //임의로 인자 넣어놓음
     if (!ft_strncmp(cmd_ary->cmds[0], "env", ft_strlen("env") + 1))
         ft_env(head);
     return ;
 }
 
-void    builtin_handler(t_cmd *cmd_ary, t_env **head, t_process *process)
+void    builtin_handler(t_cmd *cmd_ary, t_env **head, t_process *process, t_data *data)
 {
     if (!process->pipe_cnt)
-        execute_directly(cmd_ary, head);
+        execute_directly(cmd_ary, head, data);
     else
         executable_builtin_with_pipe(cmd_ary, head);
     return ;

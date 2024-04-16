@@ -12,12 +12,12 @@
 
 #include "../minishell.h"
 
-void	child_to_do(t_list *finder, t_process *process, t_data *env)
+void	child_to_do(t_list *finder, t_process *process, t_data *data)
 {
 	signal_handler(CHILD);
 	first_or_middle_or_last_child(process);
 	redirec_handler(finder);
-	cmd_handler(finder, env, process);
+	cmd_handler(finder, data, process);
 	exit(0);
 	return ;
 }

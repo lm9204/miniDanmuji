@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 19:48:31 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/15 19:14:57 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:59:12 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int check_cmd(t_list **head, t_data *env)
+int check_cmd(t_list **head, t_data *data)
 {
     t_list	*finder;
 	t_cmd	*cmd_ary;
@@ -28,7 +28,7 @@ int check_cmd(t_list **head, t_data *env)
 				finder = finder->next;
 				continue;
 			}
-			cmd_path = joined_path(finder->content, env->splitted_exec_path);
+			cmd_path = joined_path(finder->content, data->splitted_exec_path);
 			if (!cmd_path)
 			{
 				cmd_ary = (t_cmd *)finder->content;

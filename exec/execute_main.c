@@ -6,13 +6,13 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 18:43:43 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/16 17:40:21 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:57:02 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	execute_main(t_list **head, t_data *env)
+int	execute_main(t_list **head, t_data *data)
 {
 	t_list		*finder;
 	t_list		*first;
@@ -23,7 +23,7 @@ int	execute_main(t_list **head, t_data *env)
 	first = *head;
 	process.pipe_cnt = how_many_pipes(finder);
 	process.status = NULL;
-	if (!pre_processor(finder, env, &process))
+	if (!pre_processor(finder, data, &process))
 	{
 		printf("no fork\n");
 		return (0);
@@ -47,11 +47,11 @@ int	execute_main(t_list **head, t_data *env)
 			exit(1);
 		}
 		else if (process.pid == 0)     	   //자식
-			child_to_do(finder, &process, env);
+			child_to_do(finder, &process, data);
 		else                    			//부모
 			parent_to_do(&process);
 	}
-	wait_child(process.pipe_cnt + 1);
+	wait_child(process.pipe_cnt + 1, data);
 	signal_handler(PARENT);
     return (1);
 }
