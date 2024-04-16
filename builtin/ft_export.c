@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 21:45:32 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/14 21:05:21 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:03:08 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_export(t_env **head, char **cmd)
 	int	i;
 
 	i = 0;
-	if (cmd == NULL || ft_strlen(cmd[0]) == 0)
+	if (cmd == NULL || ft_strlen(cmd[1]) == 0)
 		export_list(head);
 	else
 	{
