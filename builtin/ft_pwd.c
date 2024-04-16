@@ -6,17 +6,19 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:14:15 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/14 15:12:42 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:43:59 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pwd(void)
+void	ft_pwd(char *data_pwd)
 {
-	char	*cwd;
+	char	*pwd;
 
-	cwd = getcwd(NULL, 0);
-	if (cwd != NULL)
-		ft_putendl_fd(cwd, 1);
+	pwd = getcwd(NULL, 0);
+	if (pwd != NULL)
+		ft_putendl_fd(pwd, 1);
+	else
+		ft_putendl_fd(data_pwd, 1);
 }
