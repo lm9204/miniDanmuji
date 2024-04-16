@@ -11,7 +11,8 @@ SRCS = parse/token.c parse/symbol.c parse/list.c parse/spliter_utils.c \
 		exec/signal_ignore.c exec/get_heredoc_input.c \
 		exec/parent_to_do.c exec/redirec_handler.c exec/signal_parent.c minishell.c \
 		exec/check_cmd.c exec/signal_child.c exec/heredoc_pre_handler.c \
-		exec/wait_child.c exec/signal_heredoc.c exec/builtin_handler.c
+		exec/wait_child.c exec/signal_heredoc.c exec/builtin_handler.c \
+		exec/pre_processor.c
 LIB_DIR = libft
 LIB_HEADER = libft.h
 LIB = libft.a

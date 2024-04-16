@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/15 19:05:43 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:24:02 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	main(int argc, char **argv, char **envp)
 		parse_to_node(&data->head, res);
 		validate_node_list(data);
 		printf("exit_status:%s\n", data->exit_status);
-		if (data->head != NULL && check_cmd(&data->head, data))
+		// if (data->head != NULL && check_cmd(&data->head, data))
+		if (data->head != NULL)
 			execute_main(&data->head, data);
 		free(nl);
 		clear_head(&data->head);

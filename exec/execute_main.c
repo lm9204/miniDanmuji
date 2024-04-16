@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 18:43:43 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/15 03:07:20 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:17:02 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@ int	execute_main(t_list **head, t_data *env)
 	
 	finder = *head;
 	first = *head;
-	heredoc_pre_handler(finder);
-	if (!how_many_cmds(finder))
-		return (0);
 	process.pipe_cnt = how_many_pipes(finder);
 	process.status = NULL;
+	if (!pre_processor(finder, env, &process))
+		return (0);
 	i = -1;
 	while (++i < process.pipe_cnt + 1)		// pipe의 갯수 + 1만큼 fork를 떠야 하므로 +1
 	{

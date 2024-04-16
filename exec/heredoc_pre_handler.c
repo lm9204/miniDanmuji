@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_pre_handler.c                              :+:      :+:    :+:   */
+/*   heredoc_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -51,7 +51,7 @@ void	convert_delimeter_to_file(t_list *finder)
 	return ;
 }
 
-void	heredoc_pre_handler(t_list *finder)
+void	heredoc_handler(t_list *finder)
 {
 	pid_t	pid;
 	int	status;
