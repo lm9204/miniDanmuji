@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:44:33 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/16 17:19:20 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:48:28 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,25 @@
 
 int is_it_builtin(t_cmd *cmd_ary)
 {
+    if (!ft_strncmp(cmd_ary->cmds[0], "echo", ft_strlen("echo") + 1))
+        return (1);
+    if (!ft_strncmp(cmd_ary->cmds[0], "pwd", ft_strlen("pwd") + 1))
+        return (1);
+    if (!ft_strncmp(cmd_ary->cmds[0], "env", ft_strlen("env") + 1))
+        return (1);
+    return (0);
+}
+
+int is_it_builtin_pre(t_cmd *cmd_ary)
+{
+    if (!ft_strncmp(cmd_ary->cmds[0], "cd", ft_strlen("cd") + 1))
+        return (1);
+    if (!ft_strncmp(cmd_ary->cmds[0], "export", ft_strlen("export") + 1))
+        return (1);
+    if (!ft_strncmp(cmd_ary->cmds[0], "unset", ft_strlen("unset") + 1))
+        return (1);
+    if (!ft_strncmp(cmd_ary->cmds[0], "exit", ft_strlen("exit") + 1))
+        return (1);
     if (!ft_strncmp(cmd_ary->cmds[0], "echo", ft_strlen("echo") + 1))
         return (1);
     if (!ft_strncmp(cmd_ary->cmds[0], "pwd", ft_strlen("pwd") + 1))

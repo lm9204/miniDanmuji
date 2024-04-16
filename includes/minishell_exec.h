@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/16 17:16:54 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:48:48 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	sigterm_handler(char *nl, int flag);
 //builtin
 void	builtin_handler(t_cmd *cmd_ary, t_env **head, t_process *process);
 int is_it_builtin(t_cmd *cmd_ary);
+int is_it_builtin_pre(t_cmd *cmd_ary);
 
 
 int pre_processor(t_list *finder, t_data *env, t_process *process);
