@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/16 20:06:07 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:13:06 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_data	*init_data_struct(char **envp)
 	data->env_head = NULL;
 	init_envp(&data->env_head, envp);
 	data->splitted_exec_path = ft_split(ft_getenv("PATH", envp), ':');
+	data->home = find_env(&data->env_head, "HOME")->value;
+	data->pwd = find_env(&data->env_head, "PWD")->value;
 	data->head = NULL;
 	data->exit_status = NULL;
 	return (data);
