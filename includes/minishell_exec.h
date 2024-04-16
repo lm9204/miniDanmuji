@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 22:40:08 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:48:48 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		how_many_cmds(t_list *finder);
 void    wait_child(int child_cnt);
 
 //heredoc
-void	heredoc_pre_handler(t_list *finder);
+void	heredoc_handler(t_list *finder);
 void	convert_delimeter_to_file(t_list *finder);
 char	*new_tmp_file(t_redirect *redirec, int i);
 void	find_heredoc_and_get_input(t_list *finder);
@@ -90,5 +90,9 @@ void	sigterm_handler(char *nl, int flag);
 //builtin
 void	builtin_handler(t_cmd *cmd_ary, t_env **head, t_process *process);
 int is_it_builtin(t_cmd *cmd_ary);
+int is_it_builtin_pre(t_cmd *cmd_ary);
+
+
+int pre_processor(t_list *finder, t_data *env, t_process *process);
 
 #endif

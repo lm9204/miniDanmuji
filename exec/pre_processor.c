@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_heredoc.c                                   :+:      :+:    :+:   */
+/*   pre_processor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/12 19:13:20 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/16 17:21:18 by seongjko         ###   ########.fr       */
+/*   Created: 2024/04/16 16:15:57 by seongjko          #+#    #+#             */
+/*   Updated: 2024/04/16 17:49:51 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void    heredoc_signal(int flag)
+int pre_processor(t_list *finder, t_data *env, t_process *process)
 {
-    if (flag == SIGINT)
+    heredoc_handler(finder);
+    if (!how_many_cmds(finder))
+		return (0);
+    if (!how_many_pipes(finder) && is_it_builtin_pre((t_cmd *)finder->content))
     {
-		write (1, "\n", 1);
-        exit(1);
+        builtin_handler((t_cmd *)finder->content, &env->env_head, process);
+        return (0);
     }
-    return ;
+    return (1);
 }
 
-void    signal_heredoc(void)
-{
-    signal(SIGINT, heredoc_signal);
-    signal(SIGQUIT, SIG_IGN);
-    return ;
-}
+

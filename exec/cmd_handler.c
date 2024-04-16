@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/15 19:08:13 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:38:29 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,11 @@ void	cmd_handler(t_list *finder, t_data *env, t_process *process)
 		{
 			cmd_ary = (t_cmd *)finder->content;
 			cmd_path = joined_path(finder->content, env->splitted_exec_path);
-			execve(cmd_path, cmd_ary->cmds, envp);
+			if (execve(cmd_path, cmd_ary->cmds, envp) == -1)
+			{
+				printf("Danmoujishell: %s: command not found\n", cmd_ary->cmds[0]);
+				exit(1);
+			}
 			break ;
 		}
 		finder = finder->next;
