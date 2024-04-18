@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 16:25:28 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/16 19:35:48 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/19 03:29:48 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ void	signal_handler(int flag)
 {
 	if (flag == PARENT)
 		signal_parent();
-	else if (flag == CHILD) 
+	else if (flag == CHILD)
 		signal_child();
 	else if (flag == HEREDOC)
 		signal_heredoc();
 	else if (flag == IGNORE)
-	    signal_ignore();
-    return ;
+		signal_ignore();
+	return ;
 }
 
 void	sigterm_handler(char *nl, int flag)
 {
 	if (flag == PARENT)
 	{
-	if (nl == NULL)
-		{       
- 	       	printf("\0338\002exit\n");
+		if (nl == NULL)
+		{
+			printf("\0338\002exit\n");
 			exit(1);
 		}
 	}

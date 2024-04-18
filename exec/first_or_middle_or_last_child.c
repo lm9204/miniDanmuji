@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:09:37 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/03 15:36:40 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/19 03:23:15 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	first_child_process(int read_end, int write_end, int pipe_cnt)
 {
 	close(read_end);
-	if (pipe_cnt != 0) //파이프가 하나도 없을 경우 dup2를 안뜸
+	if (pipe_cnt != 0)
 		dup2(write_end, STDOUT_FILENO);
 	close(write_end);
 	return ;

@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/18 14:23:59 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/19 04:25:57 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef enum e_signal{
 void	write_in_tmp_file(char *res, char *new_file_name);
 void	child_to_do(t_list *finder, t_process *process, t_data *data);
 char	*ft_getenv(char *name, char **envp);
-char	*joined_path(void *cmds, char **envp_path);
+char	*assemble_cmd_path(void *cmds, char **envp_path);
 void	cmd_handler(t_list *finder, t_data *data, t_process *process);
 int		execute_main(t_list **head, t_data *data);
 int		how_many_pipes(t_list *finder);
@@ -89,7 +89,6 @@ void	sigterm_handler(char *nl, int flag);
 //builtin
 void	builtin_handler(t_cmd *cmd_ary, t_env **head, t_process *process, t_data *data);
 int is_it_builtin(t_cmd *cmd_ary);
-int is_it_builtin_pre(t_cmd *cmd_ary);
 
 
 int pre_processor(t_list *finder, t_data *data, t_process *process);

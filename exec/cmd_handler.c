@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/16 20:58:00 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/19 04:25:57 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,12 @@ char	*ft_getenv(char *name, char **envp)
 	return (NULL);
 }
 
-char	*joined_path(void *cmds, char **envp_path)
+char	*find_accessable_path(t_cmd *cmd_ary, char **envp_path)
 {
-	char	*slash_path;
-	t_cmd	*cmd_ary;
-	char	*cmd_path;
 	int		i;
+	char	*slash_path;
+	char	*cmd_path;
 
-	cmd_ary = (t_cmd *)cmds;
-	if (ft_strchr(cmd_ary->cmds[0], '/') != 0)
-		return (cmd_ary->cmds[0]);
 	i = -1;
 	while (envp_path[++i])
 	{
@@ -49,7 +45,7 @@ char	*joined_path(void *cmds, char **envp_path)
 		cmd_path = ft_strjoin(slash_path, cmd_ary->cmds[0]);
 		if (!slash_path || !cmd_path)
 		{
-			perror("strjoin failed - joined_path\n");
+			perror("strjoin failed - assemble_cmd_path\n");
 			exit(1);
 		}
 		if (!access(cmd_path, X_OK))
@@ -63,32 +59,44 @@ char	*joined_path(void *cmds, char **envp_path)
 	return (0);
 }
 
+char	*assemble_cmd_path(void *cmds, char **envp_path)
+{
+	t_cmd	*cmd_ary;
+
+	cmd_ary = (t_cmd *)cmds;
+	if (ft_strchr(cmd_ary->cmds[0], '/') != 0)
+		return (cmd_ary->cmds[0]);
+	return (find_accessable_path(cmd_ary, envp_path));
+}
+
+void	execute_cmd(t_cmd *cmd_ary, char *cmd_path, char **envp)
+{
+	if (execve(cmd_path, cmd_ary->cmds, envp) == -1)
+	{
+		printf("Danmoujishell: %s: command not found\n", cmd_ary->cmds[0]);
+		exit(1);
+	}
+}
+
 void	cmd_handler(t_list *finder, t_data *data, t_process *process)
 {
-	char	*cmd_path;
 	char	**envp;
 	int		check_builtin;
-	t_cmd	*cmd_ary;
 
 	envp = list_to_envp(&data->env_head);
 	while (finder && finder->flag != PIPE)
 	{
-		check_builtin = is_it_builtin_pre((t_cmd *)finder->content);
+		check_builtin = is_it_builtin((t_cmd *)finder->content);
 		if (finder->flag == CMD && check_builtin == 1)
 		{
-			builtin_handler((t_cmd *)finder->content, &data->env_head, process, data);
-			break;
+			builtin_handler((t_cmd *)finder->content, \
+			&data->env_head, process, data);
+			break ;
 		}
 		else if (finder->flag == CMD && check_builtin == 0)
 		{
-			cmd_ary = (t_cmd *)finder->content;
-			cmd_path = joined_path(finder->content, data->splitted_exec_path);
-			printf("cmd_path: %s\n", cmd_path);
-			if (execve(cmd_path, cmd_ary->cmds, envp) == -1)
-			{
-				printf("Danmoujishell: %s: command not found\n", cmd_ary->cmds[0]);
-				exit(1);
-			}
+			execute_cmd((t_cmd *)finder->content, \
+			assemble_cmd_path(finder->content, data->splitted_exec_path), envp);
 			break ;
 		}
 		finder = finder->next;

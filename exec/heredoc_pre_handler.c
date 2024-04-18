@@ -20,13 +20,12 @@ char	*new_tmp_file(t_redirect *redirec, int i, t_data *env)
 	int		tmp_fd;
 	t_env	*home_direc;
 
-
 	//free 확인해야 함
 	home_direc = find_env(&env->env_head, "HOME");
 	new_name = ft_strjoin(redirec->file, ft_itoa(i));
 	path_temp = ft_strjoin(home_direc->value, "/library/caches/");
 	path = ft_strjoin(path_temp, new_name);
-	printf("new_path: %s\n", path);
+	free(path_temp);
 	redirec->new_file_path = path;
 	tmp_fd = open(path, O_CREAT | O_WRONLY, 0644);
 	if (tmp_fd == -1)
@@ -40,9 +39,9 @@ char	*new_tmp_file(t_redirect *redirec, int i, t_data *env)
 
 void	convert_delimeter_to_file(t_list *finder, t_data *env)
 {
-	t_redirect *redirec;
-	int	i;
-	
+	t_redirect	*redirec;
+	int			i;
+
 	i = 0;
 	while (finder)
 	{
@@ -52,7 +51,6 @@ void	convert_delimeter_to_file(t_list *finder, t_data *env)
 			if (redirec->type == 0)
 			{
 				redirec->new_file = new_tmp_file(redirec, i++, env);
-				printf("%s\n", redirec->new_file);
 				redirec->type = 4;
 			}
 		}
@@ -64,7 +62,7 @@ void	convert_delimeter_to_file(t_list *finder, t_data *env)
 void	heredoc_handler(t_list *finder, t_data *env)
 {
 	pid_t	pid;
-	int	status;
+	int		status;
 
 	convert_delimeter_to_file(finder, env);
 	signal_handler(IGNORE);

@@ -6,23 +6,41 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:15:57 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/18 14:10:43 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/19 04:42:19 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int pre_processor(t_list *finder, t_data *data, t_process *process)
+void	handle_builtin_without_pipe(t_list *finder, t_data *data, \
+t_process *process)
 {
-    heredoc_handler(finder, data);
-    if (!how_many_cmds(finder))
-		return (0);
-    if (!how_many_pipes(finder) && is_it_builtin_pre((t_cmd *)finder->content))
-    {
-        builtin_handler((t_cmd *)finder->content, &data->env_head, process, data);
-        return (0);
-    }
-    return (1);
+	int backup_stdin;
+	int	backup_stdout;
+
+	backup_stdin = dup(STDIN_FILENO);
+    backup_stdout = dup(STDOUT_FILENO);
+	redirec_handler(finder);
+	builtin_handler((t_cmd *)finder->content, \
+	&data->env_head, process, data);
+	dup2(backup_stdin, STDIN_FILENO);
+    dup2(backup_stdout, STDOUT_FILENO);
+    close(backup_stdin);
+    close(backup_stdout);
 }
 
-
+int	pre_processor(t_list *finder, t_data *data, t_process *process)
+{
+	heredoc_handler(finder, data);
+	if (!how_many_cmds(finder))
+	{
+		//delete_heredoc_files.
+		return (0);
+	}
+	if (!how_many_pipes(finder) && is_it_builtin((t_cmd *)finder->content))
+	{
+		handle_builtin_without_pipe(finder, data, process);
+		return (0);
+	}
+	return (1);
+}
