@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/16 20:58:52 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:47:23 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef enum e_redirec {
 	APPEND = 4,
 	INPUT = 5,
 	OUTPUT = 6,
-	HEREINPUT = 7,
 }	t_redirec;
 
 typedef enum e_signal{

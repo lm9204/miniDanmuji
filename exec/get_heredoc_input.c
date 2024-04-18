@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 12:13:35 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 20:54:51 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:46:11 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	find_heredoc_and_get_input(t_list *finder)
 		if (finder->flag == REDIRECT)
 		{
 			redirec = (t_redirect *)finder->content;
-            if (redirec->type == HEREINPUT)
+            if (redirec->type == 4)
             {
                 res = get_input(redirec);
                 write_in_file(res, redirec);

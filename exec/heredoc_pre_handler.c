@@ -42,9 +42,12 @@ void	convert_delimeter_to_file(t_list *finder)
 		if (finder->flag == REDIRECT)
 		{
 			redirec = (t_redirect *)finder->content;
-			redirec->new_file = new_tmp_file(redirec, i++);
-			printf("%s\n", redirec->new_file);
-			redirec->type = HEREINPUT;
+			if (redirec->type == 0)
+			{
+				redirec->new_file = new_tmp_file(redirec, i++);
+				printf("%s\n", redirec->new_file);
+				redirec->type = 4;
+			}
 		}
 		finder = finder->next;
 	}
@@ -57,7 +60,7 @@ void	heredoc_handler(t_list *finder)
 	int	status;
 
 	convert_delimeter_to_file(finder);
-	signal_handler(IGNORE); 
+	signal_handler(IGNORE);
 	pid = fork();
 	if (pid == 0)
 	{
