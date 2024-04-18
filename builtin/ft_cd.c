@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 19:46:11 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/16 21:37:45 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:45:29 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static void	update_pwd(t_data *data)
 		data->pwd = ft_strdup(cwd);
 	}
 	env_pwd = find_env(&data->env_head, "PWD");
-	// tmp = env_pwd->value;
-	// free(tmp);
 	env_pwd->value = ft_strdup(data->pwd);
 }
 

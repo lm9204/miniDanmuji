@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 13:51:21 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/14 22:03:39 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:44:57 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,65 +51,3 @@ void	print_env(t_env **head)
 		ptr = ptr->next;
 	}
 }
-
-// static void	test_exit(t_list **head, t_env **env_head)
-// {
-// 	t_list	*ptr;
-// 	t_cmd	*cmd;
-
-// 	ptr = *head;
-// 	while (ptr)
-// 	{
-// 		if (ptr->flag == 0)
-// 		{
-// 			cmd = ptr->content;
-// 			if (ft_strncmp(cmd->cmds[0], "exit", 5) == 0)
-// 				ft_exit(cmd->cmds[1]);
-// 			if (ft_strncmp(cmd->cmds[0], "echo", 5) == 0)
-// 				ft_echo(cmd->cmds);
-// 			if (ft_strncmp(cmd->cmds[0], "env", 4) == 0)
-// 				ft_env(env_head);
-// 			if (ft_strncmp(cmd->cmds[0], "export", 7) == 0)
-// 				ft_export(env_head, &cmd->cmds[1]);
-// 			if (ft_strncmp(cmd->cmds[0], "unset", 6) == 0)
-// 				ft_unset(env_head, &cmd->cmds[1]);
-// 			if (ft_strncmp(cmd->cmds[0], "cd", 3) == 0)
-// 				ft_cd(env_head, cmd->cmds[1]);
-// 			if (ft_strncmp(cmd->cmds[0], "pwd", 4) == 0)
-// 				ft_pwd();
-// 		}
-// 		ptr = ptr->next;
-// 	}
-// }
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	const char	*prompt_msg = "minishell$ ";
-// 	t_list	*head;
-// 	t_env	*env_head;
-// 	char	**res;
-// 	char	*nl;
-
-// 	argc = 0;
-// 	argv = 0;
-// 	printf("%d%p\n", argc, argv);
-// 	head = NULL;
-// 	env_head = NULL;
-// 	init_envp(&env_head, envp);
-// 	// print_env(&env_head);
-// 	nl = readline(prompt_msg);
-// 	while (nl)
-// 	{
-// 		res = split_cmds(nl, &env_head);
-// 		parse_to_node(&head, res);
-// 		validate_node_list(&head);
-// 		test_exit(&head, &env_head);
-// 		print_list(&head);
-// 		free(nl);
-// 		free(res);
-// 		clear_head(&head);
-// 		nl = readline(prompt_msg);
-// 	}
-// 	free_env_list(&env_head);
-// 	exit(0);
-// }
