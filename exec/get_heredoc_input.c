@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 12:13:35 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/18 13:46:11 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:28:54 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,8 @@ char    *get_input(t_redirect *redirec)
 void    write_in_file(char *res, t_redirect *redirec)
 {
     int tmp_fd;
-    char *path;
 
-    path = ft_strjoin("/Users/seongjko/library/caches/", redirec->new_file);
-    printf("%s\n", path);
-    tmp_fd = open(path, O_WRONLY, 0644);
+    tmp_fd = open(redirec->new_file_path, O_WRONLY, 0644);
     if (tmp_fd == -1)
     {
         printf("failed opening file2\n");

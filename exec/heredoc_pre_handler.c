@@ -12,15 +12,22 @@
 
 #include "../minishell.h"
 
-char	*new_tmp_file(t_redirect *redirec, int i)
+char	*new_tmp_file(t_redirect *redirec, int i, t_data *env)
 {
 	char	*new_name;
 	char	*path;
+	char	*path_temp;
 	int		tmp_fd;
+	t_env	*home_direc;
 
+
+	//free 확인해야 함
+	home_direc = find_env(&env->env_head, "HOME");
 	new_name = ft_strjoin(redirec->file, ft_itoa(i));
-	path = ft_strjoin("/Users/seongjko/library/caches/", new_name);
-	printf("%s\n", path);
+	path_temp = ft_strjoin(home_direc->value, "/library/caches/");
+	path = ft_strjoin(path_temp, new_name);
+	printf("new_path: %s\n", path);
+	redirec->new_file_path = path;
 	tmp_fd = open(path, O_CREAT | O_WRONLY, 0644);
 	if (tmp_fd == -1)
 	{
@@ -31,7 +38,7 @@ char	*new_tmp_file(t_redirect *redirec, int i)
 	return (new_name);
 }
 
-void	convert_delimeter_to_file(t_list *finder)
+void	convert_delimeter_to_file(t_list *finder, t_data *env)
 {
 	t_redirect *redirec;
 	int	i;
@@ -44,7 +51,7 @@ void	convert_delimeter_to_file(t_list *finder)
 			redirec = (t_redirect *)finder->content;
 			if (redirec->type == 0)
 			{
-				redirec->new_file = new_tmp_file(redirec, i++);
+				redirec->new_file = new_tmp_file(redirec, i++, env);
 				printf("%s\n", redirec->new_file);
 				redirec->type = 4;
 			}
@@ -54,12 +61,12 @@ void	convert_delimeter_to_file(t_list *finder)
 	return ;
 }
 
-void	heredoc_handler(t_list *finder)
+void	heredoc_handler(t_list *finder, t_data *env)
 {
 	pid_t	pid;
 	int	status;
 
-	convert_delimeter_to_file(finder);
+	convert_delimeter_to_file(finder, env);
 	signal_handler(IGNORE);
 	pid = fork();
 	if (pid == 0)
