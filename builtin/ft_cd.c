@@ -14,6 +14,7 @@
 
 static void	update_pwd(t_data *data)
 {
+	t_env	*old_pwd;
 	t_env	*env_pwd;
 	char	*cwd;
 	char	*tmp;
@@ -24,8 +25,12 @@ static void	update_pwd(t_data *data)
 		tmp = data->pwd;
 		free(tmp);
 		data->pwd = ft_strdup(cwd);
+		free(cwd);
 	}
 	env_pwd = find_env(&data->env_head, "PWD");
+	old_pwd = find_env(&data->env_head, "OLDPWD");
+	free(old_pwd->value);
+	old_pwd->value = env_pwd->value;
 	env_pwd->value = ft_strdup(data->pwd);
 }
 
@@ -66,6 +71,7 @@ void	ft_cd(t_data *data, char *path)
 			join_pwd(data, path);
 		else
 			ft_cd_error(path);
+		free(pwd);
 	}
 	else if (home == NULL)
 		ft_putendl_fd("bash: cd: HOME not set", 1);

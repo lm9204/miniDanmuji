@@ -21,4 +21,5 @@ void	ft_pwd(char *data_pwd)
 		ft_putendl_fd(pwd, 1);
 	else
 		ft_putendl_fd(data_pwd, 1);
+	free(pwd);
 }
