@@ -20,7 +20,7 @@ void	ft_export(t_env **head, char **cmd)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	if (cmd == NULL || ft_strlen(cmd[1]) == 0)
 		export_list(head);
 	else
@@ -54,12 +54,20 @@ static void	export_list(t_env **head)
 static void	export_env(t_env **head, char *cmd)
 {
 	t_env	*new;
+	t_env	*ptr;
 	char	**res;
 
+	res = ft_split(cmd, '=');
+	ptr = find_env(head, res[0]);
+	if (ptr)
+	{
+		free(ptr->value);
+		ptr->value = res[1];
+		return ;
+	}
 	new = malloc(sizeof(t_env));
 	if (new == NULL)
 		handle_error("malloc error");
-	res = ft_split(cmd, '=');
 	if (res[0] == NULL)
 	{
 		new->name = cmd;
