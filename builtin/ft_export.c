@@ -78,6 +78,7 @@ static void	export_env(t_env **head, char *cmd)
 		new->name = res[0];
 		new->value = res[1];
 	}
+	free(res);
 	new->next = NULL;
 	add_to_list(head, new);
 }
