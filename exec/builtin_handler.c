@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:44:33 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/19 04:25:57 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/21 11:45:28 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	is_it_builtin(t_cmd *cmd_ary)
 
 void	execute_directly(t_cmd *cmd_ary, t_env **head, t_data *data)
 {
-	printf(":pwd:%s\n", data->pwd);
 	if (!ft_strncmp(cmd_ary->cmds[0], "cd", ft_strlen("cd") + 1))
 		ft_cd(data, cmd_ary->cmds[1]);
 	if (!ft_strncmp(cmd_ary->cmds[0], "export", ft_strlen("export") + 1))

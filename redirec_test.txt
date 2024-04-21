@@ -1,0 +1,215 @@
+Test   1: ✅ grep hi <./test_files/infile 
+Test   2: ❌ grep hi "<infile" <         ./test_files/infile 
+mini output = (minishell: syntax error near unexpected token `<')
+bash output = ()
+mini exit code = 258
+bash exit code = 2
+mini error = ()
+bash error = ( No such file or directory)
+
+Test   3: ❌ echo hi < ./test_files/infile bye bye ---------bash랑 결과 맞춤
+mini exit code =
+bash exit code = 0
+Test   4: ✅ grep hi <./test_files/infile_big <./test_files/infile 
+Test   5: ❌ echo <"./test_files/infile" "bonjour       42" ------bash랑 결과 맞춤 
+mini exit code =
+bash exit code = 0
+Test   6: ✅ cat <"./test_files/file name with spaces" 
+Test   7: ✅ cat <./test_files/infile_big ./test_files/infile 
+Test   8: ✅ cat <"1""2""3""4""5" 
+Test   9: ❌ echo <"./test_files/infile" <missing <"./test_files/infile" ---왜 minshell은 개행이 추가?
+mini exit code =
+bash exit code = 1
+Test  10: ❌ echo <missing <"./test_files/infile" <missing 
+mini exit code =
+bash exit code = 1
+mini error = ( No such file or directory No such file or directory)
+bash error = ( No such file or directory)
+Test  11: ✅ cat <"./test_files/infile" 
+Test  12: ✅ echo <"./test_files/infile_big" | cat <"./test_files/infile" 
+Test  13: ✅ echo <"./test_files/infile_big" | cat "./test_files/infile" 
+Test  14: ✅ echo <"./test_files/infile_big" | echo <"./test_files/infile" 
+Test  15: ✅ echo hi | cat <"./test_files/infile" 
+Test  16: ✅ echo hi | cat "./test_files/infile" 
+Test  17: ✅⚠️  cat <"./test_files/infile" | echo hi 
+mini error = ()
+bash error = ( Broken pipe)
+Test  18: ✅ cat <"./test_files/infile" | grep hello 
+Test  19: ✅ cat <"./test_files/infile_big" | echo hi 
+Test  20: ✅ cat <missing 
+Test  21: ✅ cat <missing | cat 
+Test  22: ✅ cat <missing | echo oi 
+Test  23: ✅ cat <missing | cat <"./test_files/infile" 
+Test  24: ✅⚠️  echo <123 <456 hi | echo 42 
+mini error = ( No such file or directory No such file or directory)
+bash error = ( No such file or directory)
+Test  25: ✅ ls >./outfiles/outfile01 
+Test  26: ✅ ls >         ./outfiles/outfile01 
+Test  27: ❌ echo hi >         ./outfiles/outfile01 bye 
+mini exit code =
+bash exit code = 0
+Test  28: ✅ ls >./outfiles/outfile01 >./outfiles/outfile02 
+Test  29: ✅ ls >./outfiles/outfile01 >./test_files/invalid_permission 
+Test  30: ✅ ls >"./outfiles/outfile with spaces" 
+Test  31: ✅ ls >"./outfiles/outfile""1""2""3""4""5" 
+Test  32: ❌ ls >"./outfiles/outfile01" >./test_files/invalid_permission >"./outfiles/outfile02" 
+Only in ./mini_outfiles: outfile02
+mini outfiles:
+README.md
+bash.supp
+bash_outfiles
+bonus
+bonus_bonus
+builtins
+extras
+local.supp
+loop.out
+manual_tests
+mini_outfiles
+os_specific
+outfiles
+pipes
+redirects
+syntax
+test_files
+tester
+wildcards
+bash outfiles:
+mini exit code = 0
+bash exit code = 1
+Test  33: ❌ ls >./test_files/invalid_permission >"./outfiles/outfile01" >./test_files/invalid_permission 
+Only in ./mini_outfiles: outfile01
+mini outfiles:
+bash outfiles:
+cat: ./bash_outfiles/*: No such file or directory
+mini error = ( Permission denied Permission denied)
+bash error = ( Permission denied)
+Test  34: ✅ cat <"./test_files/infile" >"./outfiles/outfile01" 
+Test  35: ✅ echo hi >./outfiles/outfile01 | echo bye 
+Test  36: ✅ echo hi >./outfiles/outfile01 >./outfiles/outfile02 | echo bye 
+Test  37: ✅ echo hi | echo >./outfiles/outfile01 bye 
+Test  38: ✅ echo hi | echo bye >./outfiles/outfile01 >./outfiles/outfile02 
+Test  39: ✅ echo hi >./outfiles/outfile01 | echo bye >./outfiles/outfile02 
+Test  40: ✅ echo hi >./outfiles/outfile01 >./test_files/invalid_permission | echo bye 
+Test  41: ✅ echo hi >./test_files/invalid_permission | echo bye 
+Test  42: ❌ echo hi >./test_files/invalid_permission >./outfiles/outfile01 | echo bye 
+Only in ./mini_outfiles: outfile01
+mini outfiles:
+hi
+bash outfiles:
+cat: ./bash_outfiles/*: No such file or directory
+Test  43: ✅ echo hi | echo bye >./test_files/invalid_permission 
+Test  44: ✅ echo hi | >./outfiles/outfile01 echo bye >./test_files/invalid_permission 
+Test  45: ❌ echo hi | echo bye >./test_files/invalid_permission >./outfiles/outfile01 
+Only in ./mini_outfiles: outfile01
+mini outfiles:
+bye
+bash outfiles:
+cat: ./bash_outfiles/*: No such file or directory
+mini exit code = 0
+bash exit code = 1
+Test  46: ✅ cat <"./test_files/infile" >./test_files/invalid_permission 
+Test  47: ❌ cat >./test_files/invalid_permission <"./test_files/infile" 
+mini output = (hi hello world 42)
+bash output = ()
+mini exit code = 0
+bash exit code = 1
+Test  48: ❌ cat <missing >./outfiles/outfile01 
+Only in ./mini_outfiles: outfile01
+mini outfiles:
+bash outfiles:
+cat: ./bash_outfiles/*: No such file or directory
+mini exit code =
+bash exit code = 1
+Test  49: ✅ cat >./outfiles/outfile01 <missing 
+Test  50: ✅⚠️  cat <missing >./test_files/invalid_permission 
+mini error = ( No such file or directory Permission denied)
+bash error = ( No such file or directory)
+Test  51: ✅⚠️  cat >./test_files/invalid_permission <missing 
+mini error = ( Permission denied No such file or directory)
+bash error = ( Permission denied)
+Test  52: ✅⚠️  cat >./outfiles/outfile01 <missing >./test_files/invalid_permission 
+mini error = ( No such file or directory Permission denied)
+bash error = ( No such file or directory)
+Test  53: ✅ ls >>./outfiles/outfile01 
+Test  54: ✅ ls >>      ./outfiles/outfile01 
+Test  55: ✅ ls >>./outfiles/outfile01 >./outfiles/outfile01 
+Test  56: ✅ ls >./outfiles/outfile01 >>./outfiles/outfile01 
+Test  57: ✅ ls >./outfiles/outfile01 >>./outfiles/outfile01 >./outfiles/outfile02 
+Test  58: ✅ ls >>./outfiles/outfile01 >>./outfiles/outfile02 
+Test  59: ✅ ls >>./test_files/invalid_permission 
+Test  60: ❌ ls >>./test_files/invalid_permission >>./outfiles/outfile01 
+Only in ./mini_outfiles: outfile01
+mini outfiles:
+README.md
+bash.supp
+bash_outfiles
+bonus
+bonus_bonus
+builtins
+extras
+local.supp
+loop.out
+manual_tests
+mini_outfiles
+os_specific
+outfiles
+pipes
+redirects
+syntax
+test_files
+tester
+wildcards
+bash outfiles:
+cat: ./bash_outfiles/*: No such file or directory
+mini exit code = 0
+bash exit code = 1
+Test  61: ✅ ls >>./outfiles/outfile01 >>./test_files/invalid_permission 
+Test  62: ❌ ls >./outfiles/outfile01 >>./test_files/invalid_permission >>./outfiles/outfile02 
+Only in ./mini_outfiles: outfile02
+mini outfiles:
+README.md
+bash.supp
+bash_outfiles
+bonus
+bonus_bonus
+builtins
+extras
+local.supp
+loop.out
+manual_tests
+mini_outfiles
+os_specific
+outfiles
+pipes
+redirects
+syntax
+test_files
+tester
+wildcards
+bash outfiles:
+mini exit code = 0
+bash exit code = 1
+Test  63: ❌ ls <missing >>./test_files/invalid_permission >>./outfiles/outfile02 
+Only in ./mini_outfiles: outfile02
+mini outfiles:
+README.md
+bash.supp
+bash_outfiles
+bonus
+bonus_bonus
+builtins
+extras
+local.supp
+loop.out
+manual_tests
+mini_outfiles
+os_specific
+outfiles
+pipes
+redirects
+syntax
+test_files
+tester
+wildcards
+bash outfiles:

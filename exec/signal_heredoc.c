@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 19:13:20 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/19 03:30:25 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/20 05:10:15 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	heredoc_signal(int flag)
 {
 	if (flag == SIGINT)
 	{
-		write (1, "\n", 1);
-		exit(1);
+		write(1, "\n", 1);
+		exit(0);
 	}
 	return ;
 }

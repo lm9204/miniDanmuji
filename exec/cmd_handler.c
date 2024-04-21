@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/19 04:25:57 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/21 11:47:29 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,18 @@ char	*assemble_cmd_path(void *cmds, char **envp_path)
 	return (find_accessable_path(cmd_ary, envp_path));
 }
 
-void	execute_cmd(t_cmd *cmd_ary, char *cmd_path, char **envp)
+void	execute_cmd(t_cmd *cmd_ary, char *cmd_path, t_fd *backup, char **envp)
 {
 	if (execve(cmd_path, cmd_ary->cmds, envp) == -1)
 	{
+		dup2(backup->std_output, STDOUT_FILENO);
 		printf("Danmoujishell: %s: command not found\n", cmd_ary->cmds[0]);
 		exit(1);
 	}
 }
 
-void	cmd_handler(t_list *finder, t_data *data, t_process *process)
+void	cmd_handler(t_list *finder, t_data *data, t_process *process, \
+t_fd *backup)
 {
 	char	**envp;
 	int		check_builtin;
@@ -95,8 +97,11 @@ void	cmd_handler(t_list *finder, t_data *data, t_process *process)
 		}
 		else if (finder->flag == CMD && check_builtin == 0)
 		{
-			execute_cmd((t_cmd *)finder->content, \
-			assemble_cmd_path(finder->content, data->splitted_exec_path), envp);
+			execute_cmd(\
+			(t_cmd *)finder->content, \
+			assemble_cmd_path(finder->content, data->splitted_exec_path), \
+			backup, \
+			envp);
 			break ;
 		}
 		finder = finder->next;

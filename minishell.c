@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/18 14:44:23 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/21 13:23:50 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,55 +27,31 @@ t_data	*init_data_struct(char **envp)
 	return (data);
 }
 
-void	terminal_setting(struct termios *term)
-{
-	if (tcgetattr(STDIN_FILENO, term) != 0)
-	{
-		perror("tcgetattr");
-		return ;
-	}
-	term->c_lflag &= ~ECHOCTL;
-	if (tcsetattr(STDIN_FILENO, TCSANOW, term) != 0)
-	{
-		// perror("tcsetattr");
-		return ;
-	}
-}
-
-void	reset_terminal_setting(struct termios *term)
-{
-	if (tcsetattr(STDIN_FILENO, TCSANOW, term) != 0)
-	{
-		perror("tcsetattr");
-		return ;
-	}
-	return ;
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	const char		*prompt_msg = "minishell> \001\0337";
 	char			**res;
 	char			*nl;
 	t_data			*data;
-	struct termios	term;
 
+	extern int rl_catch_signals;
 	argc = 0;
 	argv = 0;
-	terminal_setting(&term);
+	rl_catch_signals = 0;
 	data = init_data_struct(envp);
 	rl_clear_history();
 	signal_handler(PARENT);
 	nl = readline(prompt_msg);
 	sigterm_handler(nl, PARENT);
 	add_history(nl);
+
 	while (nl)
 	{
 		res = split_cmds(data, nl);
 		parse_to_node(&data->head, res);
 		if (data->head != NULL && validate_node_list(data))
 		{
-			print_list(&data->head);
+			// print_list(&data->head);
 			execute_main(&data->head, data);
 		}
 		free(nl);
@@ -84,5 +60,7 @@ int	main(int argc, char **argv, char **envp)
 		sigterm_handler(nl, PARENT);
 		add_history(nl);
 	}
-	reset_terminal_setting(&term);
+
+	
+	// system("leaks --list minishell");
 }
