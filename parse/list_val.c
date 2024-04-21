@@ -22,9 +22,24 @@ static void	syntax_error(t_data *data, char *cmd)
 	data->exit_status = "258";
 }
 
+static int	validate_is_symbol(char *file)
+{
+	const char	*symbol[] = {"<<", ">>", "<", ">", 0};
+	int			i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (ft_strncmp(symbol[i], file, ft_strlen(symbol[i]) + 1) == 0)
+			return (i + 1);
+		i++;
+	}
+	return (0);
+}
+
 static int	validate_redirect(t_data *data, t_redirect *node)
 {
-	if (is_symbol(node->file) || ft_strncmp(node->file, "|", 2) == 0)
+	if (validate_is_symbol(node->file) || ft_strncmp(node->file, "|", 2) == 0)
 	{
 		syntax_error(data, node->file);
 		return (0);
