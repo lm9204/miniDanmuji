@@ -12,6 +12,16 @@
 
 #include "../minishell.h"
 
+static void	clear_redirect(t_redirect *redirect)
+{
+	free(redirect->file);
+	if (redirect->type == 4)
+	{
+		free(redirect->new_file);
+		free(redirect->new_file_path);
+	}
+}
+
 void	clear_cmds(char **cmds)
 {
 	int	i;
@@ -45,7 +55,7 @@ void	clear_head(t_list **head)
 		if (ptr->flag == 2)
 		{
 			redirect = ptr->content;
-			free(redirect->file);
+			clear_redirect(redirect);
 			free(redirect);
 		}
 		free(ptr);
