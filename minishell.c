@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/21 13:23:50 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:25:13 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_data	*init_data_struct(char **envp)
 	data->env_head = NULL;
 	init_envp(&data->env_head, envp);
 	data->splitted_exec_path = ft_split(ft_getenv("PATH", envp), ':');
-	data->home = find_env(&data->env_head, "HOME")->value;
-	data->pwd = find_env(&data->env_head, "PWD")->value;
+	data->home = ft_strdup(find_env(&data->env_head, "HOME")->value);
+	data->pwd = ft_strdup(find_env(&data->env_head, "PWD")->value);
 	data->head = NULL;
 	data->exit_status = NULL;
 	return (data);
@@ -44,23 +44,18 @@ int	main(int argc, char **argv, char **envp)
 	nl = readline(prompt_msg);
 	sigterm_handler(nl, PARENT);
 	add_history(nl);
-
 	while (nl)
 	{
-		res = split_cmds(data, nl);
+		res = split_cmds(nl);
 		parse_to_node(&data->head, res);
 		if (data->head != NULL && validate_node_list(data))
-		{
-			// print_list(&data->head);
 			execute_main(&data->head, data);
-		}
 		free(nl);
+		free(res);
 		clear_head(&data->head);
 		nl = readline(prompt_msg);
 		sigterm_handler(nl, PARENT);
 		add_history(nl);
 	}
-
-	
 	// system("leaks --list minishell");
 }

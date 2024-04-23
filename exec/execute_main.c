@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 18:43:43 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/21 13:23:07 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:35:34 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	execute_main(t_list **head, t_data *data)
 	int			i;
 
 	finder = *head;
-	preset(&process, data, finder, &i);
+	if (!preset(&process, data, finder, &i))
+		return (0);
 	while (++i < process.pipe_cnt + 1)
 	{
 		if (i != 0)
