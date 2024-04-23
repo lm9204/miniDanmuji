@@ -6,13 +6,15 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:09:43 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/18 14:41:31 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:25:28 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_PARSE_H
 # define MINISHELL_PARSE_H
 
+
+char	*checkcmd(t_data *data, char *cmd);
 char	*expand_symbol(t_data *data, char *cmd);
 char	*search_expand(t_env **head, char *cmd);
 int		get_word_len(char *word);

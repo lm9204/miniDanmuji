@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 18:02:13 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/14 21:29:23 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:39:43 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,15 @@ int	splitable_symbol_len(const char *cmds, int len)
 	return (0);
 }
 
-int	findquotes(char *s, int quote)
+int	findquotes(const char *s, int quote)
 {
 	int	i;
-	int	target;
 
 	i = 0;
-	if (quote == 1)
-		target = '"';
-	else if (quote == 2)
-		target = '\'';
-	else
-		target = quote;
-	while (s[i] && s[i] != target)
+	while (s[i] && s[i] != quote)
 		i++;
-	if (s[i] == target)
+	if (s[i] == quote)
 		return (i + 1);
-	handle_error("syntax error");
 	return (-1);
 }
 

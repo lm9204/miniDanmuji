@@ -6,18 +6,18 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/15 19:04:02 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:04:55 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static void	seperate_word(char *cmds, int *i, int *count, int *isword);
-static char	*checkcmd(t_data *data, char *cmd);
+// static char	*checkcmd(t_data *data, char *cmd);
 static char	*ft_cutcmds(const char *cmds, int *idx);
 static int	count_cmds(char *cmds);
 
-static char	*checkcmd(t_data *data, char *cmd)
+char	*checkcmd(t_data *data, char *cmd)
 {
 	char	*res;
 	int		quote;
@@ -47,24 +47,22 @@ static char	*checkcmd(t_data *data, char *cmd)
 static char	*ft_cutcmds(const char *cmds, int *idx)
 {
 	char	*word;
-	int		isquotes;
 	int		len;
 
 	len = 0;
-	isquotes = 0;
 	while (cmds[len])
 	{
-		if (isquotes && cmds[len - 1] && cmds[len - 1] == isquotes \
-		&& cmds[len] == ' ')
+		if (ft_isquotes(cmds[len]))
+		{
+			len += findquotes(&cmds[len + 1], cmds[len]) + 1;
 			break ;
-		if (!isquotes && ft_isquotes(cmds[len]))
-			isquotes = cmds[len];
-		if (!isquotes && (is_symbol(&cmds[len]) || cmds[len] == '|'))
+		}
+		if (is_symbol(&cmds[len]) || cmds[len] == '|')
 		{
 			len += splitable_symbol_len(&cmds[len], len);
 			break ;
 		}
-		if (!isquotes && cmds[len] == ' ')
+		if (cmds[len] == ' ')
 			break ;
 		len++;
 	}
@@ -112,10 +110,9 @@ static int	count_cmds(char *cmds)
 	return (count);
 }
 
-char	**split_cmds(t_data *data, char *cmds)
+char	**split_cmds(char *cmds)
 {
 	char	**res;
-	char	*tmp;
 	int		size;
 	int		idx;
 	int		i;
@@ -130,9 +127,7 @@ char	**split_cmds(t_data *data, char *cmds)
 	{
 		while (cmds[idx] && cmds[idx] == ' ')
 			idx++;
-		tmp = ft_cutcmds(&cmds[idx], &idx);
-		res[i] = checkcmd(data, tmp);
-		free(tmp);
+		res[i] = ft_cutcmds(&cmds[idx], &idx);
 		i++;
 	}
 	res[i] = NULL;
