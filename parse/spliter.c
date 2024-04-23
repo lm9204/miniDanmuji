@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/23 14:04:55 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:40:03 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*ft_cutcmds(const char *cmds, int *idx)
 	len = 0;
 	while (cmds[len])
 	{
-		if (ft_isquotes(cmds[len]))
+		if (len == 0 && ft_isquotes(cmds[len]))
 		{
 			len += findquotes(&cmds[len + 1], cmds[len]) + 1;
 			break ;
@@ -62,11 +62,12 @@ static char	*ft_cutcmds(const char *cmds, int *idx)
 			len += splitable_symbol_len(&cmds[len], len);
 			break ;
 		}
-		if (cmds[len] == ' ')
+		if (cmds[len] == ' ' || ft_isquotes(cmds[len]))
 			break ;
 		len++;
 	}
 	word = ft_allocword(cmds, len);
+	printf("cut:%s\n", word);
 	*idx += len;
 	return (word);
 }
