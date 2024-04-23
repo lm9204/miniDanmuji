@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/21 11:47:29 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:04:04 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	execute_cmd(t_cmd *cmd_ary, char *cmd_path, t_fd *backup, char **envp)
 	{
 		dup2(backup->std_output, STDOUT_FILENO);
 		printf("Danmoujishell: %s: command not found\n", cmd_ary->cmds[0]);
-		exit(1);
+		exit(127);
 	}
 }
 
@@ -89,7 +89,7 @@ t_fd *backup)
 	while (finder && finder->flag != PIPE)
 	{
 		check_builtin = is_it_builtin((t_cmd *)finder->content);
-		if (finder->flag == CMD && check_builtin == 1)
+		if (finder->flag == CMD && check_builtin == 1 && process->pipe_cnt != 0)
 		{
 			builtin_handler((t_cmd *)finder->content, \
 			&data->env_head, process, data);
