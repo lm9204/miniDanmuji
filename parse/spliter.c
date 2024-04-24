@@ -20,26 +20,11 @@ static int	count_cmds(char *cmds);
 char	*checkcmd(t_data *data, char *cmd)
 {
 	char	*res;
-	int		quote;
-	int		i;
-	int		j;
 	int		len;
 
-	i = 0;
-	j = 0;
 	len = expand_len(data, cmd);
-	printf("expandlen:%d\n", len);
 	res = malloc(sizeof(char) * (len + 1));
-	while (i < len && j < (int)ft_strlen(cmd))
-	{
-		quote = 0;
-		if (ft_isquotes(cmd[j]) && findquotes(&cmd[j + 1], cmd[j]) != -1)
-			quote = cmd[j++];
-		i += expand(data, &res[i], &cmd[j], quote);
-		j += findquotes(&cmd[j], quote);
-		printf("i:%d j:%d\n", i, j);
-	}
-	res[i] = 0;
+	expand(data, res, cmd);
 	return (res);
 }
 
@@ -65,7 +50,6 @@ static char	*ft_cutcmds(const char *cmds, int *idx)
 		len++;
 	}
 	word = ft_allocword(cmds, len);
-	printf("cut:%s\n", word);
 	*idx += len;
 	return (word);
 }

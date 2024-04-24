@@ -12,27 +12,33 @@
 
 #include "../minishell.h"
 
-int	expand(t_data *data, char *output, char *cmd, char quote)
+int	expand(t_data *data, char *output, char *cmd)
 {
 	char	*tmp;
+	int		quote;
 	int		len;
 	int		i;
 
 	i = 0;
 	len = 0;
-	printf("quote:%c cmd:%s\n", quote, cmd);
-	while (cmd[i] && cmd[i] != quote)
+	quote = 0;
+	while (cmd[i])
 	{
-		if (ft_isquotes(quote) != 2 && cmd[i] == '$')
+		if (!quote && ft_isquotes(cmd[i]))
+			quote = ft_isquotes(cmd[i]);
+		else if (quote && ft_isquotes(cmd[i]) != 0 && ft_isquotes(cmd[i]) == quote)
+			quote = 0;
+		else if (quote != 2 && cmd[i] == '$')
 		{
 			tmp = expand_symbol(data, &cmd[i + 1]);
-			if (tmp)
-				ft_strlcpy(&output[len], tmp, ft_strlen(tmp) + 1);
+			ft_strlcpy(&output[len], tmp, ft_strlen(tmp) + 1);
 			i += get_word_len(&cmd[i + 1]) + 1;
 			len += ft_strlen(tmp);
 			continue ;
 		}
-		output[len++] = cmd[i++];
+		else
+			output[len++] = cmd[i];
+		i++;
 	}
 	output[len] = 0;
 	return (len);
@@ -41,9 +47,18 @@ int	expand(t_data *data, char *output, char *cmd, char quote)
 char	*expand_symbol(t_data *data, char *cmd)
 {
 	t_env	*ptr;
+	char	*dollar_sign;
 
+	dollar_sign = "$";
 	if (cmd[0] == ' ')
-		return ("$");
+	{
+		dollar_sign = "$ ";
+		return (dollar_sign);
+	}
+	if (cmd[0] == 0 || ft_isquotes(cmd[0]))
+	{
+		return (dollar_sign);
+	}	
 	if (cmd[0] == '?')
 		return (data->exit_status);
 	ptr = find_env(&data->env_head, cmd);
@@ -59,7 +74,7 @@ int	expand_len(t_data *data, char *cmd)
 	int	j;
 
 	i = 0;
-	len = sub_quote_len(cmd, cmd[0]);
+	len = sub_quote_len(cmd);
 	while (cmd[i])
 	{
 		j = i;
@@ -81,14 +96,13 @@ int	expand_len(t_data *data, char *cmd)
 	return (len);
 }
 
-int	sub_quote_len(char *cmd, char quote)
+int	sub_quote_len(char *cmd)
 {
 	int	len;
 	int	i;
 
 	i = 0;
 	len = 0;
-	quote = 0;
 	while (cmd[i])
 	{
 		if (ft_isquotes(cmd[i]))

@@ -19,8 +19,8 @@ char	*expand_symbol(t_data *data, char *cmd);
 char	*search_expand(t_env **head, char *cmd);
 int		get_word_len(char *word);
 int		expand_len(t_data *data, char *cmd);
-int		expand(t_data *data, char *output, char *cmd, char quote);
-int		sub_quote_len(char *cmd, char quote);
+int		expand(t_data *data, char *output, char *cmd);
+int		sub_quote_len(char *cmd);
 
 t_env	*create_env_node(char *env);
 t_env	*find_env(t_env **env_head, char *name);
