@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:30:33 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/15 19:05:03 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:05:47 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	expand(t_data *data, char *output, char *cmd, char quote)
 
 	i = 0;
 	len = 0;
+	printf("quote:%c cmd:%s\n", quote, cmd);
 	while (cmd[i] && cmd[i] != quote)
 	{
 		if (ft_isquotes(quote) != 2 && cmd[i] == '$')
@@ -41,6 +42,8 @@ char	*expand_symbol(t_data *data, char *cmd)
 {
 	t_env	*ptr;
 
+	if (cmd[0] == ' ')
+		return ("$");
 	if (cmd[0] == '?')
 		return (data->exit_status);
 	ptr = find_env(&data->env_head, cmd);
@@ -60,8 +63,10 @@ int	expand_len(t_data *data, char *cmd)
 	while (cmd[i])
 	{
 		j = i;
-		if (cmd[0] != '\'' && cmd[i] == '$')
+		if ((cmd[i - 1] != '\'' || (i == 0 && cmd[0] != '\'')) && cmd[i] == '$')
 		{
+			if (cmd[i + 1] == ' ')
+				return (1);
 			if (cmd[i + 1] == '?')
 				return (ft_strlen(data->exit_status));
 			while (cmd[j + 1] && cmd[j + 1] != ' ' && !ft_isquotes(cmd[j + 1]))
@@ -78,16 +83,22 @@ int	expand_len(t_data *data, char *cmd)
 
 int	sub_quote_len(char *cmd, char quote)
 {
+	int	len;
 	int	i;
 
-	i = 1;
-	if (!ft_isquotes(quote))
-		return (0);
-	while (cmd[i] && cmd[i] != quote)
+	i = 0;
+	len = 0;
+	quote = 0;
+	while (cmd[i])
+	{
+		if (ft_isquotes(cmd[i]))
+		{
+			i += findquotes(&cmd[i + 1], cmd[i]);
+			len = -2;
+		}
 		i++;
-	if (cmd[i] == quote)
-		return (-2);
-	return (-1);
+	}
+	return (len);
 }
 
 int	get_word_len(char *word)

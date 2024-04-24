@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/23 14:40:03 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:10:40 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,16 @@ char	*checkcmd(t_data *data, char *cmd)
 	i = 0;
 	j = 0;
 	len = expand_len(data, cmd);
+	printf("expandlen:%d\n", len);
 	res = malloc(sizeof(char) * (len + 1));
 	while (i < len && j < (int)ft_strlen(cmd))
 	{
 		quote = 0;
-		if (ft_isquotes(cmd[j]))
-		{
-			quote = cmd[j];
-			j++;
-		}
+		if (ft_isquotes(cmd[j]) && findquotes(&cmd[j + 1], cmd[j]) != -1)
+			quote = cmd[j++];
 		i += expand(data, &res[i], &cmd[j], quote);
 		j += findquotes(&cmd[j], quote);
+		printf("i:%d j:%d\n", i, j);
 	}
 	res[i] = 0;
 	return (res);
@@ -52,17 +51,16 @@ static char	*ft_cutcmds(const char *cmds, int *idx)
 	len = 0;
 	while (cmds[len])
 	{
-		if (len == 0 && ft_isquotes(cmds[len]))
+		if (ft_isquotes(cmds[len]))
 		{
 			len += findquotes(&cmds[len + 1], cmds[len]) + 1;
-			break ;
 		}
 		if (is_symbol(&cmds[len]) || cmds[len] == '|')
 		{
 			len += splitable_symbol_len(&cmds[len], len);
 			break ;
 		}
-		if (cmds[len] == ' ' || ft_isquotes(cmds[len]))
+		if (cmds[len] == ' ')
 			break ;
 		len++;
 	}
