@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:42:42 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/23 09:17:51 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:07:49 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void signal_child(void)
 
     sigaction(SIGINT, &act, NULL);
     sigaction(SIGQUIT, &act, NULL);
+    // signal(SIGINT, child_handler);
+	// signal(SIGQUIT, SIG_IGN);
 
     return;
 }

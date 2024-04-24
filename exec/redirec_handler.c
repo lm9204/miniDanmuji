@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:32:52 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/23 15:55:47 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:34:28 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	open_file(t_redirect *redirec)
 	return (open(path, O_RDONLY, 0644));
 }
 
-int	redirect_input(t_list *finder)
+int	redirect_input(t_list *finder, int builtin)
 {
 	int			file_fd;
 	t_redirect	*redirec;
@@ -37,7 +37,8 @@ int	redirect_input(t_list *finder)
 		perror(error_msg);
 		return (0);
 	}
-	dup2(file_fd, STDIN_FILENO);
+	if (builtin != 1)
+		dup2(file_fd, STDIN_FILENO);
 	close(file_fd);
 	return (1);
 }
@@ -93,9 +94,8 @@ int	redirec_handler(t_list *finder, int builtin)
 			redirec = (t_redirect *)(finder->content);
 			if (redirec->type == 1)
 				flag = redirect_output_append(finder);
-			if ((redirec->type == 2 || redirec->type == 4) && \
-			builtin != 1)
-				flag = redirect_input(finder);
+			if (redirec->type == 2 || redirec->type == 4)
+				flag = redirect_input(finder, builtin);
 			if (redirec->type == 3)
 				flag = redirect_output(finder);
 			if (flag == 0)

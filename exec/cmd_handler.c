@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/23 14:04:04 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:49:05 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@ char	*find_accessable_path(t_cmd *cmd_ary, char **envp_path)
 	{
 		slash_path = ft_strjoin(envp_path[i], "/");
 		cmd_path = ft_strjoin(slash_path, cmd_ary->cmds[0]);
-		if (!slash_path || !cmd_path)
-		{
-			perror("strjoin failed - assemble_cmd_path\n");
-			exit(1);
-		}
 		if (!access(cmd_path, X_OK))
 		{
 			free(slash_path);
@@ -89,7 +84,7 @@ t_fd *backup)
 	while (finder && finder->flag != PIPE)
 	{
 		check_builtin = is_it_builtin((t_cmd *)finder->content);
-		if (finder->flag == CMD && check_builtin == 1 && process->pipe_cnt != 0)
+		if (finder->flag == CMD && check_builtin == 1)
 		{
 			builtin_handler((t_cmd *)finder->content, \
 			&data->env_head, process, data);

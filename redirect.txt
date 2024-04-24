@@ -1,0 +1,187 @@
+Test   3: ❌ echo hi < ./test_files/infile bye bye 
+mini exit code =
+bash exit code = 0
+✅ bash랑 똑같이 나오는데? 
+
+Test   5: ❌ echo <"./test_files/infile" "bonjour       42" 
+mini exit code =
+bash exit code = 0
+✅ bash랑 똑같이 나오는데?
+
+Test   6: ❌ cat <"./test_files/file name with spaces" 
+mini output = ()
+bash output = (😈 😈 😈 This will break your minishell 😈 😈 😈)
+mini exit code = 1
+bash exit code = 0
+mini error = ( No such file or directory)
+bash error = ()
+✅ 파일명에 따옴표가 들어오면 minishell이 인식을 못함
+parsing에서 따로 처리해주던지 해야
+
+Test   9: ❌ echo <"./test_files/infile" <missing <"./test_files/infile" 
+mini exit code =
+bash exit code = 1
+mini error = ()
+bash error = ( No such file or directory)
+✅ 원래는 파이프 없는 빌트인함수일 경우 redirect input을 아예 무시했는데
+에러는 표시해야 돼서 빌트인일 경우 dup2만 뜨지 않도록 바꿈
+
+Test  10: ❌ echo <missing <"./test_files/infile" <missing 
+mini exit code =
+bash exit code = 1
+mini error = ()
+bash error = ( No such file or directory)
+✅ bash랑 똑같이 나오는데? 
+
+Test  11: ❌ cat <"./test_files/infile" 
+mini output = ()
+bash output = (hi hello world 42)
+mini exit code = 1
+bash exit code = 0
+mini error = ( No such file or directory)
+bash error = ()
+✅ 이것도 지금 따옴표 문제 따옴표가 파일 경로에 같이 들어가니까 인식 자체를 못하고 있음
+
+Test  12: ❌ echo <"./test_files/infile_big" | cat <"./test_files/infile" 
+mini output = ()
+bash output = (hi hello world 42)
+mini exit code = 1
+bash exit code = 0
+mini error = ( No such file or directory No such file or directory)
+bash error = ()
+✅ 이것도 지금 따옴표 문제 따옴표가 파일 경로에 같이 들어가니까 인식 자체를 못하고 있음
+
+Test  13: ❌ echo <"./test_files/infile_big" | cat "./test_files/infile" 
+mini output = ()
+bash output = (hi hello world 42)
+mini exit code = 1
+bash exit code = 0
+mini error = ( No such file or directory No such file or directory)
+bash error = ()
+✅ 이것도 지금 따옴표 문제 따옴표가 파일 경로에 같이 들어가니까 인식 자체를 못하고 있음
+
+Test  14: ❌ echo <"./test_files/infile_big" | echo <"./test_files/infile" 
+mini exit code = 1
+bash exit code = 0
+mini error = ( No such file or directory No such file or directory)
+bash error = ()
+✅ 이것도 지금 따옴표 문제 따옴표가 파일 경로에 같이 들어가니까 인식 자체를 못하고 있음
+
+Test  15: ❌ echo hi | cat <"./test_files/infile" 
+mini output = ()
+bash output = (hi hello world 42)
+mini exit code = 1
+bash exit code = 0
+mini error = ( No such file or directory)
+bash error = ()
+✅ 이것도 지금 따옴표 문제 따옴표가 파일 경로에 같이 들어가니까 인식 자체를 못하고 있음
+
+Test  18: ❌ cat <"./test_files/infile" | grep hello 
+mini output = ()
+bash output = (hello)
+mini exit code = 1
+bash exit code = 0
+✅ 이것도 지금 따옴표 문제 따옴표가 파일 경로에 같이 들어가니까 인식 자체를 못하고 있음
+
+Test  23: ❌ cat <missing | cat <"./test_files/infile"
+mini output = ()
+bash output = (hi hello world 42)
+mini exit code = 1
+bash exit code = 0
+mini error = ( No such file or directory No such file or directory)
+bash error = ( No such file or directory)
+✅ 이것도 지금 따옴표 문제 따옴표가 파일 경로에 같이 들어가니까 인식 자체를 못하고 있음
+
+Test  27: ❌ echo hi >         ./outfiles/outfile01 bye 
+Files ./mini_outfiles/outfile01 and ./bash_outfiles/outfile01 differ
+mini outfiles:
+hi bye
+minishell> exit
+bash outfiles:
+hi bye
+mini exit code =
+bash exit code = 0
+✅ bash랑 똑같이 나오는데?
+
+Test  30: ❌ ls >"./outfiles/outfile with spaces" 
+Only in ./bash_outfiles: outfile with spaces
+mini outfiles:
+cat: ./mini_outfiles/*: No such file or directory
+bash outfiles:
+README.md
+bash.supp
+bash_outfiles
+bonus
+bonus_bonus
+builtins
+danmouji_result.txt
+extras
+local.supp
+loop.out
+manual_tests
+mini_outfiles
+os_specific
+outfiles
+pipes
+redirects
+syntax
+test_files
+tester
+wildcards
+mini exit code = 1
+bash exit code = 0
+mini error = ( No such file or directory)
+bash error = ()
+
+Test  31: ❌ ls >"./outfiles/outfile""1""2""3""4""5" 
+Only in ./bash_outfiles: outfile12345
+mini outfiles:
+cat: ./mini_outfiles/*: No such file or directory
+bash outfiles:
+README.md
+bash.supp
+bash_outfiles
+bonus
+bonus_bonus
+builtins
+danmouji_result.txt
+extras
+local.supp
+loop.out
+manual_tests
+mini_outfiles
+os_specific
+outfiles
+pipes
+redirects
+syntax
+test_files
+tester
+wildcards
+mini exit code = 1
+bash exit code = 0
+mini error = ( No such file or directory)
+bash error = ()
+
+Test  32: ❌ ls >"./outfiles/outfile01" >./test_files/invalid_permission >"./outfiles/outfile02" 
+Only in ./bash_outfiles: outfile01
+mini outfiles:
+cat: ./mini_outfiles/*: No such file or directory
+bash outfiles:
+mini error = ( No such file or directory)
+bash error = ( Permission denied)
+
+Test  34: ❌ cat <"./test_files/infile" >"./outfiles/outfile01" 
+Only in ./bash_outfiles: outfile01
+mini outfiles:
+cat: ./mini_outfiles/*: No such file or directory
+bash outfiles:
+hi
+hello
+world
+42
+mini exit code = 1
+bash exit code = 0
+mini error = ( No such file or directory)
+bash error = ()
+

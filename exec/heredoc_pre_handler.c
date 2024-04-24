@@ -24,19 +24,18 @@ char	*new_tmp_file(t_redirect *redirec, int i, t_data *env)
 	new_name = ft_strjoin(redirec->file, index);
 	path_temp = ft_strjoin(env->home, "/library/caches/");
 	path = ft_strjoin(path_temp, new_name);
-	free(path_temp);
 	redirec->new_file_path = path;
 	tmp_fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (tmp_fd == -1)
 	{
-		printf("failed opening file1\n");
+		printf("failed opening file\n");
 		exit(1);
 	}
 	close(tmp_fd);
 	return (new_name);
 }
 
-void	convert_delimeter_to_file(t_list *finder, t_data *env)
+void	convert_delimeter_to_filename(t_list *finder, t_data *env)
 {
 	t_redirect	*redirec;
 	int			i;
@@ -75,44 +74,27 @@ void	unlink_heredoc_files(t_list *finder)
 	return ;
 }
 
-// int	get_heredoc_exit_status(int *status, t_data *data)
-// {
-// 	return (1);
-// }
-
-int	heredoc_handler(t_list *finder, t_data *env)
+void	heredoc_handler(t_list *finder, t_data *env)
 {
 	pid_t		pid;
 	int			status;
 	extern int	rl_catch_signals;
 
 	status = 0;
-	convert_delimeter_to_file(finder, env);
+	convert_delimeter_to_filename(finder, env);
 	signal_handler(IGNORE);
 	pid = fork();
 	if (pid == 0)
 	{
 		signal_handler(HEREDOC);
-		// rl_catch_signals = 1;
 		find_heredoc_and_get_input(finder);
 		exit(0);
 	}
 	else
 	{
 		wait(&status);
-		if (WIFSIGNALED(status))
-		{
-			if (WTERMSIG(status) == 2)
-			{
-				free(env->exit_status);
-				env->exit_status = ft_itoa(1);
-				exit(1);
-			}
-		}
-		// if (!get_heredoc_exit_status(&status, env))
-		// 	return (0);
 		rl_catch_signals = 0;
 		signal_handler(PARENT);
 	}
-	return (1);
+	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/23 14:25:13 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:54:53 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		res = split_cmds(nl);
 		parse_to_node(&data->head, res);
+		// print_list(&data->head);
 		if (data->head != NULL && validate_node_list(data))
 			execute_main(&data->head, data);
 		free(nl);

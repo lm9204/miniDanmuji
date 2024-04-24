@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 12:13:35 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/23 15:54:10 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:56:06 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,15 @@ char	*get_input(t_redirect *redirec)
 	res = (char *)malloc(sizeof(char));
 	*res = '\0';
 	input = readline("> ");
-	sigterm_handler(input, HEREDOC);
+	if (input == NULL)
+		return (res);
 	input = append_newline(input);
 	while (ft_strncmp(input, redirec->file, ft_strlen(redirec->file) + 1) != 10)
 	{
 		res = append_input(res, input);
 		input = readline("> ");
-		sigterm_handler(input, HEREDOC);
+		if (input == NULL)
+			return (res);
 		input = append_newline(input);
 	}
 	free(input);
