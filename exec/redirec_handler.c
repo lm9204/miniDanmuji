@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:32:52 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/24 12:34:28 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:12:37 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	redirect_input(t_list *finder, int builtin)
 	return (1);
 }
 
-int	redirect_output(t_list *finder)
+int	redirect_output(t_list *finder, int flag)
 {
 	int			file_fd;
 	t_redirect	*redirec;
@@ -57,12 +57,13 @@ int	redirect_output(t_list *finder)
 		perror(error_msg);
 		return (0);
 	}
-	dup2(file_fd, STDOUT_FILENO);
+	if (flag != 2)
+		dup2(file_fd, STDOUT_FILENO);
 	close(file_fd);
 	return (1);
 }
 
-int	redirect_output_append(t_list *finder)
+int	redirect_output_append(t_list *finder, int flag)
 {
 	int			file_fd;
 	t_redirect	*redirec;
@@ -76,7 +77,8 @@ int	redirect_output_append(t_list *finder)
 		perror(error_msg);
 		return (0);
 	}
-	dup2(file_fd, STDOUT_FILENO);
+	if (flag != 2)
+		dup2(file_fd, STDOUT_FILENO);
 	close(file_fd);
 	return (1);
 }
@@ -93,11 +95,11 @@ int	redirec_handler(t_list *finder, int builtin)
 		{
 			redirec = (t_redirect *)(finder->content);
 			if (redirec->type == 1)
-				flag = redirect_output_append(finder);
+				flag = redirect_output_append(finder, builtin);
 			if (redirec->type == 2 || redirec->type == 4)
 				flag = redirect_input(finder, builtin);
 			if (redirec->type == 3)
-				flag = redirect_output(finder);
+				flag = redirect_output(finder, builtin);
 			if (flag == 0)
 				return (flag);
 		}

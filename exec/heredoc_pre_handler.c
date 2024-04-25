@@ -87,7 +87,7 @@ void	heredoc_handler(t_list *finder, t_data *env)
 	if (pid == 0)
 	{
 		signal_handler(HEREDOC);
-		find_heredoc_and_get_input(finder);
+		find_heredoc_and_get_input(finder, env);
 		exit(0);
 	}
 	else
@@ -97,4 +97,25 @@ void	heredoc_handler(t_list *finder, t_data *env)
 		signal_handler(PARENT);
 	}
 	return ;
+}
+
+char	*expand_input_to_env(char *input, t_data *env)
+{
+	char	*input_first;
+	t_env	*found_env;
+	char	*env_name;
+
+	input_first = input;
+	env_name = NULL;
+	if (input[0] == '$')
+	{
+		input++;
+		env_name = ft_strdup(input);
+		found_env = find_env(&env->env_head, env_name);
+		if (found_env == NULL)
+			return (input);
+		free(input_first);
+		return (found_env->value);
+	}
+	return (input);
 }

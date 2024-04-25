@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:15:57 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/24 12:37:53 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:10:05 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	pre_processor(t_list *finder, t_data *data, t_process *process)
 	heredoc_handler(finder, data);
 	if (!how_many_cmds(finder))
 	{
+		redirec_handler(finder, 2);
 		unlink_heredoc_files(finder);
 		return (0);
 	}

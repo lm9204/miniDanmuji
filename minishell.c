@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/24 14:54:53 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:14:21 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_data	*init_data_struct(char **envp)
 	data->home = ft_strdup(find_env(&data->env_head, "HOME")->value);
 	data->pwd = ft_strdup(find_env(&data->env_head, "PWD")->value);
 	data->head = NULL;
-	data->exit_status = NULL;
+	data->exit_status = ft_strdup("0");
 	return (data);
 }
 

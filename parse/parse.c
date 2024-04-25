@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:30:33 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/24 21:05:47 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:52:01 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ int	expand(t_data *data, char *output, char *cmd)
 	int		quote;
 	int		len;
 	int		i;
+
+	// printf("output: %s\n", output);
+	// printf("cmd: %s\n", cmd);
 
 	i = 0;
 	len = 0;
@@ -31,6 +34,7 @@ int	expand(t_data *data, char *output, char *cmd)
 		else if (quote != 2 && cmd[i] == '$')
 		{
 			tmp = expand_symbol(data, &cmd[i + 1]);
+			//"echo $[정의되어 있지 않은 변수]"일 경우 null guard가 되어있지 않아서 segfault가 터짐
 			ft_strlcpy(&output[len], tmp, ft_strlen(tmp) + 1);
 			i += get_word_len(&cmd[i + 1]) + 1;
 			len += ft_strlen(tmp);
