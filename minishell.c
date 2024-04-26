@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/26 15:00:46 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:47:23 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,23 @@ t_data	*init_data_struct(char **envp)
 
 	data = (t_data *)malloc(sizeof(t_data));
 	data->env_head = NULL;
-	init_envp(&data->env_head, envp);
-	data->splitted_exec_path = ft_split(ft_getenv("PATH", envp), ':');
-	data->home = ft_strdup(find_env(&data->env_head, "HOME")->value);
-	data->pwd = ft_strdup(find_env(&data->env_head, "PWD")->value);
+	if (envp && *envp)
+	{
+		init_envp(&data->env_head, envp);
+		data->splitted_exec_path = ft_split(ft_getenv("PATH", envp), ':');
+		data->home = ft_strdup(find_env(&data->env_head, "HOME")->value);
+		data->pwd = ft_strdup(find_env(&data->env_head, "PWD")->value);
+	}
+	else
+	{
+		data->splitted_exec_path = NULL;
+		data->home = NULL;
+		data->pwd = NULL;
+	}
 	data->head = NULL;
 	data->exit_status = ft_strdup("0");
 	data->expand_flag = 1;
 	data->fork_flag = 0;
-	
 	return (data);
 }
 

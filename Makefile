@@ -2,7 +2,7 @@ CC = cc
 # FLAGS = -Wall -Wextra -Werror -MMD -MP -g3 -fsanitize=address 
 FLAGS = -Wall -Wextra -Werror -MMD -MP -g3
 SRCS = parse/token.c parse/symbol.c parse/list.c parse/spliter_utils.c \
-		parse/spliter.c parse/parse.c error.c \
+		parse/spliter.c parse/parse.c error.c parse/list_val_utils.c \
 		parse/init_envp.c parse/find_env.c parse/add_env.c parse/rmv_env.c \
 		parse/list_utils.c parse/list_val.c builtin/builtin.c \
 		builtin/ft_echo.c builtin/ft_cd.c builtin/ft_pwd.c builtin/ft_exit.c \

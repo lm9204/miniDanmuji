@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:30:33 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 15:31:07 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 22:20:06 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	expand(t_data *data, char *output, char *cmd, int quote)
 	len = 0;
 	while (cmd[i])
 	{
-		if (!quote && ft_isquotes(cmd[i]))
+		if (!quote && ft_isquotes(cmd[i]) \
+		&& findquotes(&cmd[i + 1], cmd[i]) != -1)
 		{
 			quote = ft_isquotes(cmd[i]);
 			data->expand_flag = 0;
@@ -80,11 +81,13 @@ int	expand_len(t_data *data, char *cmd)
 	quote = 0;
 	while (cmd[i])
 	{
-		if (!quote && ft_isquotes(cmd[i]))
+		if (!quote && ft_isquotes(cmd[i]) \
+		&& findquotes(&cmd[i + 1], cmd[i]) != -1)
 			quote = ft_isquotes(cmd[i]);
 		else if (quote && ft_isquotes(cmd[i]) == quote)
 			quote = 0;
-		else if (quote != 2 && cmd[i] == '$')
+		else if (quote != 2 && cmd[i] == '$' \
+		&& (cmd[i + 1] != ' ' && cmd[i + 1] != 0 && !ft_isquotes(cmd[i + 1])))
 		{
 			len += find_env_len(&data->env_head, &cmd[i + 1]);
 			i += get_word_len(&cmd[i + 1]) + 1;
@@ -104,8 +107,8 @@ int	get_word_len(char *word)
 	i = 0;
 	if (word[0] == '?')
 		return (1);
-	if (word[0] == ' ' || ft_isquotes(word[0]))
-		i++;
+	if (word[0] == ' ')
+		return (1);
 	while (word[i])
 	{
 		if (word[i] == ' ' || ft_isquotes(word[i]))

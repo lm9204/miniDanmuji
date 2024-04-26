@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 16:16:16 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/23 13:26:46 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 22:31:14 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,34 @@ static int	validate_redirect(t_data *data, t_redirect *node)
 	return (1);
 }
 
-static void	expand_node(t_data *data, t_cmd *cmds)
+void	expand_node(t_data *data, t_cmd *cmds)
 {
+	// char	**split;
 	char	*tmp;
+	int		flag;
 	int		i;
 
 	i = 0;
+	flag = 0;
 	while (cmds->cmds[i])
 	{
 		tmp = cmds->cmds[i];
 		cmds->cmds[i] = checkcmd(data, cmds->cmds[i]);
+		if (ft_strchr(cmds->cmds[i], ' ') != NULL)
+			flag = 1;
 		free(tmp);
 		i++;
 	}
+	// if (flag)
+	// {
+	// 	split = split_cmds_space(cmds->cmds);
+	// 	clear_cmds(cmds->cmds);
+	// 	cmds->cmds = split;
+	// }
+	// for (int i = 0; cmds->cmds[i]; i++)
+	// {
+	// 	printf("cmds[%d]: %s\n", i, cmds->cmds[i]);
+	// }
 }
 
 int	validate_node_list(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 16:20:24 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 20:37:31 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@ static char	*ft_cutcmds(const char *cmds, int *idx)
 	len = 0;
 	while (cmds[len])
 	{
-		if (ft_isquotes(cmds[len]))
-		{
-			len += findquotes(&cmds[len + 1], cmds[len]) + 1;
-		}
+		if (ft_isquotes(cmds[len]) \
+		&& findquotes(&cmds[len + 1], cmds[len]) != -1)
+			len += findquotes(&cmds[len + 1], cmds[len]);
 		if (is_symbol(&cmds[len]) || cmds[len] == '|')
 		{
 			len += splitable_symbol_len(&cmds[len], len);
@@ -56,7 +55,7 @@ static char	*ft_cutcmds(const char *cmds, int *idx)
 
 static void	seperate_word(char *cmds, int *i, int *count, int *isword)
 {
-	if (ft_isquotes(cmds[*i]) && findquotes(&cmds[*i + 1], cmds[*i]))
+	if (ft_isquotes(cmds[*i]) && findquotes(&cmds[*i + 1], cmds[*i]) != -1)
 	{
 		*i += findquotes(&cmds[*i + 1], cmds[*i]);
 		if (!(*isword))

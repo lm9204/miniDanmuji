@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:28:01 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 15:16:45 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 16:54:43 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static long long	ft_atoi_ovf(char *str)
 	while (str[i])
 	{
 		if (!(str[i] >= '0' && str[i] <= '9'))
-			break ;
+			ft_exit_error(str);
 		prev = res;
 		res *= 10;
 		res += (str[i] - 48) * sign;
@@ -58,21 +58,17 @@ static long long	ft_atoi_ovf(char *str)
 	return (res);
 }
 
-void	ft_exit(char **input)
+int	ft_exit(char **input)
 {
 	long long	number;
 	int			i;
 
 	i = 0;
+	number = 0;
 	if (!validate_arguments(input))
-		return ;
-	while (input[0][i])
-	{
-		if (!ft_isdigit(input[0][i]))
-			ft_exit_error(input[0]);
-		i++;
-	}
-	number = ft_atoi_ovf(input[0]);
+		return (1);
+	if (ft_strlen(input[0]) > 0)
+		number = ft_atoi_ovf(input[0]);
 	ft_putendl_fd("exit", 1);
 	exit(number % 256);
 }

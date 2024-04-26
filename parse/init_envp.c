@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 15:01:32 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 16:03:33 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:38:39 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	init_envp(t_env **env_head, char **envp)
 	int	i;
 
 	i = 0;
+	if (envp == NULL)
+		return ;
 	while (envp[i])
 	{
 		addenv(env_head, envp[i]);

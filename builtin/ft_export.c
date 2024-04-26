@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 21:45:32 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 16:12:49 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 16:28:54 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	validate_name(char *cmd)
 
 	i = 0;
 	return_value = 0;
-	if (ft_isdigit(cmd[0]))
+	if (ft_isdigit(cmd[0]) || cmd[0] == '=')
 		return_value = 1;
 	while (cmd[i] && !return_value)
 	{
@@ -81,7 +81,10 @@ static char	**split_cmd(char *cmd)
 		return (NULL);
 	while (cmd[i] && cmd[i] != '=')
 		i++;
-	res[0] = ft_substr(cmd, 0, i);
+	if (i == 0)
+		res[0] = "=";
+	else
+		res[0] = ft_substr(cmd, 0, i);
 	if (cmd[i] == '=')
 		res[idx++] = ft_substr(cmd, i + 1, ft_strlen(cmd) - i);
 	res[idx] = 0;
