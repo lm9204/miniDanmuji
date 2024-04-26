@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 21:45:32 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 14:23:07 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:21:26 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	export_list(t_env **head);
 static void	export_env(t_data *data, char *cmd);
 static void	add_to_list(t_env **head, t_env *new);
 
-void	ft_export(t_data *data, char **cmd)
+int	ft_export(t_data *data, char **cmd)
 {
 	int	i;
 
@@ -31,6 +31,7 @@ void	ft_export(t_data *data, char **cmd)
 			i++;
 		}
 	}
+	return (0);
 }
 
 static void	export_list(t_env **head)
