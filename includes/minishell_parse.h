@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:09:43 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/23 13:25:28 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:28:04 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	*search_expand(t_env **head, char *cmd);
 int		get_word_len(char *word);
 int		expand_len(t_data *data, char *cmd);
 int		expand(t_data *data, char *output, char *cmd, int quote);
-int		sub_quote_len(char *cmd);
 
 t_env	*create_env_node(char *env);
 t_env	*find_env(t_env **env_head, char *name);
