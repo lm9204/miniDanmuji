@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:30:33 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 15:20:44 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:31:07 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	expand_len(t_data *data, char *cmd)
 	int	i;
 
 	i = 0;
-	len = sub_quote_len(cmd);
+	len = 0;
 	quote = 0;
 	while (cmd[i])
 	{
@@ -87,43 +87,11 @@ int	expand_len(t_data *data, char *cmd)
 		else if (quote != 2 && cmd[i] == '$')
 		{
 			len += find_env_len(&data->env_head, &cmd[i + 1]);
-			while (cmd[i + 1] && cmd[i + 1] != ' ' && !ft_isquotes(cmd[i + 1]))
-				i++;
+			i += get_word_len(&cmd[i + 1]) + 1;
 			continue ;
 		}
 		else
 			len++;
-		// if ((cmd[i - 1] != '\'' || (i == 0 && cmd[0] != '\'')) && cmd[i] == '$')
-		// {
-		// 	if (cmd[i + 1] == ' ')
-		// 		return (1);
-		// 	if (cmd[i + 1] == '?')
-		// 		return (ft_strlen(data->exit_status));
-		// 	len += find_env_len(&data->env_head, &cmd[i + 1]);
-		// 	while (cmd[i + 1] && cmd[i + 1] != ' ' && !ft_isquotes(cmd[i + 1]))
-		// 		i++;
-		// }
-		// else
-		// 	len++;
-		i++;
-	}
-	return (len);
-}
-
-int	sub_quote_len(char *cmd)
-{
-	int	len;
-	int	i;
-
-	i = 0;
-	len = 0;
-	while (cmd[i])
-	{
-		if (ft_isquotes(cmd[i]))
-		{
-			i += findquotes(&cmd[i + 1], cmd[i]);
-			len = -2;
-		}
 		i++;
 	}
 	return (len);
@@ -134,7 +102,6 @@ int	get_word_len(char *word)
 	int	i;
 
 	i = 0;
-	printf("word : %s\n", word);
 	if (word[0] == '?')
 		return (1);
 	if (word[0] == ' ' || ft_isquotes(word[0]))
