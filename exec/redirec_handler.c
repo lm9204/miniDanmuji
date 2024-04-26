@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:32:52 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/25 15:12:37 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/26 16:00:12 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	open_file(t_redirect *redirec)
 	return (open(path, O_RDONLY, 0644));
 }
 
-int	redirect_input(t_list *finder, int builtin)
+int	redirect_input(t_list *finder, int builtin, t_data *data)
 {
 	int			file_fd;
 	t_redirect	*redirec;
@@ -33,6 +33,7 @@ int	redirect_input(t_list *finder, int builtin)
 	file_fd = open_file(redirec);
 	if (file_fd == -1)
 	{
+		data->exit_status = ft_itoa(1);
 		error_msg = error_header(redirec->file);
 		perror(error_msg);
 		return (0);
@@ -43,7 +44,7 @@ int	redirect_input(t_list *finder, int builtin)
 	return (1);
 }
 
-int	redirect_output(t_list *finder, int flag)
+int	redirect_output(t_list *finder, int flag, t_data *data)
 {
 	int			file_fd;
 	t_redirect	*redirec;
@@ -53,6 +54,7 @@ int	redirect_output(t_list *finder, int flag)
 	file_fd = open(redirec->file, O_RDWR | O_CREAT, 0644);
 	if (file_fd == -1)
 	{
+		data->exit_status = ft_itoa(1);
 		error_msg = error_header(redirec->file);
 		perror(error_msg);
 		return (0);
@@ -63,7 +65,7 @@ int	redirect_output(t_list *finder, int flag)
 	return (1);
 }
 
-int	redirect_output_append(t_list *finder, int flag)
+int	redirect_output_append(t_list *finder, int flag, t_data *data)
 {
 	int			file_fd;
 	t_redirect	*redirec;
@@ -73,6 +75,7 @@ int	redirect_output_append(t_list *finder, int flag)
 	file_fd = open(redirec->file, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (file_fd == -1)
 	{
+		data->exit_status = ft_itoa(1);
 		error_msg = error_header(redirec->file);
 		perror(error_msg);
 		return (0);
@@ -83,7 +86,7 @@ int	redirect_output_append(t_list *finder, int flag)
 	return (1);
 }
 
-int	redirec_handler(t_list *finder, int builtin)
+int	redirec_handler(t_list *finder, int builtin, t_data *data)
 {
 	t_redirect	*redirec;
 	int			flag;
@@ -94,12 +97,14 @@ int	redirec_handler(t_list *finder, int builtin)
 		if (finder->flag == REDIRECT)
 		{
 			redirec = (t_redirect *)(finder->content);
+			redirec->file = checkcmd(data, redirec->file);
+			printf("redirec->file: %s\n", redirec->file);
 			if (redirec->type == 1)
-				flag = redirect_output_append(finder, builtin);
+				flag = redirect_output_append(finder, builtin, data);
 			if (redirec->type == 2 || redirec->type == 4)
-				flag = redirect_input(finder, builtin);
+				flag = redirect_input(finder, builtin, data);
 			if (redirec->type == 3)
-				flag = redirect_output(finder, builtin);
+				flag = redirect_output(finder, builtin, data);
 			if (flag == 0)
 				return (flag);
 		}

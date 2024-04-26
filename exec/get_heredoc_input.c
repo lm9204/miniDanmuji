@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 12:13:35 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/25 14:51:06 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:11:32 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,14 @@ char	*get_input(t_redirect *redirec, t_data *env)
 	char	*input;
 	char	*res;
 
+	(void)env;
 	res = (char *)malloc(sizeof(char));
 	*res = '\0';
 	input = readline("> ");
 	if (input == NULL)
 		return (res);
-	if (redirec->file[0] == '\"' || redirec->file[0] == '\'')
-		input = expand_input_to_env(input, env);
+	if (env->expand_flag == 1)
+		input = checkcmd(env, input);
 	input = append_newline(input);
 	while (ft_strncmp(input, redirec->file, ft_strlen(redirec->file) + 1) != 10)
 	{
@@ -56,8 +57,8 @@ char	*get_input(t_redirect *redirec, t_data *env)
 		input = readline("> ");
 		if (input == NULL)
 			return (res);
-		if (redirec->file[0] == '\"' || redirec->file[0] == '\'')
-			input = expand_input_to_env(input, env);
+		if (env->expand_flag == 1)
+			input = checkcmd(env, input);
 		input = append_newline(input);
 	}
 	free(input);
@@ -80,7 +81,7 @@ void	write_in_file(char *res, t_redirect *redirec)
 	return ;
 }
 
-void	find_heredoc_and_get_input(t_list *finder, t_data *env)
+void	find_heredoc_and_save_input(t_list *finder, t_data *env)
 {
 	t_redirect	*redirec;
 	char		*res;

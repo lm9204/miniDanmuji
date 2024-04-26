@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/25 11:33:56 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:26:05 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ t_fd *backup)
 		check_builtin = is_it_builtin((t_cmd *)finder->content);
 		if (finder->flag == CMD && check_builtin == 1)
 		{
-			builtin_handler((t_cmd *)finder->content, \
-			&data->env_head, process, data);
+			exit(builtin_handler((t_cmd *)finder->content, \
+			&data->env_head, process, data));
 			break ;
 		}
 		else if (finder->flag == CMD && check_builtin == 0)

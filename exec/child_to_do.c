@@ -20,7 +20,7 @@ void	child_to_do(t_list *finder, t_process *process, t_data *data)
 	backup.std_output = dup(STDOUT_FILENO);
 	signal_handler(CHILD);
 	first_or_middle_or_last_child(process);
-	if (!redirec_handler(finder, 0))
+	if (!redirec_handler(finder, 0, data))
 		exit(1);
 	cmd_handler(finder, data, process, &backup);
 	exit(0);
