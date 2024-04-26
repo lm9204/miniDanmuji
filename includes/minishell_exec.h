@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/25 15:11:40 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:56:29 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,10 @@ void	middle_child_process(int temp_fd, int read_end, int write_end);
 void	last_child_process(int temp_fd, int read_end, int write_end);
 void	first_or_middle_or_last_child(t_process *process);
 void	parent_to_do(t_process *process);
-int		redirect_input(t_list *finder, int builtin);
-int		redirect_output(t_list *finder, int flag);
-int		redirect_output_append(t_list *finder, int flag);
-int		redirec_handler(t_list *finder, int builtin);
-int		check_cmd(t_list **head, t_data *data);
+int		redirect_input(t_list *finder, int builtin, t_data *data);
+int		redirect_output(t_list *finder, int flag, t_data *data);
+int		redirect_output_append(t_list *finder, int flag, t_data *data);
+int		redirec_handler(t_list *finder, int builtin, t_data *data);
 int		how_many_cmds(t_list *finder);
 void	wait_child(int child_cnt, t_data *data);
 
@@ -77,7 +76,7 @@ void	wait_child(int child_cnt, t_data *data);
 void	heredoc_handler(t_list *finder, t_data *data);
 void	convert_delimeter_to_filename(t_list *finder, t_data *env);
 char	*new_tmp_file(t_redirect *redirec, int i, t_data *env);
-void	find_heredoc_and_get_input(t_list *finder, t_data *env);
+void	find_heredoc_and_save_input(t_list *finder, t_data *env);
 void	write_in_file(char *res, t_redirect *redirec);
 char	*get_input(t_redirect *redirec, t_data *env);
 char	*append_input(char *origin, char *input);
@@ -92,7 +91,7 @@ void	signal_ignore(void);
 void	sigterm_handler(char *nl, int flag);
 
 //builtin
-void	builtin_handler(t_cmd *cmd_ary, t_env **head, t_process *process, t_data *data);
+int		builtin_handler(t_cmd *cmd_ary, t_env **head, t_process *process, t_data *data);
 int		is_it_builtin(t_cmd *cmd_ary);
 
 

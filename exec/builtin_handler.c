@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:44:33 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/26 13:39:29 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:35:56 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,23 @@ void	executable_builtin_with_pipe(t_cmd *cmd_ary, t_env **head)
 	return ;
 }
 
-void	builtin_handler(t_cmd *cmd_ary, t_env **head, \
+int	builtin_handler(t_cmd *cmd_ary, t_env **head, \
 t_process *process, t_data *data)
 {
-	if (!process->pipe_cnt)
-		execute_directly(cmd_ary, head, data);
-	else
-		executable_builtin_with_pipe(cmd_ary, head);
-	return ;
+	(void)process; 
+	if (!ft_strncmp(cmd_ary->cmds[0], "cd", ft_strlen("cd") + 1))
+		return (ft_cd(data, &cmd_ary->cmds[1]));
+	if (!ft_strncmp(cmd_ary->cmds[0], "export", ft_strlen("export") + 1))
+		return (ft_export(data, cmd_ary->cmds));
+	if (!ft_strncmp(cmd_ary->cmds[0], "unset", ft_strlen("unset") + 1))
+		return (ft_unset(head, cmd_ary->cmds));
+	if (!ft_strncmp(cmd_ary->cmds[0], "exit", ft_strlen("exit") + 1))
+		ft_exit(&cmd_ary->cmds[1]);
+	if (!ft_strncmp(cmd_ary->cmds[0], "echo", ft_strlen("echo") + 1))
+		return (ft_echo(cmd_ary->cmds));
+	if (!ft_strncmp(cmd_ary->cmds[0], "pwd", ft_strlen("pwd") + 1))
+		return (ft_pwd(data->pwd));
+	if (!ft_strncmp(cmd_ary->cmds[0], "env", ft_strlen("env") + 1))
+		return (ft_env(head));
+	return (0);
 }
