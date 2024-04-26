@@ -24,6 +24,7 @@ t_data	*init_data_struct(char **envp)
 	data->pwd = ft_strdup(find_env(&data->env_head, "PWD")->value);
 	data->head = NULL;
 	data->exit_status = ft_strdup("0");
+	data->expand_flag = 0;
 	return (data);
 }
 

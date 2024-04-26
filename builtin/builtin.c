@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_builtin.h                                :+:      :+:    :+:   */
+/*   built.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,16 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_BUILTIN_H
-# define MINISHELL_BUILTIN_H
+#include "../minishell.h"
 
-int		validate_arguments(char **cmd);
-void	ft_cd(t_data *data, char **path);
-void	ft_echo(char **cmds);
-void	ft_exit(char **input);
-void	ft_env(t_env **head);
-void	ft_pwd(char *data_pwd);
-void	ft_export(t_env **head, char **cmd);
-void	ft_unset(t_env **head, char **cmd);
+int	validate_arguments(char **cmd)
+{
+	int i;
 
-#endif
+	i = 0;
+	while (cmd[i])
+		i++;
+	if (i > 1)
+	{
+		ft_putstr_fd("minishell: exit: too many arguments\n", 1);
+		return (0);
+	}
+	return (1);
+}

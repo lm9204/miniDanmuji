@@ -24,7 +24,7 @@ char	*checkcmd(t_data *data, char *cmd)
 
 	len = expand_len(data, cmd);
 	res = malloc(sizeof(char) * (len + 1));
-	expand(data, res, cmd);
+	expand(data, res, cmd, 0);
 	return (res);
 }
 

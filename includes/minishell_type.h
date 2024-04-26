@@ -52,6 +52,7 @@ typedef struct s_data
 	char	*home;
 	char	*pwd;
 	char	*exit_status;
+	int		expand_flag;
 }				t_data;
 
 #endif

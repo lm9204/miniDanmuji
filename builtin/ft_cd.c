@@ -57,20 +57,22 @@ static void	ft_cd_error(char *path)
 	ft_putendl_fd(": No such file or directory", 1);
 }
 
-void	ft_cd(t_data *data, char *path)
+void	ft_cd(t_data *data, char **path)
 {
 	char	*pwd;
 	char	*home;
 
+	if (!validate_arguments(path))
+		return ;
 	home = find_env(&data->env_head, "HOME")->value;
-	if (ft_strlen(path) > 0)
+	if (ft_strlen(path[0]) > 0)
 	{
-		chdir(path);
+		chdir(path[0]);
 		pwd = getcwd(NULL, 0);
 		if (!pwd)
-			join_pwd(data, path);
+			join_pwd(data, path[0]);
 		else
-			ft_cd_error(path);
+			ft_cd_error(path[0]);
 		free(pwd);
 	}
 	else if (home == NULL)

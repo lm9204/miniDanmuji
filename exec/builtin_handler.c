@@ -34,13 +34,13 @@ int	is_it_builtin(t_cmd *cmd_ary)
 void	execute_directly(t_cmd *cmd_ary, t_env **head, t_data *data)
 {
 	if (!ft_strncmp(cmd_ary->cmds[0], "cd", ft_strlen("cd") + 1))
-		ft_cd(data, cmd_ary->cmds[1]);
+		ft_cd(data, &cmd_ary->cmds[1]);
 	if (!ft_strncmp(cmd_ary->cmds[0], "export", ft_strlen("export") + 1))
 		ft_export(head, cmd_ary->cmds);
 	if (!ft_strncmp(cmd_ary->cmds[0], "unset", ft_strlen("unset") + 1))
 		ft_unset(head, cmd_ary->cmds);
 	if (!ft_strncmp(cmd_ary->cmds[0], "exit", ft_strlen("exit") + 1))
-		ft_exit(cmd_ary->cmds[1]);
+		ft_exit(&cmd_ary->cmds[1]);
 	if (!ft_strncmp(cmd_ary->cmds[0], "echo", ft_strlen("echo") + 1))
 		ft_echo(cmd_ary->cmds);
 	if (!ft_strncmp(cmd_ary->cmds[0], "pwd", ft_strlen("pwd") + 1))

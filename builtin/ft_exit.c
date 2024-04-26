@@ -58,19 +58,21 @@ static long long	ft_atoi_ovf(char *str)
 	return (res);
 }
 
-void	ft_exit(char *input)
+void	ft_exit(char **input)
 {
 	long long	number;
 	int			i;
 
 	i = 0;
-	while (input[i])
+	if (!validate_arguments(input))
+		return ;
+	while (input[0][i])
 	{
-		if (!ft_isdigit(input[i]))
-			ft_exit_error(input);
+		if (!ft_isdigit(input[0][i]))
+			ft_exit_error(input[0]);
 		i++;
 	}
-	number = ft_atoi_ovf(input);
+	number = ft_atoi_ovf(input[0]);
 	ft_putendl_fd("exit", 1);
 	exit(number % 256);
 }
