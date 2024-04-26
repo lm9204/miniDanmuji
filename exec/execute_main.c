@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 18:43:43 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/25 15:05:12 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:52:34 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	preset(t_process *process, t_data *data, t_list *finder, int *i)
 {
 	*i = -1;
 	process->pipe_cnt = how_many_pipes(finder);
+	if (process->pipe_cnt >= 1)
+		data->fork_flag = 1;
 	process->status = NULL;
 	if (!pre_processor(finder, data, process))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/25 15:14:21 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:51:49 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_data	*init_data_struct(char **envp)
 	data->head = NULL;
 	data->exit_status = ft_strdup("0");
 	data->expand_flag = 0;
+	data->fork_flag = 0;
+	
 	return (data);
 }
 
