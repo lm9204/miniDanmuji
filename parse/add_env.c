@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 14:59:03 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/14 21:31:12 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:17:25 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ t_env	*create_env_node(char *env)
 
 	res = malloc(sizeof(t_env));
 	if (res == NULL)
-		handle_error("Malloc Error");
+		handle_error("bash: cannot allocate memory: Not enough space");
 	i = 0;
-	while (env[i] != '=')
+	while (env[i] && env[i] != '=')
 		i++;
-	name_len = i++;
+	name_len = i;
 	res->name = malloc(sizeof(char) * (name_len + 1));
 	ft_strlcpy(res->name, env, name_len + 1);
 	res->value = ft_strdup(&env[name_len + 1]);

@@ -6,28 +6,28 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 21:45:32 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/16 15:03:08 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:23:07 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static void	export_list(t_env **head);
-static void	export_env(t_env **head, char *cmd);
+static void	export_env(t_data *data, char *cmd);
 static void	add_to_list(t_env **head, t_env *new);
 
-void	ft_export(t_env **head, char **cmd)
+void	ft_export(t_data *data, char **cmd)
 {
 	int	i;
 
 	i = 1;
 	if (cmd == NULL || ft_strlen(cmd[1]) == 0)
-		export_list(head);
+		export_list(&data->env_head);
 	else
 	{
 		while (cmd[i])
 		{
-			export_env(head, cmd[i]);
+			export_env(data, cmd[i]);
 			i++;
 		}
 	}
@@ -43,22 +43,25 @@ static void	export_list(t_env **head)
 		ft_putstr_fd(ptr->name, 1);
 		if (ptr->value)
 		{
-			ft_putstr_fd("=", 1);
+			ft_putstr_fd("=\"", 1);
 			ft_putstr_fd(ptr->value, 1);
+			ft_putstr_fd("\"", 1);
 		}
 		write(1, "\n", 1);
 		ptr = ptr->next;
 	}
 }
 
-static void	export_env(t_env **head, char *cmd)
+// static void	
+
+static void	export_env(t_data *data, char *cmd)
 {
+	char	**res;
 	t_env	*new;
 	t_env	*ptr;
-	char	**res;
 
 	res = ft_split(cmd, '=');
-	ptr = find_env(head, res[0]);
+	ptr = find_env(&data->env_head, res[0]);
 	if (ptr)
 	{
 		free(ptr->value);
@@ -68,7 +71,7 @@ static void	export_env(t_env **head, char *cmd)
 	new = malloc(sizeof(t_env));
 	if (new == NULL)
 		handle_error("malloc error");
-	if (res[0] == NULL)
+	if (res[1] == NULL)
 	{
 		new->name = cmd;
 		new->value = NULL;
@@ -80,7 +83,7 @@ static void	export_env(t_env **head, char *cmd)
 	}
 	free(res);
 	new->next = NULL;
-	add_to_list(head, new);
+	add_to_list(&data->env_head, new);
 }
 
 static void	add_to_list(t_env **head, t_env *new)

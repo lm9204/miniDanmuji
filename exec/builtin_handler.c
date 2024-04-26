@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:44:33 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/24 09:30:48 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:39:29 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	execute_directly(t_cmd *cmd_ary, t_env **head, t_data *data)
 	if (!ft_strncmp(cmd_ary->cmds[0], "cd", ft_strlen("cd") + 1))
 		ft_cd(data, &cmd_ary->cmds[1]);
 	if (!ft_strncmp(cmd_ary->cmds[0], "export", ft_strlen("export") + 1))
-		ft_export(head, cmd_ary->cmds);
+		ft_export(data, cmd_ary->cmds);
 	if (!ft_strncmp(cmd_ary->cmds[0], "unset", ft_strlen("unset") + 1))
 		ft_unset(head, cmd_ary->cmds);
 	if (!ft_strncmp(cmd_ary->cmds[0], "exit", ft_strlen("exit") + 1))

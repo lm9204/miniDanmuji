@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/26 13:51:49 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:00:46 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_data	*init_data_struct(char **envp)
 	data->pwd = ft_strdup(find_env(&data->env_head, "PWD")->value);
 	data->head = NULL;
 	data->exit_status = ft_strdup("0");
-	data->expand_flag = 0;
+	data->expand_flag = 1;
 	data->fork_flag = 0;
 	
 	return (data);

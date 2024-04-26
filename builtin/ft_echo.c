@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 16:51:00 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/14 20:19:39 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:15:07 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	check_newline(char *cmd, int *flag, int *newline)
 	return (1);
 }
 
-void	ft_echo(char **cmds)
+int	ft_echo(char **cmds)
 {
 	int	newline;
 	int	i;
@@ -55,4 +55,5 @@ void	ft_echo(char **cmds)
 	}
 	if (newline)
 		ft_putstr_fd("\n", 1);
+	return (0);
 }

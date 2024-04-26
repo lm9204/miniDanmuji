@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/24 21:10:40 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:31:08 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*checkcmd(t_data *data, char *cmd)
 	int		len;
 
 	len = expand_len(data, cmd);
+	printf("oglen:%zu len : %d\n", ft_strlen(cmd), len);
 	res = malloc(sizeof(char) * (len + 1));
 	expand(data, res, cmd, 0);
 	return (res);
