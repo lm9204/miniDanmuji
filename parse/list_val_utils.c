@@ -46,22 +46,23 @@ static int	split_cmds_size(t_cmd *cmd, int og_size)
 	{
 		if (cmd->flags[i] && cmd->cmds[i] && ft_strchr(cmd->cmds[i], ' ') != NULL)
 			count += word_count(cmd->cmds[i]);
-		if (cmd->cmds[i])
+		else if (cmd->cmds[i])
 			count++;
 		i++;
 	}
 	return (count);
 }
 
-static void	insert_and_free(char **res, char **tmp, int *j)
+static void	insert_and_free(char **res, char* split, int *j)
 {
-	int	i;
+	char	**tmp;
+	int		i;
 
 	i = 0;
+	tmp = ft_split(split, ' ');
 	while (tmp[i])
 	{
-		res[(*j)++] = tmp[i];
-		free(tmp[i++]);
+		res[(*j)++] = tmp[i++];
 	}
 	free(tmp);
 }
@@ -69,29 +70,23 @@ static void	insert_and_free(char **res, char **tmp, int *j)
 char	**split_cmds_space(t_cmd *cmd, int og_size)
 {
 	char	**res;
-	char	**tmp;
 	int		size;
 	int		i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	size = split_cmds_size(cmd, og_size);
 	res = malloc(sizeof(char *) * (size + 1));
 	if (res == NULL)
 		return (NULL);
-	while (j < size)
+	while (j < size && ++i < og_size)
 	{
-		if (cmd->flags[i] && cmd->cmds[i] && ft_strchr(cmd->cmds[i], ' ') != NULL)
-		{
-			tmp = ft_split(cmd->cmds[i++], ' ');
-			insert_and_free(res, tmp, &j);
-			continue ;
-		}
+		if (cmd->cmds[i] && cmd->flags[i] \
+		&& ft_strchr(cmd->cmds[i], ' ') != NULL)
+			insert_and_free(res, cmd->cmds[i], &j);
 		else if (cmd->cmds[i])
-			res[j++] = ft_strdup(cmd->cmds[i++]);
-		else
-			i++;
+			res[j++] = ft_strdup(cmd->cmds[i]);
 	}
 	res[j] = NULL;
 	return (res);

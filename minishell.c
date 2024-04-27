@@ -32,7 +32,7 @@ t_data	*init_data_struct(char **envp)
 		data->pwd = NULL;
 	}
 	data->head = NULL;
-	data->exit_status = "0";
+	data->exit_status = ft_strdup("0");
 	data->expand_flag = 1;
 	data->fork_flag = 0;
 	return (data);

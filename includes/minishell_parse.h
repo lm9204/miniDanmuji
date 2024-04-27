@@ -40,4 +40,6 @@ void	expand_node(t_data *data, t_cmd *cmds);
 int		is_equal_sign(char *needle);
 int		front_or_back_of_equal_sign(char *needle);
 int		check_env(char *env);
+
+void    free_cmds(char **cmds);
 #endif

@@ -21,8 +21,14 @@ static int	expand_join(t_data *data, char *expand, char *output, int *i)
 	tmp = expand_symbol(data, expand);
 	if (tmp)
 		ft_strlcpy(output, tmp, ft_strlen(tmp) + 1);
-	*i += get_word_len(expand) + 1;
+	*i += get_word_len(expand);
 	return (ft_strlen(tmp));
+}
+
+static int	found_quote(t_data *data, char *cmd)
+{
+	data->expand_flag = 0;
+	return (ft_isquotes(cmd[0]));
 }
 
 int	expand(t_data *data, char *output, char *cmd, int quote)
@@ -31,17 +37,14 @@ int	expand(t_data *data, char *output, char *cmd, int quote)
 	int		len;
 	int		i;
 
-	i = 0;
+	i = -1;
 	len = 0;
 	quote_flag = 0;
-	while (cmd[i])
+	while (cmd[++i])
 	{
 		if (!quote && ft_isquotes(cmd[i]) \
 		&& findquotes(&cmd[i + 1], cmd[i]) != -1)
-		{
-			quote = ft_isquotes(cmd[i]);
-			data->expand_flag = 0;
-		}
+			quote = found_quote(data, &cmd[i]);
 		else if (quote && ft_isquotes(cmd[i]) == quote)
 			quote = 0;
 		else if (quote != 2 && cmd[i] == '$')
@@ -49,11 +52,9 @@ int	expand(t_data *data, char *output, char *cmd, int quote)
 			if (quote == 0)
 				quote_flag = 1;
 			len += expand_join(data, &cmd[i + 1], &output[len], &i);
-			continue ;
 		}
 		else
 			output[len++] = cmd[i];
-		i++;
 	}
 	output[len] = 0;
 	return (quote_flag);

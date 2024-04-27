@@ -94,30 +94,40 @@ static char	**split_cmd(char *cmd)
 static int	export_env(t_data *data, char *cmd)
 {
 	char	**res;
-	t_env	*new;
 	t_env	*ptr;
 
 	res = split_cmd(cmd);
-	if (res == NULL || validate_name(res[0]))
+	if (res == NULL || !res[1] || validate_name(res[0]))
+	{
+		free_cmds(res);
+		if (!res[1])
+			return (0);
 		return (1);
+	}
 	ptr = find_env(&data->env_head, res[0]);
 	if (ptr)
 	{
-		if (!res[1])
-			return (0);
 		free(ptr->value);
 		ptr->value = res[1];
-		return (0);
+		free(res[0]);
 	}
+	else
+		add_to_list(&data->env_head, new_env(res[0], res[1]));
+	free(res);
+	return (0);
+}
+
+static t_env	*new_env(char *name, char *value)
+{
+	t_env	*new;
+
 	new = malloc(sizeof(t_env));
 	if (new == NULL)
 		handle_error("malloc error");
-	new->name = res[0];
-	new->value = res[1];
+	new->name = name;
+	new->value = value;
 	new->next = NULL;
-	free(res);
-	add_to_list(&data->env_head, new);
-	return (0);
+	return (new);
 }
 
 static void	add_to_list(t_env **head, t_env *new)
