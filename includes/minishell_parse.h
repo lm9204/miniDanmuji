@@ -14,7 +14,7 @@
 # define MINISHELL_PARSE_H
 
 
-char	*checkcmd(t_data *data, char *cmd);
+char	*checkcmd(t_data *data, char *cmd, int *quote_flag);
 char	*expand_symbol(t_data *data, char *cmd);
 char	*search_expand(t_env **head, char *cmd);
 int		get_word_len(char *word);
@@ -28,12 +28,12 @@ void	init_envp(t_env **env_head, char **envp);
 void	rmv_env(t_env **env_head, char *name);
 int		find_env_len(t_env **env_head, char *name);
 
-void	clear_cmds(char **cmds);
+void	clear_cmds(t_cmd *cmd);
 void	free_env_list(t_env **head);
 char	**list_to_envp(t_env **head);
 char	*ft_env_to_char(t_env *env);
 
-char	**split_cmds_space(char **cmds);
+char	**split_cmds_space(t_cmd *cmd, int og_size);
 int		validate_node_list(t_data *data);
 void	expand_node(t_data *data, t_cmd *cmds);
 

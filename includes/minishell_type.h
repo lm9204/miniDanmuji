@@ -25,6 +25,7 @@ typedef struct s_list
 typedef struct s_cmd
 {
 	char	**cmds;
+	int		*flags;
 }				t_cmd;
 
 // [<<] = 0  [>>] = 1  [<] = 2  [>] = 3  [<< -> <] = 4

@@ -49,7 +49,7 @@ char	*get_input(t_redirect *redirec, t_data *env)
 	if (input == NULL)
 		return (res);
 	if (env->expand_flag == 1)
-		input = checkcmd(env, input);
+		input = checkcmd(env, input, 0);
 	input = append_newline(input);
 	while (ft_strncmp(input, redirec->file, ft_strlen(redirec->file) + 1) != 10)
 	{
@@ -58,7 +58,7 @@ char	*get_input(t_redirect *redirec, t_data *env)
 		if (input == NULL)
 			return (res);
 		if (env->expand_flag == 1)
-			input = checkcmd(env, input);
+			input = checkcmd(env, input, 0);
 		input = append_newline(input);
 	}
 	free(input);

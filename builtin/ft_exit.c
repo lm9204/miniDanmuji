@@ -61,9 +61,7 @@ static long long	ft_atoi_ovf(char *str)
 int	ft_exit(char **input)
 {
 	long long	number;
-	int			i;
 
-	i = 0;
 	number = 0;
 	if (!validate_arguments(input))
 		return (1);

@@ -49,28 +49,25 @@ static int	validate_redirect(t_data *data, t_redirect *node)
 
 void	expand_node(t_data *data, t_cmd *cmds)
 {
-	// char	**split;
+	char	**split;
 	char	*tmp;
-	int		flag;
 	int		i;
 
 	i = 0;
-	flag = 0;
 	while (cmds->cmds[i])
 	{
 		tmp = cmds->cmds[i];
-		cmds->cmds[i] = checkcmd(data, cmds->cmds[i]);
-		if (ft_strchr(cmds->cmds[i], ' ') != NULL)
-			flag = 1;
+		cmds->cmds[i] = checkcmd(data, cmds->cmds[i], &cmds->flags[i]);
 		free(tmp);
 		i++;
 	}
-	// if (flag)
-	// {
-	// 	split = split_cmds_space(cmds->cmds);
-	// 	clear_cmds(cmds->cmds);
-	// 	cmds->cmds = split;
-	// }
+	split = split_cmds_space(cmds, i);
+	while (i >= 0)
+	{
+		free(cmds->cmds[i--]);
+	}
+	free(cmds->cmds);
+	cmds->cmds = split;
 	// for (int i = 0; cmds->cmds[i]; i++)
 	// {
 	// 	printf("cmds[%d]: %s\n", i, cmds->cmds[i]);

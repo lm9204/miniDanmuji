@@ -12,9 +12,25 @@
 
 #include "../minishell.h"
 
+static void init_flags(t_cmd *cmd, int size);
 static void	list_add(t_list **head, void *content, int type);
 static void	list_redirect_add(t_list **head, char **cmds, int size);
 static void	list_cmd_add(t_list **head, char **cmds, int size);
+
+static void	init_flags(t_cmd *cmd, int size)
+{
+	int	i;
+
+	i = 0;
+	cmd->flags = malloc(sizeof(int) * (size + 1));
+	if (cmd->flags == NULL)
+		handle_error("malloc error");
+	while (i < size)
+	{
+		cmd->flags[i++] = 0;
+	}
+	cmd->flags[i] = 0;
+}
 
 static void	list_cmd_add(t_list **head, char **cmds, int size)
 {
@@ -28,6 +44,7 @@ static void	list_cmd_add(t_list **head, char **cmds, int size)
 	{
 		cmd = malloc(sizeof(t_cmd));
 		cmd->cmds = malloc(sizeof(char *) * (cmds_size + 1));
+		init_flags(cmd, cmds_size);
 		if (cmd == NULL || cmd->cmds == NULL)
 			handle_error("malloc error");
 		ci = 0;

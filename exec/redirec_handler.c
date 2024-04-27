@@ -97,7 +97,7 @@ int	redirec_handler(t_list *finder, int builtin, t_data *data)
 		if (finder->flag == REDIRECT)
 		{
 			redirec = (t_redirect *)(finder->content);
-			redirec->file = checkcmd(data, redirec->file);
+			redirec->file = checkcmd(data, redirec->file, 0);
 			// printf("redirec->file: %s\n", redirec->file);
 			if (redirec->type == 1)
 				flag = redirect_output_append(finder, builtin, data);

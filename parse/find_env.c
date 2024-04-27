@@ -31,9 +31,9 @@ int	find_env_len(t_env **env_head, char *name)
 	t_env	*ptr;
 
 	if (name[0] == ' ')
-		return (1);
+		return (0);
 	ptr = find_env(env_head, name);
 	if (ptr == NULL)
-		return (1);
+		return (0);
 	return (ft_strlen(ptr->value));
 }

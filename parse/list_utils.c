@@ -22,17 +22,20 @@ static void	clear_redirect(t_redirect *redirect)
 	}
 }
 
-void	clear_cmds(char **cmds)
+void	clear_cmds(t_cmd *cmd)
 {
 	int	i;
 
 	i = 0;
-	while (cmds[i])
+	while (cmd->cmds[i])
 	{
-		free(cmds[i]);
+		free(cmd->cmds[i]);
 		i++;
 	}
-	free(cmds);
+	i = 0;
+	free(cmd->cmds);
+	free(cmd->flags);
+	free(cmd);
 }
 
 void	clear_head(t_list **head)
@@ -40,18 +43,13 @@ void	clear_head(t_list **head)
 	t_redirect	*redirect;
 	t_list		*ptr;
 	t_list		*next;
-	t_cmd		*cmd;
 
 	ptr = *head;
 	while (ptr)
 	{
 		next = ptr->next;
 		if (ptr->flag == 0)
-		{
-			cmd = ptr->content;
-			clear_cmds(cmd->cmds);
-			free(cmd);
-		}
+			clear_cmds(ptr->content);
 		if (ptr->flag == 2)
 		{
 			redirect = ptr->content;

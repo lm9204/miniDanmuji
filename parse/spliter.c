@@ -17,14 +17,16 @@ static void	seperate_word(char *cmds, int *i, int *count, int *isword);
 static char	*ft_cutcmds(const char *cmds, int *idx);
 static int	count_cmds(char *cmds);
 
-char	*checkcmd(t_data *data, char *cmd)
+char	*checkcmd(t_data *data, char *cmd, int *quote_flag)
 {
 	char	*res;
 	int		len;
 
 	len = expand_len(data, cmd);
+	if (len == 0)
+		return (NULL);
 	res = malloc(sizeof(char) * (len + 1));
-	expand(data, res, cmd, 0);
+	(*quote_flag) = expand(data, res, cmd, 0);
 	return (res);
 }
 

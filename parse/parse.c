@@ -12,14 +12,28 @@
 
 #include "../minishell.h"
 
-int	expand(t_data *data, char *output, char *cmd, int quote)
+static int	expand_join(t_data *data, char *expand, char *output, int *i)
 {
 	char	*tmp;
+	int		len;
+
+	len = 0;
+	tmp = expand_symbol(data, expand);
+	if (tmp)
+		ft_strlcpy(output, tmp, ft_strlen(tmp) + 1);
+	*i += get_word_len(expand) + 1;
+	return (ft_strlen(tmp));
+}
+
+int	expand(t_data *data, char *output, char *cmd, int quote)
+{
+	int		quote_flag;
 	int		len;
 	int		i;
 
 	i = 0;
 	len = 0;
+	quote_flag = 0;
 	while (cmd[i])
 	{
 		if (!quote && ft_isquotes(cmd[i]) \
@@ -32,11 +46,9 @@ int	expand(t_data *data, char *output, char *cmd, int quote)
 			quote = 0;
 		else if (quote != 2 && cmd[i] == '$')
 		{
-			tmp = expand_symbol(data, &cmd[i + 1]);
-			if (tmp)
-				ft_strlcpy(&output[len], tmp, ft_strlen(tmp) + 1);
-			i += get_word_len(&cmd[i + 1]) + 1;
-			len += ft_strlen(tmp);
+			if (quote == 0)
+				quote_flag = 1;
+			len += expand_join(data, &cmd[i + 1], &output[len], &i);
 			continue ;
 		}
 		else
@@ -44,7 +56,7 @@ int	expand(t_data *data, char *output, char *cmd, int quote)
 		i++;
 	}
 	output[len] = 0;
-	return (len);
+	return (quote_flag);
 }
 
 char	*expand_symbol(t_data *data, char *cmd)

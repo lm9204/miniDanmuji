@@ -32,7 +32,7 @@ t_data	*init_data_struct(char **envp)
 		data->pwd = NULL;
 	}
 	data->head = NULL;
-	data->exit_status = ft_strdup("0");
+	data->exit_status = "0";
 	data->expand_flag = 1;
 	data->fork_flag = 0;
 	return (data);
@@ -48,6 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	extern int rl_catch_signals;
 	argc = 0;
 	argv = 0;
+	printf("%d%p\n", argc, argv);
 	rl_catch_signals = 0;
 	data = init_data_struct(envp);
 	rl_clear_history();
