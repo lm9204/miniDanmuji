@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/26 15:56:29 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/27 15:32:35 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <termios.h>
+#include <sys/stat.h>
+#include <errno.h>
 #include "../minishell.h"
 
 typedef struct s_process {
@@ -99,6 +101,9 @@ int		pre_processor(t_list *finder, t_data *data, t_process *process);
 void	unlink_heredoc_files(t_list *finder);
 char	*error_header(char *input);
 char	*expand_input_to_env(char *input, t_data *env);
+int	is_directory(char *path);
+int	is_unexecutable_file(char *path);
+int	is_not_command(char *path);
 
 
 #endif

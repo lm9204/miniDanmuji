@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/26 15:26:05 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/27 16:29:45 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,38 @@ char	*assemble_cmd_path(void *cmds, char **envp_path)
 
 void	execute_cmd(t_cmd *cmd_ary, char *cmd_path, t_fd *backup, char **envp)
 {
+	// printf("s\n");
+	//$[env list에 없는 변수]가 들어왔을 경우
+	if (!ft_strncmp(cmd_ary->cmds[0], "", 2))
+		exit(0);
+	//directory일 경우
+	if (is_directory(cmd_path))
+	{
+		errno = EISDIR;
+		dup2(backup->std_output, STDOUT_FILENO);
+		printf("Danmoujishell: %s: %s\n", cmd_ary->cmds[0], strerror(errno));
+		exit(126);
+	}
+	//파일이 존재하는데 권한이 없을 경우 -> ./[경로] 이렇게 들어올 경우의 처리
+	if (is_unexecutable_file(cmd_path))
+	{
+		errno = EACCES;
+		dup2(STDERR_FILENO, STDOUT_FILENO);
+		printf("Danmoujishell: %s: %s\n", cmd_ary->cmds[0], strerror(errno));
+		exit(126);
+	}
+	//command not found에 해당하는 거 걸러주기 -> [명령어] 이렇게 들어올 경우의 처리
+	if (is_not_command(cmd_path))
+	{
+		errno = ENOENT;
+		dup2(backup->std_output, STDOUT_FILENO);
+		// printf("Danmoujishell: command not found: %s\n", cmd_path);
+		exit(127);
+	}
 	if (execve(cmd_path, cmd_ary->cmds, envp) == -1)
 	{
-		dup2(backup->std_output, STDOUT_FILENO);
-		printf("Danmoujishell: %s: command not found\n", cmd_ary->cmds[0]);
+		// dup2(backup->std_output, STDOUT_FILENO);
+		// printf("Danmoujishell: %s: command not found\n", cmd_ary->cmds[0]);
 		exit(127);
 	}
 }
@@ -81,6 +109,8 @@ t_fd *backup)
 	int		check_builtin;
 
 	envp = list_to_envp(&data->env_head);
+	if (*envp == NULL)
+		envp = NULL;
 	while (finder && finder->flag != PIPE)
 	{
 		check_builtin = is_it_builtin((t_cmd *)finder->content);
