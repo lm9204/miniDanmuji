@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_val.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 16:16:16 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 22:31:14 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:49:09 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	syntax_error(t_data *data, char *cmd)
 	ft_putendl_fd("'", 1);
 	if (data->exit_status)
 		free(data->exit_status);
-	data->exit_status = "258";
+	data->exit_status = ft_strdup("258");
 }
 
 static int	validate_is_symbol(char *file)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirec_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:32:52 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/29 14:54:00 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:14:00 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	redirect_input(t_list *finder, int builtin, t_data *data)
 	file_fd = open_file(redirec);
 	if (file_fd == -1)
 	{
+		free(data->exit_status);
 		data->exit_status = ft_itoa(1);
 		error_msg = error_header(redirec->file);
 		perror(error_msg);
@@ -54,6 +55,7 @@ int	redirect_output(t_list *finder, int flag, t_data *data)
 	file_fd = open(redirec->file, O_RDWR | O_CREAT, 0644);
 	if (file_fd == -1)
 	{
+		free(data->exit_status);
 		data->exit_status = ft_itoa(1);
 		error_msg = error_header(redirec->file);
 		perror(error_msg);
@@ -75,6 +77,7 @@ int	redirect_output_append(t_list *finder, int flag, t_data *data)
 	file_fd = open(redirec->file, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (file_fd == -1)
 	{
+		free(data->exit_status);
 		data->exit_status = ft_itoa(1);
 		error_msg = error_header(redirec->file);
 		perror(error_msg);
