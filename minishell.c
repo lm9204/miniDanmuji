@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/27 14:29:45 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:39:47 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	main(int argc, char **argv, char **envp)
 	extern int rl_catch_signals;
 	argc = 0;
 	argv = 0;
-	printf("%d%p\n", argc, argv);
 	rl_catch_signals = 0;
 	data = init_data_struct(envp);
 	rl_clear_history();

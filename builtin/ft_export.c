@@ -6,14 +6,15 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 21:45:32 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 16:28:54 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:39:30 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	add_to_list(t_env **head, t_env *new);
-static int	export_env(t_data *data, char *cmd);
+static t_env	*new_env(char *name, char *value);
+static void		add_to_list(t_env **head, t_env *new);
+static int		export_env(t_data *data, char *cmd);
 
 int	ft_export(t_data *data, char **cmd)
 {
