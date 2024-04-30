@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 19:07:52 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 21:38:33 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:03:02 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static int	split_cmds_size(t_cmd *cmd, int og_size)
 	count = 0;
 	while (i < og_size)
 	{
-		if (cmd->flags[i] && cmd->cmds[i] && ft_strchr(cmd->cmds[i], ' ') != NULL)
+		if (cmd->flags[i] && cmd->cmds[i] \
+		&& ft_strchr(cmd->cmds[i], ' ') != NULL)
 			count += word_count(cmd->cmds[i]);
 		else if (cmd->cmds[i])
 			count++;
@@ -53,7 +54,7 @@ static int	split_cmds_size(t_cmd *cmd, int og_size)
 	return (count);
 }
 
-static void	insert_and_free(char **res, char* split, int *j)
+static void	insert_and_free(char **res, char *split, int *j)
 {
 	char	**tmp;
 	int		i;
@@ -91,4 +92,3 @@ char	**split_cmds_space(t_cmd *cmd, int og_size)
 	res[j] = NULL;
 	return (res);
 }
-

@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_builtin.h                                :+:      :+:    :+:   */
+/*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/12 16:24:31 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/29 15:00:17 by yeondcho         ###   ########.fr       */
+/*   Created: 2024/04/29 14:58:56 by yeondcho          #+#    #+#             */
+/*   Updated: 2024/04/29 15:01:25 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_BUILTIN_H
-# define MINISHELL_BUILTIN_H
+#include "../minishell.h"
 
-void	add_to_list(t_env **head, t_env *new);
-int		validate_arguments(char **cmd);
-int		ft_exit(char **input);
-int		ft_cd(t_data *data, char **path);
-int		ft_echo(char **cmds);
-int		ft_env(t_env **head);
-int		ft_pwd(char *data_pwd);
-int		ft_export(t_data *data, char **cmd);
-int		ft_unset(t_env **head, char **cmd);
+void	add_to_list(t_env **head, t_env *new)
+{
+	t_env	*ptr;
 
-#endif
+	ptr = *head;
+	if (new == NULL)
+		return ;
+	if (ptr == NULL)
+	{
+		*head = new;
+		return ;
+	}
+	while (ptr->next)
+		ptr = ptr->next;
+	ptr->next = new;
+}

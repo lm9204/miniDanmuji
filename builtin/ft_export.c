@@ -6,14 +6,13 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 21:45:32 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/29 14:39:30 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:06:08 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static t_env	*new_env(char *name, char *value);
-static void		add_to_list(t_env **head, t_env *new);
 static int		export_env(t_data *data, char *cmd);
 
 int	ft_export(t_data *data, char **cmd)
@@ -29,10 +28,10 @@ int	ft_export(t_data *data, char **cmd)
 	{
 		while (ptr)
 		{
-			printf("%s", ptr->name);
+			ft_printf("%s", ptr->name);
 			if (ptr->value)
-				printf("=\"%s\"", ptr->value);
-			printf("\n");
+				ft_printf("=\"%s\"", ptr->value);
+			ft_printf("\n");
 			ptr = ptr->next;
 		}
 	}
@@ -83,7 +82,7 @@ static char	**split_cmd(char *cmd)
 	while (cmd[i] && cmd[i] != '=')
 		i++;
 	if (i == 0)
-		res[0] = "=";
+		res[0] = ft_strdup("=");
 	else
 		res[0] = ft_substr(cmd, 0, i);
 	if (cmd[i] == '=')
@@ -94,22 +93,23 @@ static char	**split_cmd(char *cmd)
 
 static int	export_env(t_data *data, char *cmd)
 {
-	char	**res;
 	t_env	*ptr;
+	char	**res;
 
 	res = split_cmd(cmd);
-	if (res == NULL || !res[1] || validate_name(res[0]))
+	if (res == NULL || validate_name(res[0]))
 	{
 		free_cmds(res);
-		if (!res[1])
-			return (0);
 		return (1);
 	}
 	ptr = find_env(&data->env_head, res[0]);
 	if (ptr)
 	{
-		free(ptr->value);
-		ptr->value = res[1];
+		if (res[1])
+		{
+			free(ptr->value);
+			ptr->value = res[1];
+		}
 		free(res[0]);
 	}
 	else
@@ -129,21 +129,4 @@ static t_env	*new_env(char *name, char *value)
 	new->value = value;
 	new->next = NULL;
 	return (new);
-}
-
-static void	add_to_list(t_env **head, t_env *new)
-{
-	t_env	*ptr;
-
-	ptr = *head;
-	if (new == NULL)
-		return ;
-	if (ptr == NULL)
-	{
-		*head = new;
-		return ;
-	}
-	while (ptr->next)
-		ptr = ptr->next;
-	ptr->next = new;
 }

@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:09:43 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 21:30:20 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:00:53 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ int		is_equal_sign(char *needle);
 int		front_or_back_of_equal_sign(char *needle);
 int		check_env(char *env);
 
-void    free_cmds(char **cmds);
+void	free_cmds(char **cmds);
 #endif

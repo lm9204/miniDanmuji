@@ -6,13 +6,13 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:46:58 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/14 17:35:13 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:10:15 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void init_flags(t_cmd *cmd, int size);
+static void	init_flags(t_cmd *cmd, int size);
 static void	list_add(t_list **head, void *content, int type);
 static void	list_redirect_add(t_list **head, char **cmds, int size);
 static void	list_cmd_add(t_list **head, char **cmds, int size);
@@ -43,7 +43,7 @@ static void	list_cmd_add(t_list **head, char **cmds, int size)
 	if (cmds_size != 0 && size != 0)
 	{
 		cmd = malloc(sizeof(t_cmd));
-		cmd->cmds = malloc(sizeof(char *) * (cmds_size + 1));
+		cmd->cmds = ft_calloc(sizeof(char *), cmds_size + 1);
 		init_flags(cmd, cmds_size);
 		if (cmd == NULL || cmd->cmds == NULL)
 			handle_error("malloc error");
@@ -56,7 +56,6 @@ static void	list_cmd_add(t_list **head, char **cmds, int size)
 			else
 				i += 2;
 		}
-		cmd->cmds[ci] = 0;
 		list_add(head, cmd, 0);
 	}
 	list_redirect_add(head, cmds, size);

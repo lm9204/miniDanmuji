@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:24:31 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 13:48:14 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:01:33 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,3 @@ int	validate_arguments(char **cmd)
 	}
 	return (1);
 }
-

@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:30:33 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 22:20:06 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/29 19:48:26 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,7 @@ char	*expand_symbol(t_data *data, char *cmd)
 		return (dollar_sign);
 	}
 	if (cmd[0] == 0 || ft_isquotes(cmd[0]))
-	{
 		return (dollar_sign);
-	}	
 	if (cmd[0] == '?')
 		return (data->exit_status);
 	ptr = find_env(&data->env_head, cmd);
@@ -85,21 +83,20 @@ char	*expand_symbol(t_data *data, char *cmd)
 
 int	expand_len(t_data *data, char *cmd)
 {
-	int	quote;
+	int	q;
 	int	len;
 	int	i;
 
 	i = 0;
 	len = 0;
-	quote = 0;
+	q = 0;
 	while (cmd[i])
 	{
-		if (!quote && ft_isquotes(cmd[i]) \
-		&& findquotes(&cmd[i + 1], cmd[i]) != -1)
-			quote = ft_isquotes(cmd[i]);
-		else if (quote && ft_isquotes(cmd[i]) == quote)
-			quote = 0;
-		else if (quote != 2 && cmd[i] == '$' \
+		if (!q && ft_isquotes(cmd[i]) && findquotes(&cmd[i + 1], cmd[i]) != -1)
+			q = ft_isquotes(cmd[i]);
+		else if (q && ft_isquotes(cmd[i]) == q)
+			q = 0;
+		else if (q != 2 && cmd[i] == '$' \
 		&& (cmd[i + 1] != ' ' && cmd[i + 1] != 0 && !ft_isquotes(cmd[i + 1])))
 		{
 			len += find_env_len(&data->env_head, &cmd[i + 1]);
@@ -111,22 +108,4 @@ int	expand_len(t_data *data, char *cmd)
 		i++;
 	}
 	return (len);
-}
-
-int	get_word_len(char *word)
-{
-	int	i;
-
-	i = 0;
-	if (word[0] == '?')
-		return (1);
-	if (word[0] == ' ')
-		return (1);
-	while (word[i])
-	{
-		if (word[i] == ' ' || ft_isquotes(word[i]))
-			return (i);
-		i++;
-	}
-	return (i);
 }
