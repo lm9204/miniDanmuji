@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/27 16:29:45 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:27:41 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,15 @@ t_fd *backup)
 		envp = NULL;
 	while (finder && finder->flag != PIPE)
 	{
-		check_builtin = is_it_builtin((t_cmd *)finder->content);
+		if (finder->flag == CMD)
+			check_builtin = is_it_builtin((t_cmd *)finder->content);
 		if (finder->flag == CMD && check_builtin == 1)
 		{
 			exit(builtin_handler((t_cmd *)finder->content, \
 			&data->env_head, process, data));
 			break ;
 		}
-		else if (finder->flag == CMD && check_builtin == 0)
+		else if (finder->flag == CMD && check_builtin == 2)
 		{
 			execute_cmd(\
 			(t_cmd *)finder->content, \
