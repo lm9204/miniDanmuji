@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/01 04:59:38 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 05:07:22 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,6 @@ typedef enum e_signal{
 	CHILD = 1,
 	IGNORE = 2
 }	t_signal;
-
-
-
 
 void	write_in_tmp_file(char *res, char *new_file_name);
 void	child_to_do(t_list *finder, t_process *process, t_data *data);

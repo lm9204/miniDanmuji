@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:24:19 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/01 04:58:56 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 05:06:57 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,3 @@ void	error_handler(t_cmd *cmd_ary, char *cmd_path, t_fd *backup)
 	}
 	return ;
 }
-
