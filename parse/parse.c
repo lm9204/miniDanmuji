@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:30:33 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/30 12:55:50 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:08:55 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	expand(t_data *data, char *output, char *cmd, int quote)
 			quote = found_quote(data, &cmd[i]);
 		else if (quote && ft_isquotes(cmd[i]) == quote)
 			quote = 0;
-		else if (quote != 2 && cmd[i] == '$')
+		else if (quote != 2 && cmd[i] == '$' && is_expandable(&cmd[i + 1]) > 0)
 		{
 			if (quote == 0)
 				quote_flag = 1;
@@ -64,18 +64,21 @@ char	*expand_symbol(t_data *data, char *cmd)
 {
 	t_env	*ptr;
 	char	*dollar_sign;
+	char	*tmp;
 
 	dollar_sign = "$";
-	if (cmd[0] == ' ')
+	if (cmd[0] == ' ' && ft_strlen(cmd) == 1)
 	{
 		dollar_sign = "$ ";
 		return (dollar_sign);
 	}
-	if (cmd[0] == 0 || ft_isquotes(cmd[0]))
+	if (ft_strlen(cmd) == 1 && (cmd[0] == 0 || ft_isquotes(cmd[0])))
 		return (dollar_sign);
-	if (cmd[0] == '?')
+	if (ft_strlen(cmd) == 1 && cmd[0] == '?')
 		return (data->exit_status);
-	ptr = find_env(&data->env_head, cmd);
+	tmp = cut_expand(cmd);
+	ptr = find_env(&data->env_head, tmp);
+	free(tmp);
 	if (ptr == NULL)
 		return (NULL);
 	return (ptr->value);
@@ -97,7 +100,7 @@ int	expand_len(t_data *data, char *cmd)
 		else if (q && ft_isquotes(cmd[i]) == q)
 			q = 0;
 		else if (q != 2 && cmd[i] == '$' \
-		&& (cmd[i + 1] != ' ' && cmd[i + 1] != 0 && !ft_isquotes(cmd[i + 1])))
+		&& (cmd[i + 1] != ' ' && ft_isalnum(cmd[i + 1])))
 		{
 			len += find_env_len(data, &cmd[i + 1]);
 			i += get_word_len(&cmd[i + 1]) + 1;
