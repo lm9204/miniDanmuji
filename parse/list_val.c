@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 16:16:16 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/30 12:08:38 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:46:17 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,11 @@ int	validate_node_list(t_data *data)
 {
 	t_list	*ptr;
 	int		pipe_flag;
+	int		return_value;
 
 	pipe_flag = 0;
 	ptr = data->head;
+	return_value = 1;
 	while (ptr)
 	{
 		if (ptr->flag == 0)
@@ -91,8 +93,8 @@ int	validate_node_list(t_data *data)
 			return (0);
 		}
 		else if (ptr->flag == 2)
-			return (validate_redirect(data, ptr->content));
+			return_value = validate_redirect(data, ptr->content);
 		ptr = ptr->next;
 	}
-	return (1);
+	return (return_value);
 }

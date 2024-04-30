@@ -6,13 +6,12 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:09:43 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/29 15:00:53 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:55:03 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_PARSE_H
 # define MINISHELL_PARSE_H
-
 
 char	*checkcmd(t_data *data, char *cmd, int *quote_flag);
 char	*expand_symbol(t_data *data, char *cmd);
@@ -26,7 +25,7 @@ t_env	*find_env(t_env **env_head, char *name);
 void	addenv(t_env **env_head, char *env);
 void	init_envp(t_env **env_head, char **envp);
 void	rmv_env(t_env **env_head, char *name);
-int		find_env_len(t_env **env_head, char *name);
+int		find_env_len(t_data *data, char *name);
 
 void	clear_cmds(t_cmd *cmd);
 void	free_env_list(t_env **head);

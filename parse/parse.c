@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:30:33 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/29 19:48:26 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:55:50 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	expand_len(t_data *data, char *cmd)
 		else if (q != 2 && cmd[i] == '$' \
 		&& (cmd[i + 1] != ' ' && cmd[i + 1] != 0 && !ft_isquotes(cmd[i + 1])))
 		{
-			len += find_env_len(&data->env_head, &cmd[i + 1]);
+			len += find_env_len(data, &cmd[i + 1]);
 			i += get_word_len(&cmd[i + 1]) + 1;
 			continue ;
 		}
