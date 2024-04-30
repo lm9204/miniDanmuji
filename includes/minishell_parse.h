@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:09:43 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/30 12:55:03 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:49:09 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,6 @@ int		front_or_back_of_equal_sign(char *needle);
 int		check_env(char *env);
 
 void	free_cmds(char **cmds);
+int		is_expandable(char *word);
+char	*cut_expand(char *cmd);
 #endif

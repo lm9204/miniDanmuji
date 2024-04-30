@@ -6,14 +6,13 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/30 11:50:53 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:08:47 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static void	seperate_word(char *cmds, int *i, int *count, int *isword);
-// static char	*checkcmd(t_data *data, char *cmd);
 static char	*ft_cutcmds(const char *cmds, int *idx);
 static int	count_cmds(char *cmds);
 

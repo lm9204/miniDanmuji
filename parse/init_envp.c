@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 15:01:32 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/30 13:33:49 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:25:54 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*ft_env_to_char(t_env *env)
 		handle_error("malloc error");
 	ft_memcpy(res, env->name, name_len);
 	if (value_len > 0)
-		res[name_len++] = *ft_strdup("=");
+		res[name_len++] = '=';
 	ft_memcpy(res + name_len, env->value, value_len);
 	res[name_len + value_len] = 0;
 	return (res);
