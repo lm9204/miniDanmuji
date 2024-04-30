@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:32:52 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/30 13:51:01 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 03:52:28 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	open_file(t_redirect *redirec)
 	return (open(path, O_RDONLY, 0644));
 }
 
-int	redirect_input(t_list *finder, int builtin, t_data *data)
+int	redirect_input(t_list *finder, int flag, t_data *data)
 {
 	int			file_fd;
 	t_redirect	*redirec;
@@ -39,7 +39,7 @@ int	redirect_input(t_list *finder, int builtin, t_data *data)
 		perror(error_msg);
 		return (0);
 	}
-	if (builtin != 1)
+	if (flag == CMD_REDIREC)
 		dup2(file_fd, STDIN_FILENO);
 	close(file_fd);
 	return (1);
@@ -61,7 +61,7 @@ int	redirect_output(t_list *finder, int flag, t_data *data)
 		perror(error_msg);
 		return (0);
 	}
-	if (flag != 2)
+	if (flag != REDIREC_ALONE)
 		dup2(file_fd, STDOUT_FILENO);
 	close(file_fd);
 	return (1);
@@ -83,34 +83,35 @@ int	redirect_output_append(t_list *finder, int flag, t_data *data)
 		perror(error_msg);
 		return (0);
 	}
-	if (flag != 2)
+	if (flag != REDIREC_ALONE)
 		dup2(file_fd, STDOUT_FILENO);
 	close(file_fd);
 	return (1);
 }
 
-int	redirec_handler(t_list *finder, int builtin, t_data *data)
+// [<<] = 0  [>>] = 1  [<] = 2  [>] = 3  [<< -> <] = 4
+int	redirec_handler(t_list *finder, int flag, t_data *data)
 {
 	t_redirect	*redirec;
-	int			flag;
+	int			error_flag;
 
-	flag = 1;
+	error_flag = 1;
 	while (finder && finder->flag != PIPE)
 	{
 		if (finder->flag == REDIRECT)
 		{
 			redirec = (t_redirect *)(finder->content);
 			redirec->file = checkcmd(data, redirec->file, 0);
-			if (redirec->type == 1)
-				flag = redirect_output_append(finder, builtin, data);
-			if (redirec->type == 2 || redirec->type == 4)
-				flag = redirect_input(finder, builtin, data);
-			if (redirec->type == 3)
-				flag = redirect_output(finder, builtin, data);
-			if (flag == 0)
-				return (flag);
+			if (redirec->type == APPEND)
+				error_flag = redirect_output_append(finder, flag, data);
+			if (redirec->type == INPUT || redirec->type == HEREINPUT)
+				error_flag = redirect_input(finder, flag, data);
+			if (redirec->type == OUTPUT)
+				error_flag = redirect_output(finder, flag, data);
+			if (!error_flag)
+				return (error_flag);
 		}
 		finder = finder->next;
 	}
-	return (flag);
+	return (error_flag);
 }

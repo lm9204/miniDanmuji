@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 19:39:13 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/30 13:45:59 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 01:38:58 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	how_many_cmds(t_list *finder)
 	int		cmd_cnt;
 
 	cmd_cnt = 0;
-	while (finder)
+	while (finder && finder->flag != PIPE)
 	{
 		if (finder->flag == CMD)
 			cmd_cnt++;

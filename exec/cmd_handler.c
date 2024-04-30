@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/30 14:56:23 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 05:01:09 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	execute_cmd(t_cmd *cmd_ary, char *cmd_path, t_fd *backup, char **envp)
 	if (execve(cmd_path, cmd_ary->cmds, envp) == -1)
 	{
 		dup2(backup->std_output, STDOUT_FILENO);
+		close(backup->std_output);
 		printf("Danmoujishell: %s: execve failed\n", cmd_ary->cmds[0]);
 		exit(127);
 	}

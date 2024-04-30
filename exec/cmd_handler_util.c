@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:24:19 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/30 15:15:20 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 04:58:56 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,40 +34,44 @@ char	*ft_getenv(char *name, char **envp)
 
 int	is_not_existing_env_variable(char *cmd)
 {
-	return (ft_strncmp(cmd, "", 2));
+	int	res;
+
+	res = ft_strncmp(cmd, "", 2);
+	if (res == 0)
+		return (1);
+	return (0);
+}
+
+int	is_not_command(char *path)
+{
+	if (path == NULL)
+		return (1);
+	return (0);
+}
+
+int	is_not_existing_file(char *path)
+{
+	int	res;
+
+	res = access(path, F_OK);
+	if (res == -1)
+		return (1);
+	return (0);
 }
 
 void	error_handler(t_cmd *cmd_ary, char *cmd_path, t_fd *backup)
 {
-	if (!is_not_existing_env_variable(cmd_ary->cmds[0]))
+	if (is_not_existing_env_variable(cmd_ary->cmds[0]))
 		exit(0);
-	if (is_directory(cmd_path))
-	{
-		errno = EISDIR;
-		dup2(backup->std_output, STDOUT_FILENO);
-		printf("Danmoujishell: %s: %s\n", cmd_ary->cmds[0], strerror(errno));
-		exit(126);
-	}
-	if (is_unexecutable_file(cmd_path))
-	{
-		errno = EACCES;
-		dup2(STDERR_FILENO, STDOUT_FILENO);
-		printf("Danmoujishell: %s: %s\n", cmd_ary->cmds[0], strerror(errno));
-		exit(126);
-	}
+	if (ft_strchr(cmd_ary->cmds[0], '/') != 0)
+		check_slash(cmd_path, backup);
 	if (is_not_command(cmd_path))
 	{
-		errno = ENOENT;
 		dup2(backup->std_output, STDOUT_FILENO);
+		close(backup->std_output);
 		printf("Danmoujishell: %s: command not found\n", cmd_ary->cmds[0]);
 		exit(127);
 	}
 	return ;
 }
 
-int	is_not_command(char *path)
-{
-	if (!access(path, X_OK))
-		return (0);
-	return (1);
-}

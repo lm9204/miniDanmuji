@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:15:57 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/30 14:58:46 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 05:03:22 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	handle_builtin_without_pipe(t_list *finder, t_data *data)
 
 	backup.std_input = dup(STDIN_FILENO);
 	backup.std_output = dup(STDOUT_FILENO);
-	if (!redirec_handler(finder, 1, data))
+	if (!redirec_handler(finder, BUILTIN_REDIREC, data))
 		return ;
 	exit_num = builtin_handler((t_cmd *)finder->content, \
 	&data->env_head, data);
@@ -44,7 +44,7 @@ int	pre_processor(t_list *finder, t_data *data)
 	heredoc_handler(finder, data);
 	if (!how_many_cmds(finder))
 	{
-		redirec_handler(finder, 2, data);
+		redirec_handler(finder, REDIREC_ALONE, data);
 		unlink_heredoc_files(finder);
 		return (0);
 	}

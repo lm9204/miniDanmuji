@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/30 14:58:27 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 04:59:38 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,28 @@ typedef enum e_node {
 	REDIRECT = 2	
 }	t_node;
 
-typedef enum e_redirec {
-	HEREDOC = 3,
-	APPEND = 4,
-	INPUT = 5,
-	OUTPUT = 6,
-}	t_redirec;
+typedef enum e_redirec_flag {
+	HEREDOC = 0,
+	APPEND = 1,
+	INPUT = 2,
+	OUTPUT = 3,
+	HEREINPUT = 4
+}	t_redirec_flag;
+
+typedef enum e_redirec_handler {
+	CMD_REDIREC = 0,
+	BUILTIN_REDIREC = 1,
+	REDIREC_ALONE = 2
+}	t_redirec_handler;
 
 typedef enum e_signal{
-	PARENT = 8,
-	CHILD = 9,
-	IGNORE = 10
+	PARENT = 0,
+	CHILD = 1,
+	IGNORE = 2
 }	t_signal;
+
+
+
 
 void	write_in_tmp_file(char *res, char *new_file_name);
 void	child_to_do(t_list *finder, t_process *process, t_data *data);
@@ -66,10 +76,10 @@ void	middle_child_process(int temp_fd, int read_end, int write_end);
 void	last_child_process(int temp_fd, int read_end, int write_end);
 void	first_or_middle_or_last_child(t_process *process);
 void	parent_to_do(t_process *process);
-int		redirect_input(t_list *finder, int builtin, t_data *data);
+int		redirect_input(t_list *finder, int flag, t_data *data);
 int		redirect_output(t_list *finder, int flag, t_data *data);
 int		redirect_output_append(t_list *finder, int flag, t_data *data);
-int		redirec_handler(t_list *finder, int builtin, t_data *data);
+int		redirec_handler(t_list *finder, int flag, t_data *data);
 int		how_many_cmds(t_list *finder);
 void	wait_child(int child_cnt, t_data *data);
 void	heredoc_handler(t_list *finder, t_data *data);
@@ -97,5 +107,7 @@ int		is_unexecutable_file(char *path);
 int		is_not_command(char *path);
 int		is_not_existing_env_variable(char *cmd);
 void	error_handler(t_cmd *cmd_ary, char *cmd_path, t_fd *backup);
+void	check_slash(char *cmd_path, t_fd *backup);
+int		is_not_existing_file(char *path);
 
 #endif

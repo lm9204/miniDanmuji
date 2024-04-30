@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:44:33 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/30 14:54:28 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 04:51:31 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,3 +51,4 @@ int	builtin_handler(t_cmd *cmd_ary, t_env **head, t_data *data)
 		return (ft_env(head));
 	return (0);
 }
+

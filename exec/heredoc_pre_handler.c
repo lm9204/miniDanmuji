@@ -116,7 +116,6 @@ char	*expand_input_to_env(char *input, t_data *env)
 		if (found_env == NULL)
 			return (input_first);
 		free(input_first);
-		printf("found_env->value: %s\n", found_env->value);
 		res = ft_strdup(found_env->value);
 		return (res);
 	}
