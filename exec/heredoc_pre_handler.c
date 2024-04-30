@@ -73,7 +73,7 @@ void	unlink_heredoc_files(t_list *finder)
 	}
 	return ;
 }
-								
+
 void	heredoc_handler(t_list *finder, t_data *env)
 {
 	pid_t		pid;

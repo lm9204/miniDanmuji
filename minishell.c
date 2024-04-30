@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/30 12:24:31 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:25:56 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,25 @@ t_data	*init_data_struct(char **envp)
 	return (data);
 }
 
+t_data	*init_preset(int argc, char **argv, char **envp)
+{
+	extern int	rl_catch_signals;
+
+	rl_catch_signals = 0;
+	argc = 0;
+	argv = 0;
+	return (init_data_struct(envp));
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	const char		*prompt_msg = "minishell> \001\0337";
+	const char		*prompt_msg;
 	char			**res;
 	char			*nl;
 	t_data			*data;
 
-	extern int rl_catch_signals;
-	argc = 0;
-	argv = 0;
-	rl_catch_signals = 0;
-	data = init_data_struct(envp);
+	prompt_msg = "minishell> \001\0337";
+	data = init_preset(argc, argv, envp);
 	rl_clear_history();
 	signal_handler(PARENT);
 	nl = readline(prompt_msg);
@@ -68,5 +75,4 @@ int	main(int argc, char **argv, char **envp)
 		sigterm_handler(nl, PARENT);
 		add_history(nl);
 	}
-	// system("leaks --list minishell");
 }

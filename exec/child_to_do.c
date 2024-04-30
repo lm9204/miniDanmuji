@@ -22,8 +22,7 @@ void	child_to_do(t_list *finder, t_process *process, t_data *data)
 	first_or_middle_or_last_child(process);
 	if (!redirec_handler(finder, 0, data))
 		exit(1);
-	// print_list(&finder);
-	cmd_handler(finder, data, process, &backup);
+	cmd_handler(finder, data, &backup);
 	exit(0);
 	return ;
 }

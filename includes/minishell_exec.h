@@ -6,19 +6,19 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/27 15:32:35 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:58:27 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_EXEC_H
 # define MINISHELL_EXEC_H
 
-#include <sys/wait.h>
-#include <signal.h>
-#include <termios.h>
-#include <sys/stat.h>
-#include <errno.h>
-#include "../minishell.h"
+# include <sys/wait.h>
+# include <signal.h>
+# include <termios.h>
+# include <sys/stat.h>
+# include <errno.h>
+# include "../minishell.h"
 
 typedef struct s_process {
 	int		*status;
@@ -53,12 +53,11 @@ typedef enum e_signal{
 	IGNORE = 10
 }	t_signal;
 
-
 void	write_in_tmp_file(char *res, char *new_file_name);
 void	child_to_do(t_list *finder, t_process *process, t_data *data);
 char	*ft_getenv(char *name, char **envp);
 char	*assemble_cmd_path(void *cmds, char **envp_path);
-void	cmd_handler(t_list *finder, t_data *data, t_process *process, t_fd *backup);
+void	cmd_handler(t_list *finder, t_data *data, t_fd *backup);
 int		execute_main(t_list **head, t_data *data);
 int		how_many_pipes(t_list *finder);
 t_list	*push_list_to_back(t_list *finder);
@@ -73,8 +72,6 @@ int		redirect_output_append(t_list *finder, int flag, t_data *data);
 int		redirec_handler(t_list *finder, int builtin, t_data *data);
 int		how_many_cmds(t_list *finder);
 void	wait_child(int child_cnt, t_data *data);
-
-//heredoc
 void	heredoc_handler(t_list *finder, t_data *data);
 void	convert_delimeter_to_filename(t_list *finder, t_data *env);
 char	*new_tmp_file(t_redirect *redirec, int i, t_data *env);
@@ -83,27 +80,22 @@ void	write_in_file(char *res, t_redirect *redirec);
 char	*get_input(t_redirect *redirec, t_data *env);
 char	*append_input(char *origin, char *input);
 char	*append_newline(char *input);
-
-//signal
 void	signal_handler(int flag);
 void	signal_parent(void);
 void	signal_child(void);
 void	signal_heredoc(void);
 void	signal_ignore(void);
 void	sigterm_handler(char *nl, int flag);
-
-//builtin
-int		builtin_handler(t_cmd *cmd_ary, t_env **head, t_process *process, t_data *data);
+int		builtin_handler(t_cmd *cmd_ary, t_env **head, t_data *data);
 int		is_it_builtin(t_cmd *cmd_ary);
-
-
-int		pre_processor(t_list *finder, t_data *data, t_process *process);
+int		pre_processor(t_list *finder, t_data *data);
 void	unlink_heredoc_files(t_list *finder);
 char	*error_header(char *input);
 char	*expand_input_to_env(char *input, t_data *env);
-int	is_directory(char *path);
-int	is_unexecutable_file(char *path);
-int	is_not_command(char *path);
-
+int		is_directory(char *path);
+int		is_unexecutable_file(char *path);
+int		is_not_command(char *path);
+int		is_not_existing_env_variable(char *cmd);
+void	error_handler(t_cmd *cmd_ary, char *cmd_path, t_fd *backup);
 
 #endif

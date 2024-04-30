@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:32:52 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/29 15:14:00 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/30 13:51:01 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int	redirec_handler(t_list *finder, int builtin, t_data *data)
 		{
 			redirec = (t_redirect *)(finder->content);
 			redirec->file = checkcmd(data, redirec->file, 0);
-			// printf("redirec->file: %s\n", redirec->file);
 			if (redirec->type == 1)
 				flag = redirect_output_append(finder, builtin, data);
 			if (redirec->type == 2 || redirec->type == 4)
