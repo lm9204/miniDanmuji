@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 21:45:32 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/30 12:06:08 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/30 13:44:49 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,7 @@ int	ft_export(t_data *data, char **cmd)
 	ptr = data->env_head;
 	return_value = 0;
 	if (cmd == NULL || ft_strlen(cmd[1]) == 0)
-	{
-		while (ptr)
-		{
-			ft_printf("%s", ptr->name);
-			if (ptr->value)
-				ft_printf("=\"%s\"", ptr->value);
-			ft_printf("\n");
-			ptr = ptr->next;
-		}
-	}
+		export_list(list_to_envp(&data->env_head));
 	else
 		while (cmd[i])
 			if (export_env(data, cmd[i++]))
