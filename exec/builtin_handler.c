@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:44:33 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/26 21:39:09 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:03:04 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	is_it_builtin(t_cmd *cmd_ary)
 {
+	if (cmd_ary == NULL || cmd_ary->cmds[0] == NULL)
+		return (0);
 	if (!ft_strncmp(cmd_ary->cmds[0], "cd", ft_strlen("cd") + 1))
 		return (1);
 	if (!ft_strncmp(cmd_ary->cmds[0], "export", ft_strlen("export") + 1))
@@ -28,7 +30,7 @@ int	is_it_builtin(t_cmd *cmd_ary)
 		return (1);
 	if (!ft_strncmp(cmd_ary->cmds[0], "env", ft_strlen("env") + 1))
 		return (1);
-	return (0);
+	return (2);
 }
 
 void	execute_directly(t_cmd *cmd_ary, t_env **head, t_data *data)

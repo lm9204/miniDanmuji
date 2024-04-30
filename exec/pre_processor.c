@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:15:57 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/26 15:44:23 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:08:54 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*error_header(char *input)
 
 int	pre_processor(t_list *finder, t_data *data, t_process *process)
 {
+	int	check_builtin;
+
 	heredoc_handler(finder, data);
 	if (!how_many_cmds(finder))
 	{
@@ -47,10 +49,18 @@ int	pre_processor(t_list *finder, t_data *data, t_process *process)
 		unlink_heredoc_files(finder);
 		return (0);
 	}
-	if (!how_many_pipes(finder) && is_it_builtin((t_cmd *)finder->content))
+	if (!how_many_pipes(finder))
 	{
-		handle_builtin_without_pipe(finder, data, process);
-		return (0);
+		check_builtin = is_it_builtin((t_cmd *)finder->content);
+		if (check_builtin == 0)
+			return (0);
+		else if (check_builtin == 1)
+		{
+			handle_builtin_without_pipe(finder, data, process);
+			return (0);
+		}
+		else if (check_builtin == 2)
+			return (1);
 	}
 	return (1);
 }
