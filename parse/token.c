@@ -24,12 +24,14 @@ int	tokenlen(char **tokens)
 
 int	token_cmds_len(char **tokens)
 {
+	int	size;
 	int	len;
 	int	i;
 
 	i = 0;
 	len = 0;
-	while (tokens[i])
+	size = tokenlen(tokens);
+	while (i < size && tokens[i])
 	{
 		if (!is_symbol(tokens[i]))
 			len++;
