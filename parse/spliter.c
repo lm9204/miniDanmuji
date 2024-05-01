@@ -22,6 +22,8 @@ char	*checkcmd(t_data *data, char *cmd, int *quote_flag)
 	int		len;
 	int		return_value;
 
+	if (cmd == NULL)
+		return (NULL);
 	len = expand_len(data, cmd);
 	if (len == 0)
 		return (NULL);

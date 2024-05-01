@@ -39,9 +39,13 @@ static int	validate_is_symbol(char *file)
 
 static int	validate_redirect(t_data *data, t_redirect *node)
 {
-	if (validate_is_symbol(node->file) || ft_strncmp(node->file, "|", 2) == 0)
+	if (!node->file || validate_is_symbol(node->file) \
+	|| ft_strncmp(node->file, "|", 2) == 0)
 	{
-		syntax_error(data, node->file);
+		if (!node->file)
+			syntax_error(data, "newline");
+		else
+			syntax_error(data, node->file);
 		return (0);
 	}
 	return (1);
