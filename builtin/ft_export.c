@@ -17,12 +17,10 @@ static int		export_env(t_data *data, char *cmd);
 
 int	ft_export(t_data *data, char **cmd)
 {
-	t_env	*ptr;
 	int		return_value;
 	int		i;
 
 	i = 1;
-	ptr = data->env_head;
 	return_value = 0;
 	if (cmd == NULL || ft_strlen(cmd[1]) == 0)
 		export_list(list_to_envp(&data->env_head));

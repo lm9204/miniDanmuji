@@ -15,9 +15,7 @@
 static int	expand_join(t_data *data, char *expand, char *output, int *i)
 {
 	char	*tmp;
-	int		len;
 
-	len = 0;
 	tmp = expand_symbol(data, expand);
 	if (tmp)
 		ft_strlcpy(output, tmp, ft_strlen(tmp) + 1);
@@ -74,7 +72,7 @@ char	*expand_symbol(t_data *data, char *cmd)
 	}
 	if (ft_strlen(cmd) == 1 && (cmd[0] == 0 || ft_isquotes(cmd[0])))
 		return (dollar_sign);
-	if (ft_strlen(cmd) == 1 && cmd[0] == '?')
+	if (cmd[0] == '?')
 		return (data->exit_status);
 	tmp = cut_expand(cmd);
 	ptr = find_env(&data->env_head, tmp);
@@ -99,8 +97,7 @@ int	expand_len(t_data *data, char *cmd)
 			q = ft_isquotes(cmd[i]);
 		else if (q && ft_isquotes(cmd[i]) == q)
 			q = 0;
-		else if (q != 2 && cmd[i] == '$' \
-		&& (cmd[i + 1] != ' ' && ft_isalnum(cmd[i + 1])))
+		else if (q != 2 && cmd[i] == '$' && is_expandable(&cmd[i + 1]) > 0)
 		{
 			len += find_env_len(data, &cmd[i + 1]);
 			i += get_word_len(&cmd[i + 1]) + 1;

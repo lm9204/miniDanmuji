@@ -67,11 +67,9 @@ char	**list_to_envp(t_env **head)
 char	*ft_env_to_char(t_env *env)
 {
 	char	*res;
-	int		i;
 	int		name_len;
 	int		value_len;
-
-	i = 0;
+	
 	name_len = ft_strlen(env->name);
 	value_len = ft_strlen(env->value);
 	res = malloc(sizeof(char) * (name_len + value_len + 2));
