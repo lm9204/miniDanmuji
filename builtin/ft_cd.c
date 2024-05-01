@@ -70,6 +70,8 @@ int	ft_cd(t_data *data, char **path)
 	char	*pwd;
 	char	*home;
 
+	if (!validate_arguments(path))
+		return (1);
 	home = find_env(&data->env_head, "HOME")->value;
 	if (ft_strlen(path[0]) > 0)
 	{
