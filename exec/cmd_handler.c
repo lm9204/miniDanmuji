@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/01 16:53:01 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 20:48:46 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,25 @@ void	execute_cmd(t_cmd *cmd_ary, char *cmd_path, t_fd *backup, char **envp)
 	}
 }
 
+void	reset_splitted_exec_path(t_data *data, char **envp)
+{
+	free(data->splitted_exec_path);
+	data->splitted_exec_path = ft_split(ft_getenv("PATH", envp), ':');
+	return ;
+}
+
 void	cmd_handler(t_list *finder, t_data *data, t_fd *backup)
 {
 	char	**envp;
 	int		check_builtin;
 
 	envp = list_to_envp(&data->env_head);
-	free(data->splitted_exec_path);
-	data->splitted_exec_path = ft_split(ft_getenv("PATH", envp), ':');
 	if (*envp == NULL)
 		envp = NULL;
+	reset_splitted_exec_path(data, envp);
 	while (finder && finder->flag != PIPE)
 	{
-		if (finder->flag == CMD)
-			check_builtin = is_it_builtin((t_cmd *)finder->content);
+		is_this_builtin(&check_builtin, finder);
 		if (finder->flag == CMD && check_builtin == 1)
 		{
 			exit(builtin_handler((t_cmd *)finder->content, \

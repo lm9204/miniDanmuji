@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 12:13:35 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/01 05:13:11 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 21:12:16 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*get_input(t_redirect *redirec, t_data *env)
 	res = (char *)malloc(sizeof(char));
 	*res = '\0';
 	input = readline("> ");
+	sigterm_handler(input, HEREDOC);
 	if (input == NULL)
 		return (res);
 	if (env->expand_flag == 1)
@@ -54,6 +55,7 @@ char	*get_input(t_redirect *redirec, t_data *env)
 	{
 		res = append_input(res, input);
 		input = readline("> ");
+		sigterm_handler(input, HEREDOC);
 		if (input == NULL)
 			return (res);
 		if (env->expand_flag == 1)

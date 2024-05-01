@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 12:08:30 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/25 11:34:29 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 20:49:09 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,12 @@ void	parent_to_do(t_process *process)
 		process->temp_fd = dup(process->fd[0]);
 	close(process->fd[0]);
 	close(process->fd[1]);
+	return ;
+}
+
+void	is_this_builtin(int *check_builtin, t_list *finder)
+{
+	if (finder->flag == CMD)
+		*check_builtin = is_it_builtin((t_cmd *)finder->content);
 	return ;
 }
