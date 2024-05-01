@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 16:25:28 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/20 04:59:55 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:24:14 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	sigterm_handler(char *nl, int flag)
 	{
 		if (nl == NULL)
 		{
-			printf("\0338\002exit\n");
+			printf("\001\0338\002exit\n");
 			exit(0);
 		}
 	}

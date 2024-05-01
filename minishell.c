@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/01 05:07:46 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:24:06 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 	char			*nl;
 	t_data			*data;
 
-	prompt_msg = "minishell> \001\0337";
+	prompt_msg = "minishell> \001\0337\002";
 	data = init_preset(argc, argv, envp);
 	rl_clear_history();
 	signal_handler(PARENT);

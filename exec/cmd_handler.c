@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/01 05:01:09 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:53:01 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	cmd_handler(t_list *finder, t_data *data, t_fd *backup)
 	int		check_builtin;
 
 	envp = list_to_envp(&data->env_head);
+	free(data->splitted_exec_path);
 	data->splitted_exec_path = ft_split(ft_getenv("PATH", envp), ':');
 	if (*envp == NULL)
 		envp = NULL;

@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 12:13:35 by seongjko          #+#    #+#             */
-/*   Updated: 2024/04/26 15:11:32 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/01 05:13:11 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	*get_input(t_redirect *redirec, t_data *env)
 	char	*input;
 	char	*res;
 
-	(void)env;
 	res = (char *)malloc(sizeof(char));
 	*res = '\0';
 	input = readline("> ");
