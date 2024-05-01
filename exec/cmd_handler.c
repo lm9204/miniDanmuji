@@ -62,6 +62,7 @@ void	cmd_handler(t_list *finder, t_data *data, t_fd *backup)
 	int		check_builtin;
 
 	envp = list_to_envp(&data->env_head);
+	data->splitted_exec_path = ft_split(ft_getenv("PATH", envp), ':');
 	if (*envp == NULL)
 		envp = NULL;
 	while (finder && finder->flag != PIPE)
