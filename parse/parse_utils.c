@@ -50,6 +50,8 @@ int	is_expandable(char *word)
 	int	i;
 
 	i = 0;
+	if (word[0] == '?')
+		return (1);
 	while (word[i])
 	{
 		if (word[i] == ' ' || ft_isalnum(word[i]) == 0)
