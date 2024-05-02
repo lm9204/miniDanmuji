@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:23:50 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/30 15:26:27 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/02 13:33:02 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_data
 	char	*pwd;
 	char	*exit_status;
 	int		expand_flag;
-	int		fork_flag;
 }				t_data;
 
 #endif
