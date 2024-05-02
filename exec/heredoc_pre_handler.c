@@ -22,8 +22,10 @@ char	*new_tmp_file(t_redirect *redirec, int i, t_data *env)
 
 	index = ft_itoa(i);
 	new_name = ft_strjoin(redirec->file, index);
+	free(index);
 	path_temp = ft_strjoin(env->home, "/library/caches/");
 	path = ft_strjoin(path_temp, new_name);
+	free(path_temp);
 	redirec->new_file_path = path;
 	tmp_fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (tmp_fd == -1)
