@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/02 14:08:25 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/02 14:49:39 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int		is_it_builtin(t_cmd *cmd_ary);
 int		pre_processor(t_list *finder, t_data *data);
 void	unlink_heredoc_files(t_list *finder);
 char	*error_header(char *input);
-char	*expand_input_to_env(char *input, t_data *env);
 int		is_directory(char *path);
 int		is_unexecutable_file(char *path);
 int		is_not_command(char *path);

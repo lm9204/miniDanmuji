@@ -99,25 +99,3 @@ void	heredoc_handler(t_list *finder, t_data *env)
 	return ;
 }
 
-char	*expand_input_to_env(char *input, t_data *env)
-{
-	char	*input_first;
-	char	*env_name;
-	char	*res;
-	t_env	*found_env;
-
-	input_first = input;
-	env_name = NULL;
-	if (input[0] == '$')
-	{
-		input++;
-		env_name = ft_strdup(input);
-		found_env = find_env(&env->env_head, env_name);
-		if (found_env == NULL)
-			return (input_first);
-		free(input_first);
-		res = ft_strdup(found_env->value);
-		return (res);
-	}
-	return (input_first);
-}
