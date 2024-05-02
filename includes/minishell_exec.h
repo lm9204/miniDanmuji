@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/01 20:48:24 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/02 14:08:25 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ void	error_handler(t_cmd *cmd_ary, char *cmd_path, t_fd *backup);
 void	check_slash(char *cmd_path, t_fd *backup);
 int		is_not_existing_file(char *path);
 void	is_this_builtin(int *check_builtin, t_list *finder);
+int		is_input_delimeter(char *input, char *delimeter, int expand_flag);
 
 #endif

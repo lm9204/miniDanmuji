@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 12:13:35 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/01 21:12:16 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/02 14:28:23 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*get_input(t_redirect *redirec, t_data *env)
 	if (env->expand_flag == 1)
 		input = checkcmd(env, input, 0);
 	input = append_newline(input);
-	while (ft_strncmp(input, redirec->file, ft_strlen(redirec->file) + 1) != 10)
+	while (is_input_delimeter(input, redirec->file, env->expand_flag))
 	{
 		res = append_input(res, input);
 		input = readline("> ");
