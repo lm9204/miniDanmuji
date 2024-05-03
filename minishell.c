@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/03 18:38:06 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/03 21:10:41 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,18 @@ int	main(int argc, char **argv, char **envp)
 		parse_to_node(&data->head, res);
 		if (data->head != NULL && validate_node_list(data))
 			execute_main(&data->head, data);
+		// if (global_signal_flag == SIGINT)
+		// {
+		// 	// printf("here?\n");
+		// 	free(data->exit_status);
+		// 	data->exit_status = ft_itoa(1);
+		// 	global_signal_flag = 0;
+		// }
 		free(nl);
 		free(res);
 		clear_head(&data->head);
 		nl = readline(prompt_msg);
+		printf("here?\n");
 		sigterm_handler(nl, PARENT);
 		add_history(nl);
 	}
