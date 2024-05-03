@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/02 14:22:03 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:38:06 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,3 +75,27 @@ int	main(int argc, char **argv, char **envp)
 		add_history(nl);
 	}
 }
+
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	const char		*prompt_msg;
+// 	char			**res;
+// 	char			*nl;
+// 	t_data			*data;
+
+// 	prompt_msg = "minishell> \001\0337\002";
+// 	data = init_preset(argc, argv, envp);
+// 	rl_clear_history();
+// 	signal_handler(PARENT);
+// 	nl = readline(prompt_msg);
+// 	sigterm_handler(nl, PARENT);
+// 	add_history(nl);
+// 	res = split_cmds(nl);
+// 	parse_to_node(&data->head, res);
+// 	if (data->head != NULL && validate_node_list(data))
+// 		execute_main(&data->head, data);
+// 	free(nl);
+// 	free(res);
+// 	clear_head(&data->head);
+// 	system("leaks --list minishell");
+// }

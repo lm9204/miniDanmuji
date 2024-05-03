@@ -1,18 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_util.c                                     :+:      :+:    :+:   */
+/*   expand_flag.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 13:49:41 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/03 20:19:49 by seongjko         ###   ########.fr       */
+/*   Created: 2024/05/03 18:44:26 by seongjko          #+#    #+#             */
+/*   Updated: 2024/05/03 18:44:27 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
 
-int is_input_delimeter(char *input, char *delimeter)
-{
-	return (ft_strncmp(input, delimeter, ft_strlen(delimeter) + 1) != 0);
-}

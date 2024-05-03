@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/02 14:49:39 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/03 20:20:01 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	convert_delimeter_to_filename(t_list *finder, t_data *env);
 char	*new_tmp_file(t_redirect *redirec, int i, t_data *env);
 void	find_heredoc_and_save_input(t_list *finder, t_data *env);
 void	write_in_file(char *res, t_redirect *redirec);
-char	*get_input(t_redirect *redirec, t_data *env);
+char	*get_input(t_redirect *redirec, t_data *env, int expand_flag);
 char	*append_input(char *origin, char *input);
 char	*append_newline(char *input);
 void	signal_handler(int flag);
@@ -106,6 +106,7 @@ void	error_handler(t_cmd *cmd_ary, char *cmd_path, t_fd *backup);
 void	check_slash(char *cmd_path, t_fd *backup);
 int		is_not_existing_file(char *path);
 void	is_this_builtin(int *check_builtin, t_list *finder);
-int		is_input_delimeter(char *input, char *delimeter, int expand_flag);
+int		is_input_delimeter(char *input, char *delimeter);
+int		check_expand_flag(char *delimeter);
 
 #endif

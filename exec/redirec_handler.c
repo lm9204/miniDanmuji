@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirec_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:32:52 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/03 17:07:50 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:12:36 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,7 @@ int	redirec_handler(t_list *finder, int flag, t_data *data)
 			if (redirec->type == OUTPUT)
 				error_flag = redirect_output(finder, flag, data);
 			if (!error_flag)
-			{
 				return (error_flag);
-			}
 		}
 		finder = finder->next;
 	}
