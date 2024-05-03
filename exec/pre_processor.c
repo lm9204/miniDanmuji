@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:15:57 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/01 05:05:27 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:19:16 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	handle_builtin_without_pipe(t_list *finder, t_data *data)
 	free(data->exit_status);
 	data->exit_status = ft_itoa(exit_num);
 	dup2(backup.std_input, STDIN_FILENO);
+	close(backup.std_input);
 	dup2(backup.std_output, STDOUT_FILENO);
+	close(backup.std_output);
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:07:07 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/01 20:48:46 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:05:17 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*find_accessable_path(t_cmd *cmd_ary, char **envp_path)
 	char	*cmd_path;
 
 	i = -1;
+	if (envp_path == NULL)
+		return (NULL);
 	while (envp_path[++i])
 	{
 		slash_path = ft_strjoin(envp_path[i], "/");
@@ -31,7 +33,7 @@ char	*find_accessable_path(t_cmd *cmd_ary, char **envp_path)
 		free(slash_path);
 		free(cmd_path);
 	}
-	return (0);
+	return (NULL);
 }
 
 char	*assemble_cmd_path(void *cmds, char **envp_path)
@@ -58,8 +60,14 @@ void	execute_cmd(t_cmd *cmd_ary, char *cmd_path, t_fd *backup, char **envp)
 
 void	reset_splitted_exec_path(t_data *data, char **envp)
 {
+	char	*envp_path;
+
 	free(data->splitted_exec_path);
-	data->splitted_exec_path = ft_split(ft_getenv("PATH", envp), ':');
+	envp_path = ft_getenv("PATH", envp);
+	if (envp_path == NULL)
+		data->splitted_exec_path = NULL;
+	else
+		data->splitted_exec_path = ft_split(envp_path, ':');
 	return ;
 }
 
