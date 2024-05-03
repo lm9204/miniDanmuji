@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:28:38 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/05/03 17:42:34 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:51:02 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ char	*heredoc_newline(t_data *data, char *cmd)
 	if (res == NULL)
 		return (NULL);
 	heredoc_expand(data, res, cmd);
+	free(cmd);
 	return (res);
 }
