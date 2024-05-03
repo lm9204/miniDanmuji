@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:09:43 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/30 16:49:09 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:38:51 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,6 @@ int		check_env(char *env);
 void	free_cmds(char **cmds);
 int		is_expandable(char *word);
 char	*cut_expand(char *cmd);
+char	*heredoc_newline(t_data *data, char *cmd);
+int		expand_join(t_data *data, char *expand, char *output, int *i);
 #endif

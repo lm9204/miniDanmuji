@@ -6,13 +6,13 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 20:30:33 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/30 17:08:55 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:38:43 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	expand_join(t_data *data, char *expand, char *output, int *i)
+int	expand_join(t_data *data, char *expand, char *output, int *i)
 {
 	char	*tmp;
 
@@ -21,12 +21,6 @@ static int	expand_join(t_data *data, char *expand, char *output, int *i)
 		ft_strlcpy(output, tmp, ft_strlen(tmp) + 1);
 	*i += get_word_len(expand);
 	return (ft_strlen(tmp));
-}
-
-static int	found_quote(t_data *data, char *cmd)
-{
-	data->expand_flag = 0;
-	return (ft_isquotes(cmd[0]));
 }
 
 int	expand(t_data *data, char *output, char *cmd, int quote)
@@ -42,7 +36,7 @@ int	expand(t_data *data, char *output, char *cmd, int quote)
 	{
 		if (!quote && ft_isquotes(cmd[i]) \
 		&& findquotes(&cmd[i + 1], cmd[i]) != -1)
-			quote = found_quote(data, &cmd[i]);
+			quote = ft_isquotes(cmd[i]);
 		else if (quote && ft_isquotes(cmd[i]) == quote)
 			quote = 0;
 		else if (quote != 2 && cmd[i] == '$' && is_expandable(&cmd[i + 1]) > 0)

@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 17:48:26 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/30 17:08:47 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:36:43 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*checkcmd(t_data *data, char *cmd, int *quote_flag)
 	if (len == 0)
 		return (NULL);
 	res = malloc(sizeof(char) * (len + 1));
+	if (res == NULL)
+		return (NULL);
 	return_value = expand(data, res, cmd, 0);
 	if (quote_flag)
 		*quote_flag = return_value;
