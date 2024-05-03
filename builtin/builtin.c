@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:24:31 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/29 15:01:33 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:33:51 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	validate_arguments(char **cmd)
 		i++;
 	if (i > 1)
 	{
-		ft_putstr_fd("too many arguments\n", 1);
+		ft_putstr_fd("too many arguments\n", 2);
 		return (0);
 	}
 	return (1);

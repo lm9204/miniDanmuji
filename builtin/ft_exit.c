@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:28:01 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 16:54:43 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:35:12 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	ft_isspace(char c)
 
 static void	ft_exit_error(char *input)
 {
-	ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd(PROMPT_MSG, 2);
+	ft_putstr_fd("exit: ", 2);
 	ft_putstr_fd(input, 2);
 	ft_putendl_fd(": numeric argument required", 2);
 	exit(255);

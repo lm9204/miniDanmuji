@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 21:45:32 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/30 16:59:58 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:35:55 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static int	validate_name(char *cmd)
 	}
 	if (return_value)
 	{
-		ft_putstr_fd("minishell: export: `", 2);
+		ft_putstr_fd(PROMPT_MSG, 2);
+		ft_putstr_fd("export: `", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
 	}

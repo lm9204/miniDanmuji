@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 13:19:57 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/23 14:05:49 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:37:07 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@
 # define T_OUTPUT 1
 # define T_HEREDOC 2
 # define T_APPEND 3
+# define PROMPT_MSG "Danmoujishell: "
 # include "includes/minishell_type.h"
 # include "includes/minishell_parse.h"
 # include "includes/minishell_exec.h"
 # include "includes/minishell_builtin.h"
-
-
 
 /* =========================== list.c ===================================*/
 void	parse_to_node(t_list **head, char **tokens);
@@ -48,8 +47,6 @@ int		ft_isquotes(char c);
 int		splitable_symbol_len(const char *cmds, int len);
 
 char	**split_cmds(char *cmds);
-
-
 int		find_space(char *cmd);
 
 /* ============================ error.c ================================*/
@@ -58,6 +55,5 @@ void	handle_error(char *error);
 /* ============================ token.c ================================*/
 int		token_cmds_len(char **tokens);
 int		tokenlen(char **tokens);
-
 
 #endif
