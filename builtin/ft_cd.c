@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 19:46:11 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 17:59:05 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:38:11 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static void	join_pwd(t_data *data, char *path)
 
 static int	ft_cd_error(char *path)
 {
-	ft_putstr_fd("bash: cd: ", 2);
+	ft_putstr_fd(PROMPT_MSG, 2);
+	ft_putstr_fd("cd: ", 2);
 	ft_putstr_fd(path, 2);
 	ft_putendl_fd(": No such file or directory", 2);
 	return (1);
@@ -70,8 +71,6 @@ int	ft_cd(t_data *data, char **path)
 	char	*pwd;
 	char	*home;
 
-	if (!validate_arguments(path))
-		return (1);
 	home = find_env(&data->env_head, "HOME")->value;
 	if (ft_strlen(path[0]) > 0)
 	{
@@ -84,7 +83,8 @@ int	ft_cd(t_data *data, char **path)
 	}
 	else if (home == NULL)
 	{
-		ft_putendl_fd("bash: cd: HOME not set", 2);
+		ft_putstr_fd(PROMPT_MSG, 2);
+		ft_putendl_fd("cd: HOME not set", 2);
 		return (1);
 	}
 	else
