@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 12:13:35 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/03 20:22:16 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/03 22:14:02 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	*get_input(t_redirect *redirec, t_data *env, int expand_flag)
 	sigterm_handler(input, HEREDOC);
 	while (is_input_delimeter(input, redirec->file))
 	{
-		// printf("here?\n");
 		if (input == NULL)
 			return (res);
 		if (expand_flag == 1)
@@ -78,27 +77,10 @@ void	write_in_file(char *res, t_redirect *redirec)
 	return ;
 }
 
-int	check_expand_flag(char *delimeter)
-{
-	int i;
-	int	quote;
-
-	quote = 1;
-	i = -1;
-	while (delimeter[++i] && quote)
-	{
-		if (ft_isquotes(delimeter[i]) \
-		&& findquotes(&delimeter[i + 1], delimeter[i]) != -1)
-			quote = 0;
-	}
-	return (quote);
-}
-
 void	find_heredoc_and_save_input(t_list *finder, t_data *env)
 {
 	t_redirect	*redirec;
 	char		*res;
-	char		*tmp;
 	int			expand_flag;
 	extern int	rl_catch_signals;
 
@@ -111,23 +93,12 @@ void	find_heredoc_and_save_input(t_list *finder, t_data *env)
 			redirec = (t_redirect *)finder->content;
 			if (redirec->type == 4)
 			{
-				expand_flag = check_expand_flag(redirec->file);
-				if (expand_flag == 0)
-				{
-					tmp = redirec->file;
-					redirec->file = rmv_quotes(redirec->file);
-					if (redirec->file != NULL)
-						free(tmp);
-					if (redirec->file == NULL)
-						return ;
-				}
-				printf("delimeter: %s\n", redirec->file);
-				printf("expand_flag: %d\n", expand_flag);
+				if (!control_quotes(&expand_flag, redirec))
+					return ;
 				res = get_input(redirec, env, expand_flag);
 				write_in_file(res, redirec);
 			}
 		}
 		finder = finder->next;
 	}
-	return ;
 }

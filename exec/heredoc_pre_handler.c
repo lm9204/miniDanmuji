@@ -100,4 +100,3 @@ void	heredoc_handler(t_list *finder, t_data *env)
 	}
 	return ;
 }
-

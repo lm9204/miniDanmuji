@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/03 20:50:40 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/03 22:11:31 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ int		is_not_existing_file(char *path);
 void	is_this_builtin(int *check_builtin, t_list *finder);
 int		is_input_delimeter(char *input, char *delimeter);
 int		check_expand_flag(char *delimeter);
+int		control_quotes(int *expand_flag, t_redirect *redirec);
 
 #endif
