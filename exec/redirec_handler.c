@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:32:52 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/01 03:52:28 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:02:08 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 int	open_file(t_redirect *redirec)
 {
-	char	*path;
-
 	if (redirec->type == 4)
-		path = redirec->new_file_path;
+		return (open(redirec->new_file_path, O_RDONLY, 0644));
 	else
-		path = redirec->file;
-	return (open(path, O_RDONLY, 0644));
+		return (open(redirec->file, O_RDONLY, 0644));
+	return (0);
 }
 
 int	redirect_input(t_list *finder, int flag, t_data *data)
@@ -37,6 +35,7 @@ int	redirect_input(t_list *finder, int flag, t_data *data)
 		data->exit_status = ft_itoa(1);
 		error_msg = error_header(redirec->file);
 		perror(error_msg);
+		free(error_msg);
 		return (0);
 	}
 	if (flag == CMD_REDIREC)
@@ -59,6 +58,7 @@ int	redirect_output(t_list *finder, int flag, t_data *data)
 		data->exit_status = ft_itoa(1);
 		error_msg = error_header(redirec->file);
 		perror(error_msg);
+		free(error_msg);
 		return (0);
 	}
 	if (flag != REDIREC_ALONE)
@@ -81,6 +81,7 @@ int	redirect_output_append(t_list *finder, int flag, t_data *data)
 		data->exit_status = ft_itoa(1);
 		error_msg = error_header(redirec->file);
 		perror(error_msg);
+		free(error_msg);
 		return (0);
 	}
 	if (flag != REDIREC_ALONE)
@@ -109,7 +110,9 @@ int	redirec_handler(t_list *finder, int flag, t_data *data)
 			if (redirec->type == OUTPUT)
 				error_flag = redirect_output(finder, flag, data);
 			if (!error_flag)
+			{
 				return (error_flag);
+			}
 		}
 		finder = finder->next;
 	}
