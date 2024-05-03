@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirec_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:32:52 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/03 17:02:08 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:07:50 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	redirect_output_append(t_list *finder, int flag, t_data *data)
 int	redirec_handler(t_list *finder, int flag, t_data *data)
 {
 	t_redirect	*redirec;
+	char		*tmp;
 	int			error_flag;
 
 	error_flag = 1;
@@ -102,7 +103,9 @@ int	redirec_handler(t_list *finder, int flag, t_data *data)
 		if (finder->flag == REDIRECT)
 		{
 			redirec = (t_redirect *)(finder->content);
+			tmp = redirec->file;
 			redirec->file = checkcmd(data, redirec->file, 0);
+			free(tmp);
 			if (redirec->type == APPEND)
 				error_flag = redirect_output_append(finder, flag, data);
 			if (redirec->type == INPUT || redirec->type == HEREINPUT)
