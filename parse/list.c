@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:46:58 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/29 15:10:15 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/04 15:41:14 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,40 +123,5 @@ void	parse_to_node(t_list **head, char **tokens)
 		i += target;
 		free(tokens[i]);
 		i++;
-	}
-}
-
-void	print_list(t_list **head)
-{
-	const char	*redirect_symbol[] = {"<<", ">>", "<", ">", "<", 0};
-	t_list		*ptr;
-	t_cmd		*cmd_ptr;
-	t_redirect	*redirect_ptr;
-	int			i;
-
-	ptr = *head;
-	while (ptr)
-	{
-		if (ptr->flag == 0)
-		{
-			i = 0;
-			cmd_ptr = ptr->content;
-			printf("cmds:\t");
-			while (cmd_ptr->cmds[i])
-			{
-				printf(",%s,", cmd_ptr->cmds[i]);
-				i++;
-			}
-			printf("\n");
-		}
-		if (ptr->flag == 1)
-			printf("pipe:\t|\n");
-		if (ptr->flag == 2)
-		{
-			redirect_ptr = ptr->content;
-			printf("redir:\t%s %s\n", \
-			redirect_symbol[redirect_ptr->type], redirect_ptr->file);
-		}
-		ptr = ptr->next;
 	}
 }
