@@ -6,7 +6,7 @@
 /*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:59:30 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/04/26 15:18:00 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/04 15:38:13 by yeondcho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	unset_env(t_env **head, char *cmd)
 			free(ptr->name);
 			if (ptr->value)
 				free(ptr->value);
+			free(ptr);
 			return ;
 		}
 		prev = ptr;
