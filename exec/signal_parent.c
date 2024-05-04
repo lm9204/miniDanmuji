@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_parent.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 19:48:45 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/03 21:22:48 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:00:16 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	parent_handler(int sig)
 		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		global_signal_flag = SIGINT;
+		g_signal_flag = SIGINT;
 	}
 	return ;
 }

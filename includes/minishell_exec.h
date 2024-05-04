@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/03 22:11:31 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:00:16 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <errno.h>
 # include "../minishell.h"
 
-sig_atomic_t	global_signal_flag;
+sig_atomic_t	g_signal_flag;
 
 typedef struct s_process {
 	int		*status;

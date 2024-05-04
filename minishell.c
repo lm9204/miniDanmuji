@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/04 12:22:48 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:00:16 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ t_data	*init_preset(int argc, char **argv, char **envp)
 
 void	global_signal(t_data *data)
 {
-	if (global_signal_flag == SIGINT)
+	if (g_signal_flag == SIGINT)
 	{
 		free(data->exit_status);
 		data->exit_status = ft_itoa(1);
-		global_signal_flag = 0;
+		g_signal_flag = 0;
 	}
 	return ;
 }
@@ -66,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data			*data;
 
 	prompt_msg = "minishell> \001\0337\002";
-	global_signal_flag = 0;
+	g_signal_flag = 0;
 	data = init_preset(argc, argv, envp);
 	rl_clear_history();
 	signal_handler(PARENT);

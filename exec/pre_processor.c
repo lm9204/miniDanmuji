@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:15:57 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/03 16:19:16 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/04 14:27:53 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*error_header(char *input)
 {
 	char	*res;
 
-	res = ft_strjoin("Danmoujishell: ", input);
+	res = ft_strjoin(PROMPT_MSG, input);
 	return (res);
 }
 
