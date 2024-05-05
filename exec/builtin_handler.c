@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:44:33 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/05 16:25:07 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:28:42 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	which_redirect_is_right(t_list *finder, int flag, t_data *data, \
 int *error_flag)
 {
 	t_redirect	*redirec;
-	redirec = (t_redirect *)(finder->content);
 
+	redirec = (t_redirect *)(finder->content);
 	if (redirec->type == APPEND)
 		*error_flag = redirect_output_append(finder, flag, data);
 	if (redirec->type == INPUT || redirec->type == HEREINPUT)
