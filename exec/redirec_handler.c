@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:32:52 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/05 16:27:00 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:52:54 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,17 @@ int	redirect_output_append(t_list *finder, int flag, t_data *data)
 // [<<] = 0  [>>] = 1  [<] = 2  [>] = 3  [<< -> <] = 4
 int	redirec_handler(t_list *finder, int flag, t_data *data)
 {
-	t_redirect	*redirec;
-	char		*tmp;
-	int			error_flag;
-	int			checkcmd_flag;
+	int	error_flag;
 
 	error_flag = 1;
-	checkcmd_flag = 0;
 	while (finder && finder->flag != PIPE)
 	{
 		if (finder->flag == REDIRECT)
 		{
-			redirec = (t_redirect *)(finder->content);
-			tmp = redirec->file;
-			redirec->file = checkcmd(data, redirec->file, &checkcmd_flag);
-			free(tmp);
-			which_redirect_is_right(finder, flag, data, &error_flag);
+			check_redirec_file(finder, data);
+			if (data->checkcmd_flag)
+				return (0);
+			which_redirect_has_come_in(finder, flag, data, &error_flag);
 			if (!error_flag)
 				return (error_flag);
 		}

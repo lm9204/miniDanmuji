@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parse.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeondcho <yeondcho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:09:43 by yeondcho          #+#    #+#             */
-/*   Updated: 2024/05/03 20:14:57 by yeondcho         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:10:30 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ char	*heredoc_newline(t_data *data, char *cmd);
 int		expand_join(t_data *data, char *expand, char *output, int *i);
 char	*rmv_quotes(char *cmd);
 
-char    *parse_redir(t_data *data, char *cmd, int *redir_flag);
+char	*parse_redir(t_data *data, char *cmd, int *redir_flag);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 18:43:43 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/02 13:33:16 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:11:30 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ int	preset(t_process *process, t_data *data, t_list *finder, int *i)
 	*i = -1;
 	process->pipe_cnt = how_many_pipes(finder);
 	process->status = NULL;
-	if (!pre_processor(finder, data))
+	if (!preset_to_do(finder, data))
+	{
+		unlink_heredoc_files(finder);
 		return (0);
+	}
 	return (1);
 }
 

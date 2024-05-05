@@ -21,10 +21,13 @@ void	child_to_do(t_list *finder, t_process *process, t_data *data)
 	first_or_middle_or_last_child(process);
 	if (!redirec_handler(finder, CMD_REDIREC, data))
 	{
+		free(data->exit_status);
+		data->exit_status = ft_itoa(1);
 		close(backup.std_output);
 		exit(1);
 	}
 	cmd_handler(finder, data, &backup);
+	close(backup.std_output);
 	exit(0);
 	return ;
 }

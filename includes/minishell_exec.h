@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/05 16:27:16 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:33:45 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	signal_ignore(void);
 void	sigterm_handler(char *nl, int flag);
 int		builtin_handler(t_cmd *cmd_ary, t_env **head, t_data *data);
 int		is_it_builtin(t_cmd *cmd_ary);
-int		pre_processor(t_list *finder, t_data *data);
+int		preset_to_do(t_list *finder, t_data *data);
 void	unlink_heredoc_files(t_list *finder);
 char	*error_header(char *input);
 int		is_directory(char *path);
@@ -111,7 +111,8 @@ void	is_this_builtin(int *check_builtin, t_list *finder);
 int		is_input_delimeter(char *input, char *delimeter);
 int		check_expand_flag(char *delimeter);
 int		control_quotes(int *expand_flag, t_redirect *redirec);
-void	which_redirect_is_right(t_list *finder, int flag, t_data *data, \
+void	which_redirect_has_come_in(t_list *finder, int flag, t_data *data, \
 int *error_flag);
-
+void	check_redirec_file(t_list *finder, t_data *data);
+void	handle_fd_and_exit(t_data *data, t_fd *backup, int exit_num);
 #endif

@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:25:46 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/04 16:00:16 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:49:47 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ t_data	*init_preset(int argc, char **argv, char **envp)
 {
 	extern int	rl_catch_signals;
 
+	g_signal_flag = 0;
 	rl_catch_signals = 0;
 	argc = 0;
 	argv = 0;
+	rl_clear_history();
+	signal_handler(PARENT);
 	return (init_data_struct(envp));
 }
 
@@ -66,10 +69,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data			*data;
 
 	prompt_msg = "minishell> \001\0337\002";
-	g_signal_flag = 0;
 	data = init_preset(argc, argv, envp);
-	rl_clear_history();
-	signal_handler(PARENT);
 	while (1)
 	{
 		nl = readline(prompt_msg);
@@ -83,6 +83,7 @@ int	main(int argc, char **argv, char **envp)
 		free(nl);
 		free(res);
 		clear_head(&data->head);
+		data->checkcmd_flag = 0;
 	}
 }
 
