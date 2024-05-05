@@ -46,4 +46,6 @@ char	*cut_expand(char *cmd);
 char	*heredoc_newline(t_data *data, char *cmd);
 int		expand_join(t_data *data, char *expand, char *output, int *i);
 char	*rmv_quotes(char *cmd);
+
+char    *parse_redir(t_data *data, char *cmd, int *redir_flag);
 #endif
