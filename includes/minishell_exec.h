@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:31:22 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/04 16:00:16 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:27:16 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,7 @@ void	is_this_builtin(int *check_builtin, t_list *finder);
 int		is_input_delimeter(char *input, char *delimeter);
 int		check_expand_flag(char *delimeter);
 int		control_quotes(int *expand_flag, t_redirect *redirec);
+void	which_redirect_is_right(t_list *finder, int flag, t_data *data, \
+int *error_flag);
 
 #endif

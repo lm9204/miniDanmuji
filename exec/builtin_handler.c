@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:44:33 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/01 05:06:49 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:25:07 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,19 @@ int	builtin_handler(t_cmd *cmd_ary, t_env **head, t_data *data)
 	if (!ft_strncmp(cmd_ary->cmds[0], "env", ft_strlen("env") + 1))
 		return (ft_env(head));
 	return (0);
+}
+
+void	which_redirect_is_right(t_list *finder, int flag, t_data *data, \
+int *error_flag)
+{
+	t_redirect	*redirec;
+	redirec = (t_redirect *)(finder->content);
+
+	if (redirec->type == APPEND)
+		*error_flag = redirect_output_append(finder, flag, data);
+	if (redirec->type == INPUT || redirec->type == HEREINPUT)
+		*error_flag = redirect_input(finder, flag, data);
+	if (redirec->type == OUTPUT)
+		*error_flag = redirect_output(finder, flag, data);
+	return ;
 }
