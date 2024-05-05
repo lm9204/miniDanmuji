@@ -24,6 +24,8 @@ char    *parse_redir(t_data *data, char *cmd, int *redir_flag)
     char    *res;
 
     res = checkcmd(data, cmd, redir_flag);
+    if (!res || res[0] == '\0')
+        *redir_flag = 1;
     if (*redir_flag == 1)
         redirect_arguments_error(cmd);
     return (res);
