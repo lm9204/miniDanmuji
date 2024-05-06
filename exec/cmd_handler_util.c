@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:24:19 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/01 05:06:57 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:46:54 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_getenv(char *name, char **envp)
 	int	j;
 
 	i = 0;
+	if (envp == NULL)
+		return (NULL);
 	while (envp[i])
 	{
 		j = 0;

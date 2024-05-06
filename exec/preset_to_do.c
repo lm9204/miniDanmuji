@@ -62,16 +62,12 @@ int	preset_to_do(t_list *finder, t_data *data)
 	{
 		if (!redirec_handler(finder, REDIREC_ALONE, data))
 		{
-			unlink_heredoc_files(finder);
 			free(data->exit_status);
 			data->exit_status = ft_itoa(1);
 			return (0);
 		}
 		else
-		{
-			unlink_heredoc_files(finder);
 			return (0);
-		}
 	}
 	if (!how_many_pipes(finder))
 		return (builtin_to_do_by_case(finder, data));
