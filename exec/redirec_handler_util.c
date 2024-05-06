@@ -6,7 +6,7 @@
 /*   By: seongjko <seongjko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 19:21:14 by seongjko          #+#    #+#             */
-/*   Updated: 2024/05/05 20:09:46 by seongjko         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:13:23 by seongjko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ void	check_redirec_file(t_list *finder, t_data *data)
 
 	redirec = (t_redirect *)(finder->content);
 	tmp = redirec->file;
-	redirec->file = parse_redir(data, redirec->file, &data->checkcmd_flag);
+	if (redirec->type == HEREINPUT)
+		redirec->file = checkcmd(data, redirec->file, 0);
+	else
+		redirec->file = parse_redir(data, redirec->file, \
+		&data->checkcmd_flag);
 	free(tmp);
 	return ;
 }
