@@ -1,5 +1,4 @@
 CC = cc
-# FLAGS = -Wall -Wextra -Werror -MMD -MP -g3 -fsanitize=address
 FLAGS = -Wall -Wextra -Werror -MMD -MP -g3
 SRCS = parse/token.c parse/symbol.c parse/list.c parse/spliter_utils.c \
 		parse/spliter.c parse/parse.c error.c parse/list_val_utils.c \
